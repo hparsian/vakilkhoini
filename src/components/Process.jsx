@@ -14,7 +14,7 @@ export default function Process() {
   const ref = useReveal()
 
   return (
-    <section className="process-section" aria-labelledby="process-title">
+    <section id="process" className="process-section" aria-labelledby="process-title">
       <div className="container">
         <div className="section-head center reveal" ref={ref}>
           <div className="eyebrow">مراحل و گام‌های پیگیری</div>

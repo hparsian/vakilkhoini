@@ -55,7 +55,12 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 75px;
   font-feature-settings: "ss01" on, "ss02" on;
+}
+
+section, [id] {
+  scroll-margin-top: 75px;
 }
 
 body {

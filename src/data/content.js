@@ -18,14 +18,12 @@ export const lawyer = {
 }
 
 export const navLinks = [
-  { label: 'صفحه اصلی', href: '#home' },
   { label: 'درباره وکیل', href: '#about' },
   { label: 'خدمات تخصصی', href: '#services' },
-  { label: 'راهنمای پرونده', href: '#advisor' },
-  { label: 'مراحل همکاری', href: '#process' },
+  { label: 'مراحل پذیرش پرونده', href: '#process' },
   { label: 'مقالات حقوقی', href: '#articles' },
   { label: 'سوالات متداول', href: '#faq' },
-  { label: 'تماس و نوبت‌دهی', href: '#contact' },
+  { label: 'تماس و نشانی', href: '#contact' },
 ]
 
 export const trustItems = [

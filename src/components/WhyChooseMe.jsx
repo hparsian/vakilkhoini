@@ -25,7 +25,7 @@ export default function WhyChooseMe() {
   const ref = useReveal()
 
   return (
-    <section className="why-section" aria-label="مزایای همکاری">
+    <section id="why" className="why-section" aria-label="مزایای همکاری">
       <div className="container">
         <div className="section-head center reveal" ref={ref}>
           <div className="eyebrow">
