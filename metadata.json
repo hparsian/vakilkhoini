@@ -1,0 +1,6 @@
+{
+  "name": "Parastoo Khoeini Law",
+  "description": "Website for Parastoo Khoeini, Attorney at Law in Tehran offering specialized legal services in civil law, contracts, and consultations.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
