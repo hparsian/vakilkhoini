@@ -74,7 +74,7 @@ export default function Header() {
           <div className="top-banner-left">
             <div className="top-hours">
               <Clock size={12} aria-hidden="true" />
-              <span>شنبه تا چهارشنبه ۱۶ الی ۲۰ (با وقت قبلی)</span>
+              <span>{lawyer.shortHours}</span>
             </div>
             <a
               href={lawyer.whatsappHref}

@@ -104,7 +104,7 @@ export default function Contact() {
                 <div className="contact-item-content">
                   <span className="contact-label">ساعات کاری و پذیرش</span>
                   <span className="contact-value">
-                    شنبه تا چهارشنبه: ۱۰:۰۰ الی ۲۰:۰۰ | پنجشنبه: ۱۰:۰۰ الی ۱۴:۰۰
+                    {lawyer.hours}
                   </span>
                 </div>
               </li>

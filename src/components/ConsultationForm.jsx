@@ -118,7 +118,7 @@ export default function ConsultationForm() {
                 <Clock size={20} className="c-feature-icon" />
                 <div>
                   <strong>ساعات پاسخگویی دفتر:</strong>
-                  <p>شنبه تا چهارشنبه از ساعت ۱۰:۰۰ الی ۲۰:۰۰ (با هماهنگی قبلی)</p>
+                  <p>{lawyer.hours}</p>
                 </div>
               </div>
             </div>
