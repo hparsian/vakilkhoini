@@ -1,0 +1,126 @@
+.hero {
+  position: relative;
+  padding: 70px 0 90px;
+  background:
+    radial-gradient(circle at 85% 15%, rgba(201,162,74,0.10), transparent 45%),
+    linear-gradient(180deg, #063B3F 0%, #0A4B4F 60%, #0d5257 100%);
+  color: var(--white);
+  overflow: hidden;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 46px 46px;
+  pointer-events: none;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  align-items: center;
+  gap: 48px;
+}
+
+.hero-kicker {
+  color: var(--light-gold);
+  font-size: 14.5px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 0 0 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hero-name {
+  font-size: clamp(36px, 5vw, 54px);
+  font-weight: 800;
+  margin: 0 0 8px;
+  letter-spacing: -0.01em;
+}
+
+.hero-role {
+  font-size: clamp(18px, 2.2vw, 22px);
+  color: var(--light-gold);
+  font-weight: 600;
+  margin: 0 0 24px;
+}
+
+.hero-text {
+  font-size: 17px;
+  line-height: 1.95;
+  color: rgba(255,255,255,0.85);
+  max-width: 480px;
+  margin: 0 0 36px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.hero-actions .btn-outline span {
+  color: var(--light-gold);
+  font-weight: 700;
+}
+
+.hero-media {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hero-frame {
+  position: relative;
+  width: min(380px, 80vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid var(--gold);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
+  z-index: 1;
+}
+
+.hero-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.hero-frame-mark {
+  position: absolute;
+  width: min(440px, 88vw);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: 1px solid rgba(228, 200, 120, 0.35);
+  z-index: 0;
+}
+
+@media (max-width: 900px) {
+  .hero-inner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .hero-kicker,
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-text {
+    margin-inline: auto;
+  }
+
+  .hero-media {
+    order: -1;
+  }
+}
