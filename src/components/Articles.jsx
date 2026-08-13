@@ -94,6 +94,22 @@ export default function Articles() {
                 <h3 className="article-title">{a.title}</h3>
                 <p className="article-excerpt">{a.excerpt}</p>
 
+                {/* Full article text kept in DOM for search engines; only the excerpt above is shown visually, full text opens in the reader modal on click */}
+                {(a.fullContent || a.content) && (
+                  <div className="visually-hidden">
+                    {(a.fullContent || a.content).split('\n\n').map((para, i) => (
+                      <p key={i}>{para}</p>
+                    ))}
+                    {a.takeaways && a.takeaways.length > 0 && (
+                      <ul>
+                        {a.takeaways.map((item, idx) => (
+                          <li key={idx}>{item}</li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+
                 {a.tags && (
                   <div className="article-tags">
                     {a.tags.map((t, idx) => (

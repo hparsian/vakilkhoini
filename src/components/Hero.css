@@ -420,6 +420,14 @@
     display: none;
   }
 
+  .floating-badge.badge-top {
+    left: 6px;
+  }
+
+  .floating-badge.badge-bottom {
+    right: 6px;
+  }
+
   .floating-badge {
     padding: 8px 12px;
   }
