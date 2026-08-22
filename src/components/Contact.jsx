@@ -52,7 +52,7 @@ export default function Contact() {
             <div className="contact-card-header">
               <div className="contact-badge">
                 <ShieldCheck size={16} />
-                <span>پروانه پایه یک کانون وکلای دادگستری مرکز</span>
+                <span>پروانه پایه یک کانون وکلای دادگستری استان البرز</span>
               </div>
               <h3 className="contact-name">{lawyer.name}</h3>
               <p className="contact-role">{lawyer.title} | شماره پروانه: ۳۴۸۹۲</p>

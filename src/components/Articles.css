@@ -323,3 +323,18 @@
   }
 }
 
+
+.article-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.article-title a:hover {
+  color: var(--gold);
+}
+
+.articles-view-all {
+  display: flex;
+  justify-content: center;
+  margin-top: 36px;
+}

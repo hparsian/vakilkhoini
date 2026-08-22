@@ -1,9 +1,18 @@
 import { lawyer, navLinks } from '../data/content.js'
 import { ShieldCheck, Phone, MapPin, Scale, ChevronLeft } from 'lucide-react'
+import { Link, useRouter } from '../router.jsx'
 import './Footer.css'
 
 export default function Footer() {
   const currentYear = 1404 // Persian calendar year / Solar Hijri or universal
+  const { pathname, navigate } = useRouter()
+
+  const handleHashClick = (e, href) => {
+    if (pathname !== '/') {
+      e.preventDefault()
+      navigate(`/${href}`)
+    }
+  }
 
   return (
     <footer className="site-footer" role="contentinfo">
@@ -27,7 +36,7 @@ export default function Footer() {
 
             <div className="footer-license-badge">
               <ShieldCheck size={16} />
-              <span>پروانه وکالت معتبر از کانون وکلای دادگستری مرکز</span>
+              <span>پروانه وکالت معتبر از کانون وکلای دادگستری استان البرز</span>
             </div>
           </div>
 
@@ -35,16 +44,25 @@ export default function Footer() {
           <div className="footer-col links-col">
             <h4 className="footer-col-heading">دسترسی سریع</h4>
             <ul className="footer-nav-list">
-              {navLinks.map((link) => (
-                <li key={link.href}>
-                  <a href={link.href}>
-                    <ChevronLeft size={14} className="nav-chevron" />
-                    <span>{link.label}</span>
-                  </a>
-                </li>
-              ))}
+              {navLinks.map((link) =>
+                link.href === '#articles' ? (
+                  <li key={link.href}>
+                    <Link to="/maghalat">
+                      <ChevronLeft size={14} className="nav-chevron" />
+                      <span>{link.label}</span>
+                    </Link>
+                  </li>
+                ) : (
+                  <li key={link.href}>
+                    <a href={link.href} onClick={(e) => handleHashClick(e, link.href)}>
+                      <ChevronLeft size={14} className="nav-chevron" />
+                      <span>{link.label}</span>
+                    </a>
+                  </li>
+                )
+              )}
               <li>
-                <a href="#consultation">
+                <a href="#consultation" onClick={(e) => handleHashClick(e, '#consultation')}>
                   <ChevronLeft size={14} className="nav-chevron" />
                   <span>رزرو وقت مشاوره</span>
                 </a>
@@ -74,7 +92,11 @@ export default function Footer() {
               </li>
             </ul>
 
-            <a href="#consultation" className="footer-cta-btn btn btn-gold">
+            <a
+              href="#consultation"
+              onClick={(e) => handleHashClick(e, '#consultation')}
+              className="footer-cta-btn btn btn-gold"
+            >
               درخواست مشاوره حضوری یا تلفنی
             </a>
           </div>

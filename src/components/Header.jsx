@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { lawyer, navLinks } from '../data/content.js'
 import { Phone, MessageCircle, Menu, X, Scale, Calendar, Clock, MapPin } from 'lucide-react'
+import { useRouter } from '../router.jsx'
 import './Header.css'
 
 export default function Header() {
+  const { pathname, navigate } = useRouter()
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const [activeSection, setActiveSection] = useState('home')
@@ -40,6 +42,15 @@ export default function Header() {
     setOpen(false)
     if (href && href.startsWith('#')) {
       const targetId = href.substring(1)
+
+      // On article/service pages there's no matching section in the DOM —
+      // navigate back to the homepage and let it scroll to the hash instead.
+      if (pathname !== '/') {
+        e.preventDefault()
+        navigate(`/${href}`)
+        return
+      }
+
       const targetEl = document.getElementById(targetId)
       if (targetEl) {
         e.preventDefault()

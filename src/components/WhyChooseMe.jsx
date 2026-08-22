@@ -77,7 +77,7 @@ export default function WhyChooseMe() {
           <div className="stat-divider" />
           <div className="stat-unit">
             <span className="stat-num">رسمی</span>
-            <span className="stat-caption">پروانه وکالت کانون وکلای دادگستری مرکز</span>
+            <span className="stat-caption">پروانه وکالت کانون وکلای دادگستری استان البرز</span>
           </div>
           <div className="stat-divider" />
           <div className="stat-unit">

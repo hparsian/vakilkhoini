@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { services, serviceCategories } from '../data/content.js'
 import useReveal from '../hooks/useReveal.js'
+import { Link } from '../router.jsx'
 import {
   Building2,
   FileSignature,
@@ -123,7 +124,9 @@ export default function Services() {
                 {s.category && <span className="service-category-tag">{s.category}</span>}
               </div>
 
-              <h3 className="service-card-title">{s.title}</h3>
+              <h3 className="service-card-title">
+                <Link to={`/khadamat/${s.id}`}>{s.title}</Link>
+              </h3>
               <p className="service-card-desc">{s.description}</p>
 
               {/* Sub-services Tags */}
@@ -267,13 +270,13 @@ export default function Services() {
                 <Calendar size={16} />
                 <span>درخواست مشاوره برای {activeModalService.title}</span>
               </a>
-              <button
-                type="button"
+              <Link
+                to={`/khadamat/${activeModalService.id}`}
                 onClick={() => setActiveModalService(null)}
                 className="btn btn-outline-dark"
               >
-                بستن
-              </button>
+                مشاهده صفحه کامل این خدمت
+              </Link>
             </div>
           </div>
         </div>
