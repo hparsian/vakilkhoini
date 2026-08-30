@@ -11,17 +11,14 @@ export default function FAQ() {
 
   const categories = [
     { id: 'all', label: 'همه پرسش‌ها' },
-    { id: 'وکالت', label: 'فرآیند وکالت و قرارداد' },
-    { id: 'مالی', label: 'حق‌الوکاله و هزینه‌ها' },
-    { id: 'دعاوی', label: 'دعاوی ملکی و تجاری' },
+    { id: 'consulting', label: 'مشاوره و وکالت' },
+    { id: 'costs', label: 'حق‌الوکاله و هزینه‌ها' },
+    { id: 'process', label: 'فرآیند پیگیری' },
   ]
 
-  const filteredFaqs = faqs.filter((item, idx) => {
+  const filteredFaqs = faqs.filter((item) => {
     if (activeFaqCat === 'all') return true
-    if (activeFaqCat === 'وکالت') return idx === 0 || idx === 2 || item.q.includes('وکالت') || item.q.includes('قرارداد')
-    if (activeFaqCat === 'مالی') return idx === 1 || item.q.includes('حق‌الوکاله') || item.q.includes('هزینه')
-    if (activeFaqCat === 'دعاوی') return idx >= 3 || item.q.includes('ملکی') || item.q.includes('جلسات')
-    return true
+    return item.category === activeFaqCat
   })
 
   return (

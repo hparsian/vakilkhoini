@@ -32,6 +32,7 @@
   background: var(--dark-teal);
   color: var(--white);
   border-color: var(--dark-teal);
+  box-shadow: 0 4px 12px rgba(11, 29, 46, 0.16);
 }
 
 .faq-layout {
@@ -57,8 +58,8 @@
 
 .faq-card.open {
   background: var(--white);
-  border-color: rgba(201, 154, 46, 0.4);
-  box-shadow: 0 4px 20px rgba(4, 39, 43, 0.05);
+  border-color: rgba(184, 146, 63, 0.30);
+  box-shadow: 0 4px 20px rgba(11, 29, 46, 0.04);
 }
 
 .faq-card h3 {
@@ -78,7 +79,8 @@
   font-size: 15.5px;
   font-weight: 800;
   color: var(--dark-teal);
-  transition: color 0.2s ease;
+  transition: color 0.25s ease;
+  letter-spacing: -0.01em;
 }
 
 .faq-question-btn:hover {
@@ -95,7 +97,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  transition: transform 0.3s ease, background-color 0.2s ease, color 0.2s ease;
+  transition: transform 0.3s ease, background-color 0.25s ease, color 0.25s ease;
 }
 
 .faq-card.open .faq-chevron {
@@ -112,8 +114,8 @@
 .faq-answer-pane p {
   margin: 0;
   font-size: 14.5px;
-  color: #4a5c5e;
-  line-height: 1.9;
+  color: #495c5e;
+  line-height: 1.95;
   border-top: 1px dashed var(--border-subtle);
   padding-top: 14px;
 }
@@ -141,7 +143,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(201, 154, 46, 0.3);
+  border: 1px solid rgba(184, 146, 63, 0.25);
   margin-bottom: 18px;
 }
 
@@ -150,6 +152,7 @@
   font-weight: 800;
   color: var(--dark-teal);
   margin-bottom: 10px;
+  letter-spacing: -0.01em;
 }
 
 .faq-aside-card p {

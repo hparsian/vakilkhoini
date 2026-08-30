@@ -1,4 +1,4 @@
-import { lawyer, navLinks } from '../data/content.js'
+import { lawyer, navLinks, services } from '../data/content.js'
 import { ShieldCheck, Phone, MapPin, Scale, ChevronLeft } from 'lucide-react'
 import { Link, useRouter } from '../router.jsx'
 import './Footer.css'
@@ -67,6 +67,21 @@ export default function Footer() {
                   <span>رزرو وقت مشاوره</span>
                 </a>
               </li>
+            </ul>
+          </div>
+
+          {/* Top Services */}
+          <div className="footer-col links-col">
+            <h4 className="footer-col-heading">خدمات تخصصی</h4>
+            <ul className="footer-nav-list">
+              {services.slice(0, 5).map((s) => (
+                <li key={s.id}>
+                  <Link to={`/khadamat/${s.id}`}>
+                    <ChevronLeft size={14} className="nav-chevron" />
+                    <span>{s.title}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

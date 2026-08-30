@@ -15,11 +15,13 @@
 }
 
 .breadcrumb a {
-  color: var(--dark-teal);
+  color: var(--teal);
   font-weight: 600;
+  transition: color 0.2s ease;
 }
 
 .breadcrumb a:hover {
+  color: var(--gold-dark);
   text-decoration: underline;
 }
 
@@ -35,6 +37,7 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md, 12px);
   padding: 40px;
+  box-shadow: var(--shadow-card);
 }
 
 .article-page-header {
@@ -45,9 +48,11 @@
 
 .article-page-title {
   font-size: 28px;
-  line-height: 1.5;
+  line-height: 1.45;
   margin: 16px 0;
   color: var(--dark-teal);
+  font-weight: 800;
+  letter-spacing: -0.015em;
 }
 
 .service-lead {
@@ -67,8 +72,10 @@
 
 .related-title {
   font-size: 19px;
+  font-weight: 800;
   margin-bottom: 16px;
   color: var(--dark-teal);
+  letter-spacing: -0.01em;
 }
 
 .related-services-list,
@@ -87,13 +94,14 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-sm, 8px);
   background: var(--off-white);
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .related-service-card:hover,
 .related-article-card:hover {
-  border-color: var(--teal);
+  border-color: rgba(184, 146, 63, 0.30);
   transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(11, 29, 46, 0.05);
 }
 
 .related-service-title,

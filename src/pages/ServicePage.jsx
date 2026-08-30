@@ -42,7 +42,7 @@ export default function ServicePage({ slug }) {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'صفحه اصلی', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'خدمات تخصصی', item: `${SITE_URL}/#services` },
+          { '@type': 'ListItem', position: 2, name: 'خدمات تخصصی', item: `${SITE_URL}/` },
           { '@type': 'ListItem', position: 3, name: service.title, item: `${SITE_URL}${canonicalPath}` },
         ],
       },
@@ -54,9 +54,12 @@ export default function ServicePage({ slug }) {
     description: service.fullDesc || service.description,
     path: canonicalPath,
     jsonLd,
+    ogType: 'website',
+    keywords: `${service.title}, وکیل تهران, ${service.subServices?.join(', ') || ''}`,
   })
 
   const relatedArticles = getRelatedArticles(service)
+  const otherServices = services.filter((s) => s.id !== service.id).slice(0, 3)
 
   return (
     <main id="main" className="article-page">
@@ -64,7 +67,7 @@ export default function ServicePage({ slug }) {
         <nav className="breadcrumb" aria-label="مسیر صفحه">
           <Link to="/">صفحه اصلی</Link>
           <ChevronLeft size={14} />
-          <Link to="/#services">خدمات تخصصی</Link>
+          <Link to="/">خدمات تخصصی</Link>
           <ChevronLeft size={14} />
           <span aria-current="page">{service.title}</span>
         </nav>
@@ -124,10 +127,24 @@ export default function ServicePage({ slug }) {
               <Calendar size={16} />
               <span>درخواست مشاوره برای {service.title}</span>
             </Link>
-            <Link to="/" className="btn btn-outline-dark">
+            <Link to="/#services" className="btn btn-outline-dark">
               مشاهده سایر خدمات
             </Link>
           </div>
+
+          {otherServices.length > 0 && (
+            <section className="related-block" aria-label="سایر خدمات">
+              <h2 className="related-title">سایر خدمات حقوقی</h2>
+              <div className="related-services-list">
+                {otherServices.map((s) => (
+                  <Link to={`/khadamat/${s.id}`} key={s.id} className="related-service-card">
+                    <span className="related-service-title">{s.title}</span>
+                    <span className="related-service-desc">{s.description}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
 
           {relatedArticles.length > 0 && (
             <section className="related-block" aria-label="مقالات مرتبط">

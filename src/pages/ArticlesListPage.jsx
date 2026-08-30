@@ -29,6 +29,8 @@ export default function ArticlesListPage() {
       'مجموعه مقالات و راهنماهای تخصصی حقوقی درباره دعاوی ملکی، قراردادها، اسناد تجاری، دادخواست و آیین دادرسی توسط پرستو خوئینی وکیل پایه یک دادگستری.',
     path: '/maghalat',
     jsonLd,
+    ogType: 'website',
+    keywords: 'مقالات حقوقی, راهنمای حقوقی, دعاوی ملکی, قراردادها, اسناد تجاری, آیین دادرسی, دادخواست, وکیل تهران',
   })
 
   return (
@@ -91,6 +93,15 @@ export default function ArticlesListPage() {
               </div>
             </Link>
           ))}
+        </div>
+
+        <div className="articles-view-all">
+          <Link to="/" className="btn btn-gold">
+            مشاهده خدمات تخصصی حقوقی
+          </Link>
+          <Link to="/maghalat" className="btn btn-outline-dark">
+            مشاهده همه مقالات
+          </Link>
         </div>
       </div>
     </main>

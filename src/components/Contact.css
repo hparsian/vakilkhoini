@@ -35,6 +35,7 @@
   padding: 4px 10px;
   border-radius: var(--radius-xs);
   margin-bottom: 12px;
+  letter-spacing: 0.01em;
 }
 
 .contact-name {
@@ -42,6 +43,7 @@
   font-weight: 900;
   color: var(--dark-teal);
   margin: 0 0 4px;
+  letter-spacing: -0.01em;
 }
 
 .contact-role {
@@ -49,6 +51,7 @@
   color: var(--gold-dark);
   font-weight: 700;
   margin: 0;
+  letter-spacing: 0.01em;
 }
 
 .contact-list {
@@ -77,7 +80,14 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid rgba(201, 154, 46, 0.3);
+  border: 1px solid rgba(184, 146, 63, 0.25);
+  transition: all 0.25s ease;
+}
+
+.contact-item:hover .contact-icon-box {
+  background: var(--dark-teal);
+  color: var(--gold-light);
+  border-color: var(--gold);
 }
 
 .contact-item-content {
@@ -90,14 +100,15 @@
 .contact-label {
   font-size: 12px;
   font-weight: 700;
-  color: var(--text-muted);
+  color: var(--text-light);
+  letter-spacing: 0.02em;
 }
 
 .contact-value {
   font-size: 14.5px;
   font-weight: 700;
   color: var(--dark-teal);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .contact-phone-row {
@@ -135,6 +146,7 @@
 .copy-btn:hover {
   background: var(--white);
   border-color: var(--teal);
+  color: var(--dark-teal);
 }
 
 .copy-btn .copied {
@@ -167,8 +179,8 @@
   flex-grow: 1;
   position: relative;
   background:
-    radial-gradient(circle at 60% 40%, rgba(201, 154, 46, 0.15), transparent 45%),
-    linear-gradient(135deg, #04272b 0%, #063b3f 60%, #094e53 100%);
+    radial-gradient(circle at 60% 40%, rgba(184, 146, 63, 0.12), transparent 45%),
+    linear-gradient(135deg, #070F18 0%, #0B1D2E 50%, #0D3B42 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -219,25 +231,25 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--gold-light), var(--gold-dark));
+  background: linear-gradient(135deg, var(--gold-light), var(--gold), var(--gold-dark));
   color: var(--dark-teal);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
   border: 3px solid #fff;
   position: relative;
 }
 
 .map-label-tag {
-  background: rgba(4, 39, 43, 0.92);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(201, 154, 46, 0.4);
+  background: rgba(11, 29, 46, 0.92);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(184, 146, 63, 0.35);
   padding: 8px 16px;
   border-radius: var(--radius-full);
   text-align: center;
   color: #fff;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.28);
 }
 
 .map-label-tag strong {
@@ -267,13 +279,13 @@
   align-items: center;
   gap: 8px;
   font-size: 12.5px;
-  color: var(--text-muted);
+  color: var(--text-light);
   flex: 1;
   min-width: 200px;
 }
 
 .sparkle-gold {
-  color: var(--gold);
+  color: var(--gold-light);
   flex-shrink: 0;
 }
 
@@ -288,12 +300,12 @@
   background: var(--off-white);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-xs);
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .map-direction-btn:hover {
   background: var(--dark-teal);
-  color: var(--gold);
+  color: var(--gold-light);
   border-color: var(--dark-teal);
 }
 

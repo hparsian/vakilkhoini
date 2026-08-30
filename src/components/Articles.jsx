@@ -39,6 +39,21 @@ export default function Articles() {
           </p>
         </div>
 
+        {/* Popular Articles Row */}
+        <div className="popular-articles-row">
+          <h3 className="popular-articles-title">📊 مقالات پربازدید</h3>
+          <div className="popular-articles-chips">
+            {articles.filter((a) =>
+              ['cheque-new-law', 'monookhoroji-chist', 'taghfif-amval-va-hesab-banki', 'vekalat-bala-ezl-khatarat', 'mashavere-hoghooghi-rayegan'].includes(a.id)
+            ).map((a) => (
+              <Link to={`/maghalat/${a.id}`} key={a.id} className="popular-chip">
+                <span className="popular-chip-dot" />
+                <span>{a.title.length > 40 ? a.title.slice(0, 40) + '…' : a.title}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+
         {/* Category Pills */}
         <div className="articles-filter-row">
           {categories.map((cat) => (
