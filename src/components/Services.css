@@ -26,7 +26,7 @@
   color: var(--text-muted);
   background: var(--white);
   border: 1px solid var(--border-subtle);
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .cat-pill:hover {
@@ -38,7 +38,7 @@
   background: var(--dark-teal);
   color: var(--white);
   border-color: var(--dark-teal);
-  box-shadow: 0 4px 12px rgba(4, 39, 43, 0.2);
+  box-shadow: 0 4px 14px rgba(11, 29, 46, 0.18);
 }
 
 .services-search-box {
@@ -65,12 +65,12 @@
   font-size: 13.5px;
   color: var(--dark-text);
   outline: none;
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .services-search-input:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 3px var(--gold-subtle);
+  box-shadow: 0 0 0 3px rgba(184, 146, 63, 0.12);
 }
 
 .clear-search-btn {
@@ -115,13 +115,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(201, 154, 46, 0.25);
+  border: 1px solid rgba(184, 146, 63, 0.20);
   transition: all 0.3s ease;
 }
 
 .service-card:hover .service-icon-box {
   background: var(--dark-teal);
-  color: var(--gold);
+  color: var(--gold-light);
   border-color: var(--gold);
   transform: rotate(-5deg);
 }
@@ -133,6 +133,7 @@
   background: var(--teal-subtle);
   padding: 4px 10px;
   border-radius: var(--radius-xs);
+  letter-spacing: 0.01em;
 }
 
 .service-card-title {
@@ -141,12 +142,13 @@
   color: var(--dark-teal);
   margin-bottom: 10px;
   line-height: 1.4;
+  letter-spacing: -0.01em;
 }
 
 .service-card-desc {
   font-size: 14.5px;
   color: var(--text-muted);
-  line-height: 1.8;
+  line-height: 1.85;
   margin-bottom: 18px;
   flex-grow: 1;
 }
@@ -172,7 +174,7 @@
 .subservice-tag.more {
   background: var(--gold-subtle);
   color: var(--gold-dark);
-  border-color: rgba(201, 154, 46, 0.2);
+  border-color: rgba(184, 146, 63, 0.18);
 }
 
 /* Footer Actions */
@@ -191,7 +193,7 @@
   font-size: 13.5px;
   font-weight: 700;
   color: var(--teal);
-  transition: all 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 .service-detail-btn:hover {
@@ -227,6 +229,7 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
+  box-shadow: var(--shadow-subtle);
 }
 
 .no-found-icon {
@@ -252,7 +255,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1.5px solid var(--gold);
+  border: 1.5px solid rgba(184, 146, 63, 0.35);
   flex-shrink: 0;
 }
 
@@ -261,6 +264,7 @@
   font-weight: 700;
   color: var(--teal);
   display: block;
+  letter-spacing: 0.01em;
 }
 
 .modal-title {
@@ -268,20 +272,21 @@
   font-weight: 800;
   color: var(--dark-teal);
   margin-top: 2px;
+  letter-spacing: -0.01em;
 }
 
 .modal-desc {
   font-size: 16px;
   font-weight: 600;
   color: var(--dark-text);
-  line-height: 1.8;
+  line-height: 1.85;
   margin-bottom: 12px;
 }
 
 .modal-long-details {
   font-size: 15px;
   color: var(--text-muted);
-  line-height: 1.85;
+  line-height: 1.9;
   margin-bottom: 24px;
 }
 
@@ -301,6 +306,7 @@
   font-weight: 800;
   color: var(--dark-teal);
   margin-bottom: 12px;
+  letter-spacing: -0.01em;
 }
 
 .modal-bullet-list {
@@ -315,7 +321,7 @@
   padding-right: 14px;
   font-size: 13.5px;
   color: var(--dark-text);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .modal-bullet-list li::before {
@@ -323,12 +329,14 @@
   position: absolute;
   right: 0;
   color: var(--gold);
-  font-size: 18px;
-  line-height: 1;
+  font-size: 16px;
+  line-height: 1.2;
 }
 
 .modal-bullet-list.docs li::before {
   color: var(--teal);
+  content: "✓";
+  font-size: 13px;
 }
 
 .modal-timeframe-box {
@@ -336,7 +344,7 @@
   align-items: center;
   gap: 10px;
   background: var(--gold-subtle);
-  border: 1px solid rgba(201, 154, 46, 0.3);
+  border: 1px solid rgba(184, 146, 63, 0.25);
   padding: 12px 18px;
   border-radius: var(--radius-sm);
   color: var(--dark-teal);
@@ -351,6 +359,7 @@
   gap: 12px;
   padding-top: 18px;
   border-top: 1px solid var(--border-subtle);
+  margin-top: 8px;
 }
 
 @media (max-width: 1024px) {

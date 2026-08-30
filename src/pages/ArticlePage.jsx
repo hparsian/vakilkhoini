@@ -52,7 +52,8 @@ export default function ArticlePage({ slug }) {
         '@type': 'Article',
         headline: article.title,
         description: article.excerpt,
-        datePublished: article.date,
+        datePublished: article.isoDate || '2025-01-01',
+        dateModified: article.isoDate || '2025-01-01',
         author: {
           '@type': 'Person',
           name: lawyer.name,
@@ -67,6 +68,7 @@ export default function ArticlePage({ slug }) {
           '@id': `${SITE_URL}${canonicalPath}`,
         },
         keywords: article.tags?.join(', '),
+        image: `${SITE_URL}/og-image.jpg`,
       },
       {
         '@type': 'BreadcrumbList',
@@ -84,6 +86,14 @@ export default function ArticlePage({ slug }) {
     description: article.excerpt,
     path: canonicalPath,
     jsonLd,
+    ogType: 'article',
+    keywords: article.tags?.join(', '),
+    article: {
+      datePublished: article.isoDate || '2025-01-01',
+      dateModified: article.isoDate || '2025-01-01',
+      section: article.category,
+      tags: article.tags,
+    },
   })
 
   const relatedArticles = getRelatedArticles(article)
