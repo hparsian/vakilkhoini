@@ -11,8 +11,14 @@ const today = new Date().toISOString().slice(0, 10)
 
 const staticUrls = [
   { loc: '/', changefreq: 'weekly', priority: '1.0' },
+  { loc: '/darbareh', changefreq: 'monthly', priority: '0.85' },
+  { loc: '/khadamat', changefreq: 'weekly', priority: '0.9' },
   { loc: '/mohasebe', changefreq: 'weekly', priority: '0.9' },
-  { loc: '/maghalat', changefreq: 'weekly', priority: '0.8' },
+  { loc: '/marohe', changefreq: 'monthly', priority: '0.8' },
+  { loc: '/maghalat', changefreq: 'weekly', priority: '0.85' },
+  { loc: '/faq', changefreq: 'monthly', priority: '0.8' },
+  { loc: '/moshavere', changefreq: 'weekly', priority: '0.9' },
+  { loc: '/tamas', changefreq: 'monthly', priority: '0.8' },
 ]
 
 const articleUrls = articles.map((a) => ({

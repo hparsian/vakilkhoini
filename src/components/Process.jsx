@@ -1,6 +1,7 @@
 import { process } from '../data/content.js'
 import useReveal from '../hooks/useReveal.js'
 import { FileSearch, Compass, FileCheck2, Activity, ArrowLeft } from 'lucide-react'
+import { Link } from '../router.jsx'
 import './Process.css'
 
 const stepIcons = [
@@ -56,10 +57,15 @@ export default function Process() {
             <h4>آیا پرونده شما نیازمند بررسی تخصصی است؟</h4>
             <p>می‌توانید همین حالا مدارک خود را ارسال کرده یا نوبت مشاوره حضوری دریافت نمایید.</p>
           </div>
-          <a href="#consultation" className="btn btn-gold">
-            <span>درخواست بررسی و تعیین نوبت</span>
-            <ArrowLeft size={16} />
-          </a>
+          <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+            <Link to="/marohe" className="btn btn-outline-dark">
+              <span>راهنمای کامل مراحل پرونده</span>
+            </Link>
+            <Link to="/moshavere" className="btn btn-gold">
+              <span>درخواست بررسی و تعیین نوبت</span>
+              <ArrowLeft size={16} />
+            </Link>
+          </div>
         </div>
       </div>
     </section>

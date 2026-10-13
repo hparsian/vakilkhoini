@@ -17,6 +17,7 @@ import {
   Calendar,
   Search,
   Briefcase,
+  Calculator,
 } from 'lucide-react'
 import './Services.css'
 
@@ -182,6 +183,16 @@ export default function Services() {
             </button>
           </div>
         )}
+
+        <div style={{ marginTop: 40, textAlign: 'center', display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
+          <Link to="/khadamat" className="btn btn-outline-dark">
+            <span>مشاهده صفحه کامل خدمات حقوقی</span>
+          </Link>
+          <Link to="/mohasebe" className="btn btn-gold">
+            <Calculator size={16} />
+            <span>محاسبه آنلاین هزینه‌های دادرسی</span>
+          </Link>
+        </div>
       </div>
 
       {/* Service Detailed Modal */}

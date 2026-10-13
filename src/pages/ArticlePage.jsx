@@ -281,7 +281,7 @@ export default function ArticlePage({ slug }) {
           </div>
 
           <div className="reader-footer">
-            <Link to="/#consultation" className="btn btn-gold">
+            <Link to="/moshavere" className="btn btn-gold">
               <PhoneCall size={16} />
               <span>مشاوره تخصصی با {lawyer.name} در این زمینه</span>
             </Link>

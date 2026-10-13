@@ -21,13 +21,14 @@ import { useRouter } from '../router.jsx'
 import './Header.css'
 
 function getNavLinkIcon(href) {
-  if (href === '#about') return <User size={18} />
-  if (href === '#services') return <Scale size={18} />
+  if (href === '/darbareh' || href === '#about') return <User size={18} />
+  if (href === '/khadamat' || href === '#services') return <Scale size={18} />
   if (href === '/mohasebe') return <Calculator size={18} />
-  if (href === '#process') return <FileText size={18} />
-  if (href === '#articles' || href === '/maghalat') return <BookOpen size={18} />
-  if (href === '#faq') return <HelpCircle size={18} />
-  if (href === '#contact') return <MapPin size={18} />
+  if (href === '/marohe' || href === '#process') return <FileText size={18} />
+  if (href === '/maghalat' || href === '#articles') return <BookOpen size={18} />
+  if (href === '/faq' || href === '#faq') return <HelpCircle size={18} />
+  if (href === '/tamas' || href === '#contact') return <MapPin size={18} />
+  if (href === '/moshavere' || href === '#consultation') return <Calendar size={18} />
   return <ChevronLeft size={16} />
 }
 
@@ -171,10 +172,10 @@ export default function Header() {
         <div className="container header-inner">
           {/* Brand Logo & Identity */}
           <a
-            href="#home"
+            href="/"
             className="brand"
             aria-label={`${lawyer.name} - صفحه اصلی`}
-            onClick={(e) => handleNavClick(e, '#home')}
+            onClick={(e) => handleNavClick(e, '/')}
           >
             <span className="brand-mark" aria-hidden="true">
               <Scale size={20} className="brand-icon" />
@@ -223,9 +224,9 @@ export default function Header() {
             </a>
 
             <a
-              href="#consultation"
+              href="/moshavere"
               className="btn btn-gold header-cta-btn"
-              onClick={(e) => handleNavClick(e, '#consultation')}
+              onClick={(e) => handleNavClick(e, '/moshavere')}
             >
               <Calendar size={15} />
               <span>درخواست مشاوره</span>
@@ -262,7 +263,7 @@ export default function Header() {
         <div className="mobile-drawer-head">
           <div
             className="brand"
-            onClick={(e) => handleNavClick(e, '#home')}
+            onClick={(e) => handleNavClick(e, '/')}
             style={{ cursor: 'pointer' }}
           >
             <span className="brand-mark" aria-hidden="true">
@@ -288,9 +289,9 @@ export default function Header() {
             <ul>
               <li>
                 <a
-                  href="#home"
-                  className={pathname === '/' && activeSection === 'home' ? 'active' : ''}
-                  onClick={(e) => handleNavClick(e, '#home')}
+                  href="/"
+                  className={pathname === '/' ? 'active' : ''}
+                  onClick={(e) => handleNavClick(e, '/')}
                 >
                   <span className="mobile-nav-item-content">
                     <span className="mobile-nav-icon">
@@ -328,9 +329,9 @@ export default function Header() {
 
         <div className="mobile-drawer-footer">
           <a
-            href="#consultation"
+            href="/moshavere"
             className="btn btn-gold w-full mobile-cta-appointment"
-            onClick={(e) => handleNavClick(e, '#consultation')}
+            onClick={(e) => handleNavClick(e, '/moshavere')}
           >
             <Calendar size={17} />
             <span>درخواست نوبت مشاوره</span>

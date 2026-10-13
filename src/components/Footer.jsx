@@ -62,10 +62,10 @@ export default function Footer() {
                 )
               )}
               <li>
-                <a href="#consultation" onClick={(e) => handleHashClick(e, '#consultation')}>
+                <Link to="/moshavere">
                   <ChevronLeft size={14} className="nav-chevron" />
                   <span>رزرو وقت مشاوره</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -92,13 +92,12 @@ export default function Footer() {
               </li>
             </ul>
 
-            <a
-              href="#consultation"
-              onClick={(e) => handleHashClick(e, '#consultation')}
+            <Link
+              to="/moshavere"
               className="footer-cta-btn btn btn-gold"
             >
               درخواست مشاوره حضوری یا تلفنی
-            </a>
+            </Link>
           </div>
         </div>
 

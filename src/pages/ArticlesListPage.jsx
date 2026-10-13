@@ -26,18 +26,29 @@ export default function ArticlesListPage() {
 
   const jsonLd = {
     '@context': 'https://schema.org',
-    '@type': 'CollectionPage',
-    name: 'مقالات و راهنماهای حقوقی',
-    url: `${SITE_URL}/maghalat`,
-    hasPart: articles.map((a) => ({
-      '@type': 'Article',
-      headline: a.title,
-      url: `${SITE_URL}/maghalat/${a.id}`,
-    })),
+    '@graph': [
+      {
+        '@type': 'CollectionPage',
+        name: 'مقالات و راهنماهای تخصصی حقوقی',
+        url: `${SITE_URL}/maghalat`,
+        hasPart: articles.map((a) => ({
+          '@type': 'Article',
+          headline: a.title,
+          url: `${SITE_URL}/maghalat/${a.id}`,
+        })),
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'صفحه اصلی', item: `${SITE_URL}/` },
+          { '@type': 'ListItem', position: 2, name: 'مقالات حقوقی', item: `${SITE_URL}/maghalat` },
+        ],
+      },
+    ],
   }
 
   useSEO({
-    title: `مقالات حقوقی تخصصی | ${lawyer.name}`,
+    title: `مقالات و راهنماهای حقوقی کاربردی | وکیل پرستو خوئینی تهران`,
     description:
       'مجموعه مقالات و راهنماهای تخصصی حقوقی درباره دعاوی ملکی، قراردادها، اسناد تجاری، دادخواست و آیین دادرسی توسط پرستو خوئینی وکیل پایه یک دادگستری.',
     path: '/maghalat',

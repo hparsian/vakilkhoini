@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { lawyer } from '../data/content.js'
 import heroPortrait from '../assets/hero-portrait.jpg'
-import { Phone, MessageCircle, Calendar, ShieldCheck, Award, CheckCircle2, Copy, Check } from 'lucide-react'
+import { Phone, MessageCircle, Calendar, ShieldCheck, Award, CheckCircle2, Copy, Check, Scale } from 'lucide-react'
+import { Link } from '../router.jsx'
 import { useToast } from '../context/ToastContext.jsx'
 import './Hero.css'
 
@@ -44,10 +45,15 @@ export default function Hero() {
           </p>
 
           <div className="hero-actions">
-            <a href="#consultation" className="btn btn-gold hero-btn-primary">
+            <Link to="/moshavere" className="btn btn-gold hero-btn-primary">
               <Calendar size={18} />
               <span>درخواست مشاوره حقوقی</span>
-            </a>
+            </Link>
+
+            <Link to="/khadamat" className="btn btn-outline-light hero-btn-services">
+              <Scale size={17} />
+              <span>خدمات تخصصی</span>
+            </Link>
 
             <a href={lawyer.phoneHref} className="btn btn-outline-light hero-btn-phone" aria-label={`تماس مستقیم با شماره ${lawyer.phone}`}>
               <Phone size={17} />

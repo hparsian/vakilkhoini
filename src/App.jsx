@@ -2,52 +2,49 @@ import { useEffect } from 'react'
 import Header from './components/Header.jsx'
 import Hero from './components/Hero.jsx'
 import TrustBar from './components/TrustBar.jsx'
-import Services from './components/Services.jsx'
-import About from './components/About.jsx'
-import WhyChooseMe from './components/WhyChooseMe.jsx'
-import Process from './components/Process.jsx'
-import ConsultationForm from './components/ConsultationForm.jsx'
-import Articles from './components/Articles.jsx'
-import FAQ from './components/FAQ.jsx'
-import Contact from './components/Contact.jsx'
+import {
+  HomeServicesPreview,
+  HomeAboutSpotlight,
+  HomeCalculatorsBanner,
+  HomeProcessSummary,
+  HomeArticlesPreview,
+  HomeFAQPreview,
+  HomeContactCTA,
+} from './components/HomePortalSections.jsx'
 import Footer from './components/Footer.jsx'
 import StickyMobileCTA from './components/StickyMobileCTA.jsx'
 import ArticlePage from './pages/ArticlePage.jsx'
 import ArticlesListPage from './pages/ArticlesListPage.jsx'
 import ServicePage from './pages/ServicePage.jsx'
+import ServicesListPage from './pages/ServicesListPage.jsx'
 import CalculatorsPage from './pages/CalculatorsPage.jsx'
+import AboutPage from './pages/AboutPage.jsx'
+import ProcessPage from './pages/ProcessPage.jsx'
+import FAQPage from './pages/FAQPage.jsx'
+import ConsultationPage from './pages/ConsultationPage.jsx'
+import ContactPage from './pages/ContactPage.jsx'
 import { useRouter, matchPath } from './router.jsx'
 import useSEO from './hooks/useSEO.js'
 
 function HomePage() {
   useSEO({
-    title: 'پرستو خوئینی | وکیل پایه یک دادگستری در تهران - مشاوره حقوقی و ملکی',
+    title: 'پرستو خوئینی | وکیل پایه یک دادگستری در تهران و سعادت‌آباد - مشاوره حقوقی و ملکی',
     description:
       'پرستو خوئینی وکیل پایه یک دادگستری در تهران (سعادت‌آباد) - ارائه خدمات تخصصی دعاوی حقوقی، ملکی، تنظیم قرارداد و مشاوره تخصصی با رویکرد اخلاق‌مدارانه و مستند.',
     path: '/',
   })
 
-  useEffect(() => {
-    if (window.location.hash) {
-      const el = document.getElementById(window.location.hash.slice(1))
-      if (el) {
-        setTimeout(() => el.scrollIntoView({ behavior: 'smooth' }), 50)
-      }
-    }
-  }, [])
-
   return (
     <main id="main">
       <Hero />
       <TrustBar />
-      <Services />
-      <About />
-      <WhyChooseMe />
-      <Process />
-      <ConsultationForm />
-      <Articles />
-      <FAQ />
-      <Contact />
+      <HomeServicesPreview />
+      <HomeAboutSpotlight />
+      <HomeCalculatorsBanner />
+      <HomeProcessSummary />
+      <HomeArticlesPreview />
+      <HomeFAQPreview />
+      <HomeContactCTA />
     </main>
   )
 }
@@ -61,6 +58,18 @@ export default function App() {
 
   if (pathname === '/' || pathname === '') {
     content = <HomePage />
+  } else if (pathname === '/darbareh') {
+    content = <AboutPage />
+  } else if (pathname === '/khadamat') {
+    content = <ServicesListPage />
+  } else if (pathname === '/marohe') {
+    content = <ProcessPage />
+  } else if (pathname === '/faq') {
+    content = <FAQPage />
+  } else if (pathname === '/moshavere') {
+    content = <ConsultationPage />
+  } else if (pathname === '/tamas') {
+    content = <ContactPage />
   } else if (pathname === '/mohasebe') {
     content = <CalculatorsPage />
   } else if (pathname === '/maghalat') {

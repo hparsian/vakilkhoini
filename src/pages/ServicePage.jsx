@@ -42,7 +42,7 @@ export default function ServicePage({ slug }) {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'صفحه اصلی', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'خدمات تخصصی', item: `${SITE_URL}/#services` },
+          { '@type': 'ListItem', position: 2, name: 'خدمات تخصصی', item: `${SITE_URL}/khadamat` },
           { '@type': 'ListItem', position: 3, name: service.title, item: `${SITE_URL}${canonicalPath}` },
         ],
       },
@@ -64,7 +64,7 @@ export default function ServicePage({ slug }) {
         <nav className="breadcrumb" aria-label="مسیر صفحه">
           <Link to="/">صفحه اصلی</Link>
           <ChevronLeft size={14} />
-          <Link to="/#services">خدمات تخصصی</Link>
+          <Link to="/khadamat">خدمات تخصصی</Link>
           <ChevronLeft size={14} />
           <span aria-current="page">{service.title}</span>
         </nav>
@@ -120,11 +120,11 @@ export default function ServicePage({ slug }) {
           </div>
 
           <div className="reader-footer">
-            <Link to="/#consultation" className="btn btn-gold">
+            <Link to="/moshavere" className="btn btn-gold">
               <Calendar size={16} />
               <span>درخواست مشاوره برای {service.title}</span>
             </Link>
-            <Link to="/" className="btn btn-outline-dark">
+            <Link to="/khadamat" className="btn btn-outline-dark">
               مشاهده سایر خدمات
             </Link>
           </div>

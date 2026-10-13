@@ -3,6 +3,7 @@ import { lawyer } from '../data/content.js'
 import heroPortrait from '../assets/hero-portrait.jpg'
 import useReveal from '../hooks/useReveal.js'
 import { Award, ShieldCheck, BookOpen, GraduationCap, CheckCircle2, Phone, Calendar } from 'lucide-react'
+import { Link } from '../router.jsx'
 import './About.css'
 
 const credentials = [
@@ -160,11 +161,14 @@ export default function About() {
               )}
             </div>
 
-            <div className="about-footer-cta">
-              <a href="#consultation" className="btn btn-gold">
+            <div className="about-footer-cta" style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
+              <Link to="/darbareh" className="btn btn-outline-dark">
+                <span>مشاهده سوابق کامل و مجوزها</span>
+              </Link>
+              <Link to="/moshavere" className="btn btn-gold">
                 <Calendar size={18} />
                 <span>تعیین وقت مشاوره با {lawyer.name}</span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
