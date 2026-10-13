@@ -1,8 +1,35 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { lawyer, navLinks } from '../data/content.js'
-import { Phone, MessageCircle, Menu, X, Scale, Calendar, Clock, MapPin } from 'lucide-react'
+import {
+  Phone,
+  MessageCircle,
+  Menu,
+  X,
+  Scale,
+  Calendar,
+  Clock,
+  MapPin,
+  Home,
+  User,
+  Calculator,
+  FileText,
+  BookOpen,
+  HelpCircle,
+  ChevronLeft,
+} from 'lucide-react'
 import { useRouter } from '../router.jsx'
 import './Header.css'
+
+function getNavLinkIcon(href) {
+  if (href === '#about') return <User size={18} />
+  if (href === '#services') return <Scale size={18} />
+  if (href === '/mohasebe') return <Calculator size={18} />
+  if (href === '#process') return <FileText size={18} />
+  if (href === '#articles' || href === '/maghalat') return <BookOpen size={18} />
+  if (href === '#faq') return <HelpCircle size={18} />
+  if (href === '#contact') return <MapPin size={18} />
+  return <ChevronLeft size={16} />
+}
 
 export default function Header() {
   const { pathname, navigate } = useRouter()
@@ -31,42 +58,68 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Lock body scroll when mobile menu is open & close on ESC
   useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : ''
+    if (open) {
+      document.body.style.overflow = 'hidden'
+      document.body.style.touchAction = 'none'
+    } else {
+      document.body.style.overflow = ''
+      document.body.style.touchAction = ''
+    }
+
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        setOpen(false)
+      }
+    }
+    window.addEventListener('keydown', handleKeyDown)
+
     return () => {
       document.body.style.overflow = ''
+      document.body.style.touchAction = ''
+      window.removeEventListener('keydown', handleKeyDown)
     }
   }, [open])
 
-  const handleNavClick = (e, href) => {
-    setOpen(false)
-    if (href && href.startsWith('#')) {
-      const targetId = href.substring(1)
-
-      // On article/service pages there's no matching section in the DOM —
-      // navigate back to the homepage and let it scroll to the hash instead.
-      if (pathname !== '/') {
+  const handleNavClick = useCallback(
+    (e, href) => {
+      setOpen(false)
+      if (href && href.startsWith('/')) {
         e.preventDefault()
-        navigate(`/${href}`)
+        navigate(href)
         return
       }
+      if (href && href.startsWith('#')) {
+        const targetId = href.substring(1)
 
-      const targetEl = document.getElementById(targetId)
-      if (targetEl) {
+        if (pathname !== '/') {
+          e.preventDefault()
+          navigate(`/${href}`)
+          return
+        }
+
         e.preventDefault()
-        const headerOffset = 70
-        const elementPosition = targetEl.getBoundingClientRect().top
-        const offsetPosition = elementPosition + window.pageYOffset - headerOffset
+        // Small delay to allow mobile drawer close transition and body scroll unlock
+        setTimeout(() => {
+          const targetEl = document.getElementById(targetId)
+          if (targetEl) {
+            const headerOffset = 70
+            const elementPosition = targetEl.getBoundingClientRect().top
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: 'smooth'
-        })
-        setActiveSection(targetId)
-        window.history.pushState(null, '', href)
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth',
+            })
+            setActiveSection(targetId)
+            window.history.pushState(null, '', href)
+          }
+        }, 80)
       }
-    }
-  }
+    },
+    [navigate, pathname]
+  )
 
   return (
     <>
@@ -76,7 +129,9 @@ export default function Header() {
           <div className="top-banner-right">
             <span className="top-badge">
               <MapPin size={12} aria-hidden="true" />
-              <span>{lawyer.city}، {lawyer.region}</span>
+              <span>
+                {lawyer.city}، {lawyer.region}
+              </span>
             </span>
             <span className="top-divider">•</span>
             <span className="top-bar-text">{lawyer.barAssociation}</span>
@@ -103,7 +158,9 @@ export default function Header() {
               aria-label={`تماس مستقیم با ${lawyer.phone}`}
             >
               <Phone size={12} aria-hidden="true" />
-              <span className="phone-number" dir="ltr">{lawyer.displayPhone}</span>
+              <span className="phone-number" dir="ltr">
+                {lawyer.displayPhone}
+              </span>
             </a>
           </div>
         </div>
@@ -133,7 +190,9 @@ export default function Header() {
             <ul>
               {navLinks.map((link) => {
                 const sectionId = link.href.replace('#', '')
-                const isActive = activeSection === sectionId
+                const isActive = link.href.startsWith('/')
+                  ? pathname === link.href
+                  : pathname === '/' && activeSection === sectionId
                 return (
                   <li key={link.href}>
                     <a
@@ -158,7 +217,9 @@ export default function Header() {
               title="تماس مستقیم با دفتر"
             >
               <Phone size={14} className="pulse-icon" />
-              <span className="header-phone-num phone-number" dir="ltr">{lawyer.displayPhone}</span>
+              <span className="header-phone-num phone-number" dir="ltr">
+                {lawyer.displayPhone}
+              </span>
             </a>
 
             <a
@@ -170,56 +231,81 @@ export default function Header() {
               <span>درخواست مشاوره</span>
             </a>
 
-            {/* Mobile Hamburger Toggle */}
+            {/* Mobile Hamburger Toggle Button */}
             <button
+              type="button"
               className={`hamburger ${open ? 'is-active' : ''}`}
               aria-label={open ? 'بستن منو' : 'باز کردن منو'}
               aria-expanded={open}
               aria-controls="mobile-drawer"
               onClick={() => setOpen((v) => !v)}
             >
-              {open ? <X size={22} /> : <Menu size={22} />}
+              {open ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
+      </header>
 
-        {/* Mobile Slide-in Drawer */}
-        <div
-          className={`mobile-backdrop ${open ? 'visible' : ''}`}
-          onClick={() => setOpen(false)}
-          aria-hidden={!open}
-        />
-        <div id="mobile-drawer" className={`mobile-drawer ${open ? 'open' : ''}`}>
-          <div className="mobile-drawer-head">
-            <div className="brand">
-              <span className="brand-mark" aria-hidden="true">
-                <Scale size={18} />
-              </span>
-              <div className="brand-text">
-                <span className="brand-name">{lawyer.name}</span>
-                <span className="brand-title">{lawyer.title}</span>
-              </div>
+      {/* Mobile Slide-in Drawer & Backdrop - Mounted outside sticky header */}
+      <div
+        className={`mobile-backdrop ${open ? 'visible' : ''}`}
+        onClick={() => setOpen(false)}
+        aria-hidden={!open}
+      />
+      <aside
+        id="mobile-drawer"
+        className={`mobile-drawer ${open ? 'open' : ''}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label="منوی ناوبری موبایل"
+      >
+        <div className="mobile-drawer-head">
+          <div
+            className="brand"
+            onClick={(e) => handleNavClick(e, '#home')}
+            style={{ cursor: 'pointer' }}
+          >
+            <span className="brand-mark" aria-hidden="true">
+              <Scale size={18} />
+            </span>
+            <div className="brand-text">
+              <span className="brand-name">{lawyer.name}</span>
+              <span className="brand-title">{lawyer.title}</span>
             </div>
-            <button className="mobile-close-btn" onClick={() => setOpen(false)} aria-label="بستن منو">
-              <X size={20} />
-            </button>
           </div>
+          <button
+            type="button"
+            className="mobile-close-btn"
+            onClick={() => setOpen(false)}
+            aria-label="بستن منوی ناوبری"
+          >
+            <X size={20} />
+          </button>
+        </div>
 
+        <div className="mobile-drawer-body">
           <nav className="mobile-nav" aria-label="منوی موبایل">
             <ul>
               <li>
                 <a
                   href="#home"
-                  className={activeSection === 'home' ? 'active' : ''}
+                  className={pathname === '/' && activeSection === 'home' ? 'active' : ''}
                   onClick={(e) => handleNavClick(e, '#home')}
                 >
-                  <span>صفحه نخست</span>
-                  <span className="chevron" aria-hidden="true">‹</span>
+                  <span className="mobile-nav-item-content">
+                    <span className="mobile-nav-icon">
+                      <Home size={18} />
+                    </span>
+                    <span className="mobile-nav-label">صفحه نخست</span>
+                  </span>
+                  <ChevronLeft size={16} className="chevron" />
                 </a>
               </li>
               {navLinks.map((link) => {
                 const sectionId = link.href.replace('#', '')
-                const isActive = activeSection === sectionId
+                const isActive = link.href.startsWith('/')
+                  ? pathname === link.href
+                  : pathname === '/' && activeSection === sectionId
                 return (
                   <li key={link.href}>
                     <a
@@ -227,44 +313,52 @@ export default function Header() {
                       className={isActive ? 'active' : ''}
                       onClick={(e) => handleNavClick(e, link.href)}
                     >
-                      <span>{link.label}</span>
-                      <span className="chevron" aria-hidden="true">‹</span>
+                      <span className="mobile-nav-item-content">
+                        <span className="mobile-nav-icon">{getNavLinkIcon(link.href)}</span>
+                        <span className="mobile-nav-label">{link.label}</span>
+                      </span>
+                      <ChevronLeft size={16} className="chevron" />
                     </a>
                   </li>
                 )
               })}
             </ul>
           </nav>
+        </div>
 
-          <div className="mobile-drawer-footer">
+        <div className="mobile-drawer-footer">
+          <a
+            href="#consultation"
+            className="btn btn-gold w-full mobile-cta-appointment"
+            onClick={(e) => handleNavClick(e, '#consultation')}
+          >
+            <Calendar size={17} />
+            <span>درخواست نوبت مشاوره</span>
+          </a>
+          <div className="mobile-quick-contacts">
             <a
-              href="#consultation"
-              className="btn btn-gold w-full"
-              onClick={(e) => handleNavClick(e, '#consultation')}
+              href={lawyer.phoneHref}
+              className="mobile-contact-pill"
+              aria-label={`تماس تلفنی ${lawyer.phone}`}
             >
-              <Calendar size={17} />
-              <span>درخواست نوبت مشاوره</span>
+              <Phone size={14} />
+              <span className="phone-number" dir="ltr">
+                {lawyer.displayPhone}
+              </span>
             </a>
-            <div className="mobile-quick-contacts">
-              <a href={lawyer.phoneHref} className="mobile-contact-pill">
-                <Phone size={14} />
-                <span className="phone-number" dir="ltr">{lawyer.displayPhone}</span>
-              </a>
-              <a
-                href={lawyer.whatsappHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mobile-contact-pill whatsapp"
-              >
-                <MessageCircle size={14} />
-                <span>واتساپ</span>
-              </a>
-            </div>
+            <a
+              href={lawyer.whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mobile-contact-pill whatsapp"
+              aria-label="پیام در واتساپ"
+            >
+              <MessageCircle size={14} />
+              <span>واتساپ</span>
+            </a>
           </div>
         </div>
-      </header>
+      </aside>
     </>
   )
 }
-
-

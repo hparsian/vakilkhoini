@@ -15,6 +15,7 @@ import StickyMobileCTA from './components/StickyMobileCTA.jsx'
 import ArticlePage from './pages/ArticlePage.jsx'
 import ArticlesListPage from './pages/ArticlesListPage.jsx'
 import ServicePage from './pages/ServicePage.jsx'
+import CalculatorsPage from './pages/CalculatorsPage.jsx'
 import { useRouter, matchPath } from './router.jsx'
 import useSEO from './hooks/useSEO.js'
 
@@ -60,6 +61,8 @@ export default function App() {
 
   if (pathname === '/' || pathname === '') {
     content = <HomePage />
+  } else if (pathname === '/mohasebe') {
+    content = <CalculatorsPage />
   } else if (pathname === '/maghalat') {
     content = <ArticlesListPage />
   } else if ((articleParams = matchPath('/maghalat/:slug', pathname))) {

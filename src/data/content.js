@@ -21,6 +21,7 @@ export const lawyer = {
 export const navLinks = [
   { label: 'درباره وکیل', href: '#about' },
   { label: 'خدمات تخصصی', href: '#services' },
+  { label: 'محاسبه آنلاین حقوقی', href: '/mohasebe' },
   { label: 'مراحل پذیرش پرونده', href: '#process' },
   { label: 'مقالات حقوقی', href: '#articles' },
   { label: 'سوالات متداول', href: '#faq' },

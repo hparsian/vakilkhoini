@@ -7,6 +7,7 @@ import {
   Calendar,
   Clock,
   ArrowLeft,
+  Calculator,
 } from 'lucide-react'
 import './Articles.css'
 
@@ -97,9 +98,13 @@ export default function Articles() {
           ))}
         </div>
 
-        <div className="articles-view-all">
+        <div className="articles-view-all" style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap' }}>
           <Link to="/maghalat" className="btn btn-outline-dark">
             مشاهده همه مقالات حقوقی
+          </Link>
+          <Link to="/mohasebe" className="btn btn-gold">
+            <Calculator size={16} />
+            <span>ابزارهای آنلاین محاسبه حقوقی</span>
           </Link>
         </div>
       </div>

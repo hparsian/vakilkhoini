@@ -45,9 +45,9 @@ export default function Footer() {
             <h4 className="footer-col-heading">دسترسی سریع</h4>
             <ul className="footer-nav-list">
               {navLinks.map((link) =>
-                link.href === '#articles' ? (
+                link.href.startsWith('/') ? (
                   <li key={link.href}>
-                    <Link to="/maghalat">
+                    <Link to={link.href}>
                       <ChevronLeft size={14} className="nav-chevron" />
                       <span>{link.label}</span>
                     </Link>

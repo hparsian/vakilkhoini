@@ -10,6 +10,9 @@ import {
   Sparkles,
   ChevronLeft,
   Tag,
+  Calculator,
+  Copy,
+  MessageCircle,
 } from 'lucide-react'
 import './ArticlePage.css'
 
@@ -178,6 +181,103 @@ export default function ArticlePage({ slug }) {
                 ))}
               </div>
             )}
+
+            {/* Social Share Bar */}
+            <div className="article-share-section">
+              <div className="share-section-title">
+                <Share2 size={16} />
+                <span>اشتراک‌گذاری این مطلب با دیگران:</span>
+              </div>
+              <div className="share-buttons-grid">
+                <button
+                  type="button"
+                  className="share-btn-pill whatsapp"
+                  onClick={() =>
+                    window.open(
+                      `https://wa.me/?text=${encodeURIComponent(
+                        article.title + '\n' + SITE_URL + canonicalPath
+                      )}`,
+                      '_blank'
+                    )
+                  }
+                  title="اشتراک‌گذاری در واتساپ"
+                >
+                  <MessageCircle size={15} />
+                  <span>واتساپ</span>
+                </button>
+                <button
+                  type="button"
+                  className="share-btn-pill telegram"
+                  onClick={() =>
+                    window.open(
+                      `https://t.me/share/url?url=${encodeURIComponent(
+                        SITE_URL + canonicalPath
+                      )}&text=${encodeURIComponent(article.title)}`,
+                      '_blank'
+                    )
+                  }
+                  title="اشتراک‌گذاری در تلگرام"
+                >
+                  <span>تلگرام</span>
+                </button>
+                <button
+                  type="button"
+                  className="share-btn-pill eitaa"
+                  onClick={() =>
+                    window.open(
+                      `https://eitaa.com/share/url?url=${encodeURIComponent(
+                        SITE_URL + canonicalPath
+                      )}&text=${encodeURIComponent(article.title)}`,
+                      '_blank'
+                    )
+                  }
+                  title="اشتراک‌گذاری در ایتا"
+                >
+                  <span>ایتا</span>
+                </button>
+                <button
+                  type="button"
+                  className="share-btn-pill bale"
+                  onClick={() =>
+                    window.open(
+                      `https://ble.ir/share/url?url=${encodeURIComponent(
+                        SITE_URL + canonicalPath
+                      )}&text=${encodeURIComponent(article.title)}`,
+                      '_blank'
+                    )
+                  }
+                  title="اشتراک‌گذاری در بله"
+                >
+                  <span>بله</span>
+                </button>
+                <button
+                  type="button"
+                  className="share-btn-pill copy"
+                  onClick={handleShare}
+                  title="کپی لینک مقاله"
+                >
+                  <Copy size={15} />
+                  <span>کپی لینک</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Cross-Link to Legal Calculators */}
+            <div className="article-calc-callout">
+              <div className="calc-callout-icon">
+                <Calculator size={22} />
+              </div>
+              <div className="calc-callout-content">
+                <strong>نیاز به محاسبه آنلاین هزینه دادرسی یا خسارت تأخیر تأدیه دارید؟</strong>
+                <p>
+                  از ابزارهای رایگان و هوشمند وب‌سایت برای برآورد هزینه‌های دادرسی و محاسبه کاهش ارزش پول استفاده نمایید.
+                </p>
+              </div>
+              <Link to="/mohasebe" className="calc-callout-btn">
+                <span>ورود به ابزار محاسبه</span>
+                <ChevronLeft size={14} />
+              </Link>
+            </div>
           </div>
 
           <div className="reader-footer">
