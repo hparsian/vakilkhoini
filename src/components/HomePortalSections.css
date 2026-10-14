@@ -346,6 +346,7 @@
 
 /* -----------------------------------------------------------
    4. Calculators Banner with Interactive Mini Widget
+   (redesigned: overflow-proof, navy/gold VIP look)
 ----------------------------------------------------------- */
 .home-calc-banner-section {
   background: var(--white);
@@ -353,7 +354,7 @@
 }
 
 .home-calc-card {
-  background: linear-gradient(135deg, var(--dark-teal) 0%, #06353b 100%);
+  background: linear-gradient(135deg, var(--dark-teal) 0%, var(--teal-deep) 100%);
   color: var(--white);
   border-radius: var(--radius-lg);
   padding: 44px 40px;
@@ -363,13 +364,34 @@
   overflow: hidden;
 }
 
+.home-calc-card::after {
+  content: '';
+  position: absolute;
+  inset-inline-end: -90px;
+  top: -90px;
+  width: 280px;
+  height: 280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 175, 55, 0.16) 0%, rgba(212, 175, 55, 0) 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+
 .calc-banner-layout {
   display: grid;
-  grid-template-columns: 1.25fr 0.95fr;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.95fr);
   gap: 36px;
   align-items: center;
   position: relative;
   z-index: 2;
+}
+
+/* Children must be allowed to shrink below their content width, otherwise the
+   grid track is forced wider than the card and the content spills out. */
+.calc-banner-info,
+.calc-mini-widget,
+.calc-banner-header {
+  min-width: 0;
 }
 
 .calc-banner-top {
@@ -408,6 +430,7 @@
   font-weight: 900;
   color: var(--white);
   margin-bottom: 8px;
+  line-height: 1.5;
 }
 
 .calc-banner-desc {
@@ -418,38 +441,59 @@
 
 .calc-features-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
   margin-bottom: 28px;
 }
 
 .calc-feature-pill {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 9px;
+  min-width: 0;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.14);
-  padding: 9px 14px;
+  padding: 10px 13px;
   border-radius: var(--radius-sm);
   font-size: 13px;
+  line-height: 1.6;
   color: rgba(255, 255, 255, 0.95);
+}
+
+.calc-feature-pill span {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .calc-feature-pill svg {
   color: var(--gold-light);
   flex-shrink: 0;
+  margin-top: 2px;
 }
 
 .calc-banner-footer {
   display: flex;
-  align-items: center;
-  gap: 18px;
+  align-items: stretch;
+  gap: 12px;
   flex-wrap: wrap;
 }
 
+.calc-banner-footer .btn {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: auto;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.6;
+}
+
 .calc-launch-btn {
-  padding: 13px 26px;
-  font-size: 14.5px;
+  padding: 13px 22px;
+  font-size: 14px;
+}
+
+.calc-checklist-link {
+  flex: 0 1 auto;
 }
 
 /* Mini Interactive Widget inside Banner */
@@ -466,16 +510,22 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 14.5px;
+  font-size: 14px;
   font-weight: 800;
   color: var(--dark-teal);
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border-subtle);
   margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+.mini-widget-head span {
+  min-width: 0;
 }
 
 .mini-head-icon {
   color: var(--gold-dark);
+  flex-shrink: 0;
 }
 
 .mini-label {
@@ -488,12 +538,17 @@
 
 .mini-input-wrap {
   position: relative;
+  min-width: 0;
   margin-bottom: 10px;
 }
 
 .mini-input {
+  display: block;
   width: 100%;
-  padding: 10px 14px 10px 55px;
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px 10px 58px;
   border-radius: var(--radius-xs);
   border: 1.5px solid var(--border-subtle);
   font-size: 16px;
@@ -511,6 +566,18 @@
   background: var(--white);
 }
 
+/* Hide native number spinners so they can't squeeze or misalign the field. */
+.mini-input::-webkit-outer-spin-button,
+.mini-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.mini-input[type='number'] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 .mini-currency {
   position: absolute;
   left: 12px;
@@ -519,17 +586,20 @@
   font-size: 12px;
   color: var(--text-muted);
   font-weight: 600;
+  pointer-events: none;
 }
 
 .mini-presets {
   display: flex;
+  flex-wrap: wrap;
   gap: 6px;
   margin-bottom: 16px;
 }
 
 .preset-btn {
-  flex: 1;
-  padding: 5px 8px;
+  flex: 1 1 0;
+  min-width: 54px;
+  padding: 6px 8px;
   font-size: 12px;
   font-weight: 700;
   border-radius: var(--radius-xs);
@@ -545,22 +615,31 @@
   background: var(--gold-subtle);
 }
 
+.preset-btn.active {
+  border-color: var(--gold);
+  background: var(--gold-subtle);
+  color: var(--gold-dark);
+}
+
 .mini-stage-select {
   margin-bottom: 16px;
 }
 
 .stage-radios {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
 }
 
 .stage-radio {
-  flex: 1;
+  position: relative;
+  flex: 1 1 128px;
+  min-width: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
-  padding: 8px 10px;
+  padding: 9px 10px;
   border-radius: var(--radius-xs);
   border: 1px solid var(--border-subtle);
   background: var(--off-white);
@@ -568,7 +647,13 @@
   font-size: 12.5px;
   font-weight: 600;
   color: var(--text-muted);
+  text-align: center;
   transition: all 0.15s ease;
+}
+
+.stage-radio span {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .stage-radio.selected {
@@ -579,7 +664,9 @@
 }
 
 .stage-radio input {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .mini-result-box {
@@ -590,6 +677,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 10px;
   margin-bottom: 14px;
 }
 
@@ -603,6 +692,7 @@
   font-size: 18px;
   font-weight: 900;
   color: var(--gold-dark);
+  white-space: nowrap;
 }
 
 .mini-result-val small {
@@ -619,7 +709,12 @@
   font-size: 12.5px;
   font-weight: 700;
   color: var(--teal);
+  line-height: 1.7;
   transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.mini-full-link span {
+  min-width: 0;
 }
 
 .mini-full-link:hover {

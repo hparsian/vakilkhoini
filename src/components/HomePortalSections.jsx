@@ -389,10 +389,21 @@ export function HomeCalculatorsBanner() {
                 </div>
 
                 <div className="mini-presets">
-                  <button type="button" onClick={() => handlePreset(20000000)} className="preset-btn">۲۰ م</button>
-                  <button type="button" onClick={() => handlePreset(50000000)} className="preset-btn">۵۰ م</button>
-                  <button type="button" onClick={() => handlePreset(100000000)} className="preset-btn active">۱۰۰ م</button>
-                  <button type="button" onClick={() => handlePreset(500000000)} className="preset-btn">۵۰۰ م</button>
+                  {[
+                    { val: 20000000, label: '۲۰ م' },
+                    { val: 50000000, label: '۵۰ م' },
+                    { val: 100000000, label: '۱۰۰ م' },
+                    { val: 500000000, label: '۵۰۰ م' },
+                  ].map((p) => (
+                    <button
+                      key={p.val}
+                      type="button"
+                      onClick={() => handlePreset(p.val)}
+                      className={`preset-btn ${Number(claimAmount) === p.val ? 'active' : ''}`}
+                    >
+                      {p.label}
+                    </button>
+                  ))}
                 </div>
 
                 <div className="mini-stage-select">
