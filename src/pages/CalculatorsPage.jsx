@@ -1,5 +1,6 @@
 import { useState, useEffect, useId } from 'react'
 import { lawyer } from '../data/content.js'
+import { articlesForTopic, servicesForTopic } from '../data/related.js'
 import { Link } from '../router.jsx'
 import useSEO, { SITE_URL } from '../hooks/useSEO.js'
 import { useToast } from '../context/ToastContext.jsx'
@@ -27,6 +28,7 @@ import {
 } from 'lucide-react'
 import RealEstateRiskChecklist from '../components/RealEstateRiskChecklist.jsx'
 import './CalculatorsPage.css'
+import './ArticlePage.css'
 
 export default function CalculatorsPage({ defaultTab }) {
   const [activeTab, setActiveTab] = useState(defaultTab || 'courtFee')
@@ -193,6 +195,14 @@ export default function CalculatorsPage({ defaultTab }) {
   }
 
   const isChecklistTab = activeTab === 'realEstateChecklist'
+
+  const summaryLinks = {
+    articles: articlesForTopic(
+      'هزینه دادرسی خسارت تأخیر تأدیه مهریه نرخ روز چک صیادی اعسار تعرفه حق الوکاله مبایعه‌نامه',
+      4,
+    ),
+    services: servicesForTopic('محاسبه هزینه دادرسی وصول چک مطالبات مالی تنظیم قرارداد', 2),
+  }
 
   useSEO({
     title: isChecklistTab
@@ -879,6 +889,27 @@ export default function CalculatorsPage({ defaultTab }) {
             <RealEstateRiskChecklist />
           </div>
         )}
+
+        {/* Automatic internal links to the topics these calculators cover */}
+        <div className="related-block">
+          <h2 className="related-title">مطالعه بیشتر درباره محاسبات و هزینه‌های حقوقی</h2>
+          <div className="related-articles-list">
+            {summaryLinks.articles.map((a) => (
+              <Link to={`/maghalat/${a.id}`} key={a.id} className="related-article-card">
+                <span className="related-article-cat">{a.category}</span>
+                <span className="related-article-title">{a.title}</span>
+              </Link>
+            ))}
+          </div>
+          <div className="related-services-list">
+            {summaryLinks.services.map((s) => (
+              <Link to={`/khadamat/${s.id}`} key={s.id} className="related-service-card">
+                <span className="related-service-title">{s.title}</span>
+                <span className="related-service-desc">{s.description}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
 
         {/* Traffic Magnet FAQs */}
         <div className="calc-faq-section">

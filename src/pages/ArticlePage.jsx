@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
-import { articles, services, lawyer } from '../data/content.js'
+import { articles, lawyer } from '../data/content.js'
+import { relatedArticles as getRelatedArticles, relatedServices as getRelatedServices } from '../data/related.js'
 import { Link } from '../router.jsx'
 import useSEO, { SITE_URL } from '../hooks/useSEO.js'
 import { useToast } from '../context/ToastContext.jsx'
@@ -20,28 +21,7 @@ import {
 } from 'lucide-react'
 import './ArticlePage.css'
 
-// Simple relatedness: same category first, otherwise first N others.
-function getRelatedArticles(current) {
-  const sameCategory = articles.filter((a) => a.id !== current.id && a.category === current.category)
-  const rest = articles.filter((a) => a.id !== current.id && a.category !== current.category)
-  return [...sameCategory, ...rest].slice(0, 3)
-}
-
-// Very small keyword map to suggest relevant services under each article.
-function getRelatedServices(article) {
-  const text = `${article.title} ${article.tags?.join(' ') || ''}`
-  const scored = services.map((s) => {
-    let score = 0
-    if (s.category === article.category) score += 1
-    const keywords = [s.title, ...(s.subServices || [])].join(' ')
-    article.tags?.forEach((t) => {
-      if (keywords.includes(t) || text.includes(s.title)) score += 1
-    })
-    return { s, score }
-  })
-  scored.sort((a, b) => b.score - a.score)
-  return scored.slice(0, 2).map((x) => x.s)
-}
+// Related content is scored from the content itself — see src/data/related.js.
 
 // Semantic content renderer for headings, lists, and paragraphs
 function renderArticleContent(text) {
@@ -182,8 +162,8 @@ export default function ArticlePage({ slug }) {
     return <ArticleNotFound />
   }
 
-  const relatedArticles = getRelatedArticles(article)
-  const relatedServices = getRelatedServices(article)
+  const relatedArticles = getRelatedArticles(article, 3)
+  const relatedServices = getRelatedServices(article, 3)
 
   const handleShare = () => {
     const url = `${SITE_URL}${canonicalPath}`

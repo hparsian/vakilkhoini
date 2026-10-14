@@ -62,6 +62,12 @@ export default function Footer() {
                 )
               )}
               <li>
+                <Link to="/checklist-mobayenameh">
+                  <ChevronLeft size={14} className="nav-chevron" />
+                  <span>چک‌لیست ریسک خرید ملک</span>
+                </Link>
+              </li>
+              <li>
                 <Link to="/moshavere">
                   <ChevronLeft size={14} className="nav-chevron" />
                   <span>رزرو وقت مشاوره</span>

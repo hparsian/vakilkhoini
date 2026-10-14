@@ -1,4 +1,8 @@
-import { services, articles, lawyer } from '../data/content.js'
+import { services, lawyer } from '../data/content.js'
+import {
+  relatedArticlesForService as getRelatedArticles,
+  relatedServicesForService,
+} from '../data/related.js'
 import { Link } from '../router.jsx'
 import useSEO, { SITE_URL } from '../hooks/useSEO.js'
 import {
@@ -9,10 +13,6 @@ import {
   ChevronLeft,
 } from 'lucide-react'
 import './ArticlePage.css'
-
-function getRelatedArticles(service) {
-  return articles.filter((a) => a.category === service.category).slice(0, 3)
-}
 
 export default function ServicePage({ slug }) {
   const service = services.find((s) => s.id === slug)
@@ -57,7 +57,8 @@ export default function ServicePage({ slug }) {
     return <ServiceNotFound />
   }
 
-  const relatedArticles = getRelatedArticles(service)
+  const relatedArticles = getRelatedArticles(service, 4)
+  const relatedServices = relatedServicesForService(service, 3)
 
   return (
     <main id="main" className="article-page">
@@ -138,6 +139,20 @@ export default function ServicePage({ slug }) {
                   <Link to={`/maghalat/${a.id}`} key={a.id} className="related-article-card">
                     <span className="related-article-cat">{a.category}</span>
                     <span className="related-article-title">{a.title}</span>
+                  </Link>
+                ))}
+              </div>
+            </section>
+          )}
+
+          {relatedServices.length > 0 && (
+            <section className="related-block" aria-label="سایر خدمات مرتبط">
+              <h2 className="related-title">سایر خدمات مرتبط</h2>
+              <div className="related-services-list">
+                {relatedServices.map((s) => (
+                  <Link to={`/khadamat/${s.id}`} key={s.id} className="related-service-card">
+                    <span className="related-service-title">{s.title}</span>
+                    <span className="related-service-desc">{s.description}</span>
                   </Link>
                 ))}
               </div>

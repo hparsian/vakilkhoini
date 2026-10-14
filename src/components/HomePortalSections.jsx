@@ -356,6 +356,10 @@ export function HomeCalculatorsBanner() {
                   <span>ورود به سامانه ابزارهای حقوقی و محاسبات (۵ ابزار تخصصی)</span>
                   <ChevronLeft size={16} />
                 </Link>
+                <Link to="/checklist-mobayenameh" className="btn btn-outline-dark calc-checklist-link">
+                  <CheckCircle2 size={16} />
+                  <span>چک‌لیست ریسک خرید ملک</span>
+                </Link>
               </div>
             </div>
 

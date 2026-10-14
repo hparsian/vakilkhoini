@@ -29,5 +29,8 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Check the internal link graph of the prerendered pages
+        run: npm run verify:links
+
       - name: Compare live site with this build
         run: npm run verify:deploy -- --wait 420 --interval 15
