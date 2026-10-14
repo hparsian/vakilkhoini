@@ -4,6 +4,7 @@ import Hero from './components/Hero.jsx'
 import TrustBar from './components/TrustBar.jsx'
 import {
   HomeServicesPreview,
+  HomeWhyChooseUs,
   HomeAboutSpotlight,
   HomeCalculatorsBanner,
   HomeProcessSummary,
@@ -28,10 +29,100 @@ import useSEO from './hooks/useSEO.js'
 
 function HomePage() {
   useSEO({
-    title: 'پرستو خوئینی | وکیل پایه یک دادگستری در تهران و سعادت‌آباد - مشاوره حقوقی و ملکی',
+    title: 'پرستو خوئینی | وکیل پایه یک دادگستری در تهران و سعادت‌آباد - دعاوی ملکی، چک و قراردادها',
     description:
-      'پرستو خوئینی وکیل پایه یک دادگستری در تهران (سعادت‌آباد) - ارائه خدمات تخصصی دعاوی حقوقی، ملکی، تنظیم قرارداد و مشاوره تخصصی با رویکرد اخلاق‌مدارانه و مستند.',
+      'پرستو خوئینی وکیل پایه یک دادگستری در تهران (سعادت‌آباد) - وکالت تخصصی در دعاوی ملکی، ثبتی، وصول چک صیادی، تنظیم قراردادهای پیشرفته و مشاوره حقوقی با ارزیابی شفاف شانس پرونده.',
     path: '/',
+    jsonLd: {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'WebSite',
+          '@id': 'https://vakilkhoini.ir/#website',
+          url: 'https://vakilkhoini.ir/',
+          name: 'دفتر وکالت پرستو خوئینی',
+          alternateName: 'وکیل پایه یک دادگستری پرستو خوئینی',
+          description: 'وبسایت رسمی پرستو خوئینی، وکیل پایه یک دادگستری در تهران و سعادت‌آباد',
+          inLanguage: 'fa-IR',
+        },
+        {
+          '@type': ['Attorney', 'LegalService'],
+          '@id': 'https://vakilkhoini.ir/#attorney',
+          name: 'پرستو خوئینی | وکیل پایه یک دادگستری',
+          image: 'https://vakilkhoini.ir/og-image.jpg',
+          telephone: '+989128754177',
+          url: 'https://vakilkhoini.ir/',
+          priceRange: '$$',
+          address: {
+            '@type': 'PostalAddress',
+            streetAddress: 'سعادت‌آباد، میدان کاج، بلوار سرو غربی',
+            addressLocality: 'تهران',
+            addressRegion: 'تهران',
+            postalCode: '19977',
+            addressCountry: 'IR',
+          },
+          geo: {
+            '@type': 'GeoCoordinates',
+            latitude: 35.782,
+            longitude: 51.3735,
+          },
+          openingHoursSpecification: [
+            {
+              '@type': 'OpeningHoursSpecification',
+              dayOfWeek: ['Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday'],
+              opens: '10:00',
+              closes: '20:00',
+            },
+          ],
+          areaServed: [
+            { '@type': 'City', 'name': 'تهران' },
+            { '@type': 'AdministrativeArea', 'name': 'سعادت‌آباد' },
+            { '@type': 'AdministrativeArea', 'name': 'شهرک غرب' },
+            { '@type': 'AdministrativeArea', 'name': 'استان البرز' },
+          ],
+          knowsAbout: [
+            'دعاوی ملکی و ثبتی',
+            'الزام به تنظیم سند رسمی',
+            'سرقفلی و حق کسب و پیشه',
+            'وصول چک صیادی و توقیف اموال',
+            'تنظیم قرارداد مشارکت در ساخت',
+            'داوری اختلافات تجاری',
+            'محاسبه آنلاین هزینه دادرسی و خسارت تاخیر تادیه',
+            'وکالت در محاکم تجدیدنظر و دیوان عالی کشور',
+          ],
+        },
+        {
+          '@type': 'FAQPage',
+          '@id': 'https://vakilkhoini.ir/#faqpage',
+          mainEntity: [
+            {
+              '@type': 'Question',
+              name: 'آیا امکان دریافت مشاوره قبل از تصمیم‌گیری برای شکایت وجود دارد؟',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'بله، اکیداً توصیه می‌شود پیش از هرگونه اقدام قضایی، در یک جلسه مشاوره حضوری یا تلفنی اسناد خود را بررسی کنید تا از شانس واقعی پیروزی و هزینه‌ها آگاه شوید.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'حق‌الوکاله و هزینه‌های دادرسی چگونه محاسبه و پرداخت می‌شود؟',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'حق‌الوکاله بر اساس تعرفه قانونی و پیچیدگی موضوع تعیین و امکان پرداخت مرحله‌ای متناسب با پیشرفت دادرسی در سامانه ثنا درج می‌شود.',
+              },
+            },
+            {
+              '@type': 'Question',
+              name: 'دفتر وکالت در کدام منطقه تهران واقع است و ساعات پذیرش چگونه است؟',
+              acceptedAnswer: {
+                '@type': 'Answer',
+                text: 'دفتر وکالت در منطقه سعادت‌آباد تهران (محدوده میدان کاج / بلوار سرو) واقع شده است. پذیرش در روزهای شنبه تا چهارشنبه از ساعت ۱۰:۰۰ تا ۲۰:۰۰ با وقت قبلی انجام می‌شود.',
+              },
+            },
+          ],
+        },
+      ],
+    },
   })
 
   return (
@@ -39,6 +130,7 @@ function HomePage() {
       <Hero />
       <TrustBar />
       <HomeServicesPreview />
+      <HomeWhyChooseUs />
       <HomeAboutSpotlight />
       <HomeCalculatorsBanner />
       <HomeProcessSummary />

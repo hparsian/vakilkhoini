@@ -32,16 +32,17 @@ export default function Hero() {
           </div>
 
           <h1 className="hero-headline">
+            <span className="hero-badge-eyebrow">وکیل پایه یک دادگستری در تهران و سعادت‌آباد</span>
             <span className="hero-name-highlight">{lawyer.name}</span>
-            <span className="hero-title-sub">{lawyer.title}</span>
+            <span className="hero-title-sub">متخصص دعاوی ملکی، اسناد تجاری، داوری و تنظیم قراردادها</span>
           </h1>
 
           <p className="hero-slogan">
-            دفاع مستند، پیگیری مسئولانه و مشاوره تخصصی در دعاوی حقوقی، ملکی و تجاری
+            دفاع مستند، پیگیری مسئولانه و مشاوره تخصصی در محاکم دادگستری تهران
           </p>
 
           <p className="hero-text">
-            رویکرد ما در دفتر وکالت، پرهیز از وعده‌های واهی و اتکا به دانش به‌روز حقوقی، بررسی موشکافانه اسناد و حفظ صددرصدی محرمانگی پرونده موکلین است.
+            رویکرد ما در دفتر وکالت سعادت‌آباد، پرهیز از وعده‌های واهی و اتکا به دانش به‌روز حقوقی، بررسی موشکافانه اسناد و حفظ صددرصدی محرمانگی پرونده موکلین است.
           </p>
 
           <div className="hero-actions">
@@ -85,7 +86,7 @@ export default function Hero() {
           <div className="hero-highlights">
             <div className="hero-highlight-item">
               <CheckCircle2 size={16} className="highlight-icon" />
-              <span>پروانه رسمی دادگستری</span>
+              <span>پروانه رسمی دادگستری ۳۴۸۹۲</span>
             </div>
             <div className="hero-highlight-item">
               <CheckCircle2 size={16} className="highlight-icon" />
@@ -94,6 +95,18 @@ export default function Hero() {
             <div className="hero-highlight-item">
               <CheckCircle2 size={16} className="highlight-icon" />
               <span>مشاوره حضوری و آنلاین</span>
+            </div>
+          </div>
+
+          {/* Quick Access Legal Topics (SEO & UX Internal Links) */}
+          <div className="hero-quick-topics" aria-label="دسترسی سریع به موضوعات حقوقی">
+            <span className="quick-topics-label">موضوعات پرجستجو:</span>
+            <div className="quick-topics-tags">
+              <Link to="/khadamat/property-claims" className="quick-topic-tag">الزام به تنظیم سند</Link>
+              <Link to="/khadamat/financial-claims" className="quick-topic-tag">وصول چک صیادی</Link>
+              <Link to="/khadamat/contracts-negotiation" className="quick-topic-tag">قرارداد مشارکت در ساخت</Link>
+              <Link to="/mohasebe" className="quick-topic-tag gold">محاسبه آنلاین هزینه دادرسی</Link>
+              <Link to="/maghalat/what-is-petition" className="quick-topic-tag">دادخواست حقوقی چیست؟</Link>
             </div>
           </div>
         </div>
