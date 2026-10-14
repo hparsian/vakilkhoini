@@ -23,7 +23,7 @@
 
 .process-card:hover {
   background: var(--white);
-  border-color: rgba(201, 154, 46, 0.4);
+  border-color: rgba(212, 175, 55, 0.4);
   transform: translateY(-6px);
 }
 
@@ -41,7 +41,7 @@
   background: var(--gold-subtle);
   padding: 4px 12px;
   border-radius: var(--radius-full);
-  border: 1px solid rgba(201, 154, 46, 0.3);
+  border: 1px solid rgba(212, 175, 55, 0.3);
 }
 
 .process-icon-box {
@@ -53,7 +53,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 14px rgba(4, 39, 43, 0.15);
+  box-shadow: 0 4px 14px rgba(11, 25, 44, 0.15);
   transition: transform 0.25s ease;
 }
 
@@ -99,7 +99,7 @@
   background: linear-gradient(135deg, var(--dark-teal) 0%, var(--teal-deep) 100%);
   color: var(--white);
   border: 1px solid var(--border-gold);
-  box-shadow: 0 10px 30px rgba(4, 39, 43, 0.15);
+  box-shadow: 0 10px 30px rgba(11, 25, 44, 0.15);
 }
 
 .process-cta-text h4 {

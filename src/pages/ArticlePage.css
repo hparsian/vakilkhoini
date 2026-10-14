@@ -227,8 +227,8 @@
   display: flex;
   align-items: center;
   gap: 18px;
-  background: linear-gradient(135deg, rgba(4, 39, 43, 0.04) 0%, rgba(201, 154, 46, 0.12) 100%);
-  border: 1px solid rgba(201, 154, 46, 0.35);
+  background: linear-gradient(135deg, rgba(11, 25, 44, 0.04) 0%, rgba(212, 175, 55, 0.12) 100%);
+  border: 1px solid rgba(212, 175, 55, 0.35);
   border-radius: var(--radius-md);
   padding: 22px 26px;
   margin: 28px 0;
@@ -325,13 +325,13 @@
    High-Converting Legal Consultation CTA Card
 =========================================================== */
 .article-consultation-cta {
-  background: linear-gradient(135deg, #04272B 0%, #073B41 55%, #0A4D54 100%);
+  background: linear-gradient(135deg, #0B192C 0%, #12294A 55%, #1C3A5E 100%);
   border: 1.5px solid var(--gold);
   border-radius: var(--radius-lg, 16px);
   padding: 32px 28px;
   color: var(--white);
   margin: 36px 0 28px;
-  box-shadow: 0 14px 36px rgba(4, 39, 43, 0.22);
+  box-shadow: 0 14px 36px rgba(11, 25, 44, 0.22);
   text-align: right;
   position: relative;
   overflow: hidden;
@@ -351,8 +351,8 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(201, 154, 46, 0.16);
-  border: 1px solid rgba(201, 154, 46, 0.4);
+  background: rgba(212, 175, 55, 0.16);
+  border: 1px solid rgba(212, 175, 55, 0.4);
   color: var(--gold-light);
   padding: 5px 14px;
   border-radius: var(--radius-full);
@@ -425,19 +425,19 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: linear-gradient(135deg, #E6C875 0%, #C99A2E 100%);
+  background: linear-gradient(135deg, #E7CF7A 0%, #D4AF37 100%);
   color: var(--dark-teal);
   padding: 10px 18px;
   border-radius: var(--radius-sm);
   font-weight: 800;
   font-size: 13.5px;
-  box-shadow: 0 4px 15px rgba(201, 154, 46, 0.35);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.35);
   transition: all 0.2s ease;
   white-space: nowrap;
 }
 
 .cta-call-btn:hover {
-  background: #E8CC78;
+  background: #E7CF7A;
   transform: translateY(-2px);
 }
 

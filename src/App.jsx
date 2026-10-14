@@ -12,6 +12,8 @@ import {
   HomeFAQPreview,
   HomeContactCTA,
 } from './components/HomePortalSections.jsx'
+import Testimonials from './components/Testimonials.jsx'
+import LinkPrefetcher from './components/LinkPrefetcher.jsx'
 import Footer from './components/Footer.jsx'
 import StickyMobileCTA from './components/StickyMobileCTA.jsx'
 import ArticlePage from './pages/ArticlePage.jsx'
@@ -132,6 +134,7 @@ function HomePage() {
       <TrustBar />
       <HomeServicesPreview />
       <HomeWhyChooseUs />
+      <Testimonials />
       <HomeAboutSpotlight />
       <HomeCalculatorsBanner />
       <HomeProcessSummary />
@@ -182,6 +185,7 @@ export default function App() {
   return (
     <>
       <a href="#main" className="skip-link">رفتن به محتوای اصلی</a>
+      <LinkPrefetcher />
       <Header />
       {content}
       <Footer />

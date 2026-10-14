@@ -21,7 +21,7 @@
 }
 
 .why-card:hover {
-  border-color: rgba(201, 154, 46, 0.4);
+  border-color: rgba(212, 175, 55, 0.4);
   transform: translateY(-3px);
   box-shadow: var(--shadow-card);
 }
@@ -36,7 +36,7 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  border: 1px solid rgba(201, 154, 46, 0.25);
+  border: 1px solid rgba(212, 175, 55, 0.25);
   transition: all 0.25s ease;
 }
 
@@ -98,7 +98,7 @@
   padding: 28px 24px;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
-  box-shadow: 0 4px 20px rgba(4, 39, 43, 0.04);
+  box-shadow: 0 4px 20px rgba(11, 25, 44, 0.04);
 }
 
 .stat-unit {

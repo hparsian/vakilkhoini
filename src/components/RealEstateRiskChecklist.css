@@ -3,7 +3,7 @@
 }
 
 .risk-header-card {
-  background: linear-gradient(135deg, rgba(4, 39, 43, 0.05) 0%, rgba(201, 154, 46, 0.08) 100%);
+  background: linear-gradient(135deg, rgba(11, 25, 44, 0.05) 0%, rgba(212, 175, 55, 0.08) 100%);
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-lg);
   padding: 28px 24px;
@@ -66,7 +66,7 @@
   gap: 14px;
   margin-bottom: 18px;
   padding-bottom: 12px;
-  border-bottom: 1px solid rgba(4, 39, 43, 0.06);
+  border-bottom: 1px solid rgba(11, 25, 44, 0.06);
 }
 
 .sec-step {
@@ -123,7 +123,7 @@
 .risk-radio-item.selected {
   background: #FFFFFF;
   border-color: var(--teal);
-  box-shadow: 0 0 0 3px rgba(18, 99, 107, 0.12);
+  box-shadow: 0 0 0 3px rgba(28, 58, 94, 0.12);
 }
 
 .risk-radio-item input[type="radio"] {
@@ -172,7 +172,7 @@
 .risk-check-card.checked {
   background: #FFFFFF;
   border-color: var(--gold-dark);
-  box-shadow: 0 0 0 2px rgba(201, 154, 46, 0.18);
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.18);
 }
 
 .risk-check-card input[type="checkbox"] {

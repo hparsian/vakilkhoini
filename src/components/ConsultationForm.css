@@ -30,8 +30,8 @@
 
 .eyebrow.light {
   color: var(--gold-light);
-  background: rgba(201, 154, 46, 0.15);
-  border-color: rgba(201, 154, 46, 0.35);
+  background: rgba(212, 175, 55, 0.15);
+  border-color: rgba(212, 175, 55, 0.35);
 }
 
 .consultation-main-title {
@@ -95,8 +95,8 @@
 }
 
 .consultation-direct-phone {
-  background: rgba(201, 154, 46, 0.12);
-  border: 1px solid rgba(201, 154, 46, 0.35);
+  background: rgba(212, 175, 55, 0.12);
+  border: 1px solid rgba(212, 175, 55, 0.35);
   border-radius: var(--radius-sm);
   padding: 16px 20px;
   display: flex;
@@ -134,7 +134,7 @@
   background: var(--white);
   border-radius: var(--radius-md);
   padding: 36px 32px;
-  box-shadow: 0 16px 40px rgba(4, 39, 43, 0.25);
+  box-shadow: 0 16px 40px rgba(11, 25, 44, 0.25);
   border: 1px solid var(--border-gold);
 }
 
@@ -296,7 +296,7 @@
 .spinner-icon {
   width: 18px;
   height: 18px;
-  border: 2px solid rgba(4, 39, 43, 0.3);
+  border: 2px solid rgba(11, 25, 44, 0.3);
   border-top-color: var(--dark-teal);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;

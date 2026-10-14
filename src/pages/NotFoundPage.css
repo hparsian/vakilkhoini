@@ -1,7 +1,7 @@
 .not-found-page {
   padding: 48px 0 80px;
   min-height: calc(100vh - 200px);
-  background: linear-gradient(180deg, #F8FAF9 0%, #FFFFFF 100%);
+  background: linear-gradient(180deg, #FAF9F6 0%, #FFFFFF 100%);
 }
 
 .not-found-container {
@@ -23,7 +23,7 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: rgba(201, 154, 46, 0.12);
+  background: rgba(212, 175, 55, 0.12);
   color: var(--gold-dark);
   padding: 6px 14px;
   border-radius: var(--radius-full);
@@ -80,7 +80,7 @@
   outline: none;
   background: #FFFFFF;
   border-color: var(--teal);
-  box-shadow: 0 0 0 4px rgba(18, 99, 107, 0.1);
+  box-shadow: 0 0 0 4px rgba(28, 58, 94, 0.1);
 }
 
 .search-clear-btn {
@@ -210,7 +210,7 @@
 }
 
 .card-icon-wrap.teal {
-  background: rgba(18, 99, 107, 0.1);
+  background: rgba(28, 58, 94, 0.1);
   color: var(--teal);
 }
 
@@ -259,7 +259,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--teal);
-  background: rgba(18, 99, 107, 0.08);
+  background: rgba(28, 58, 94, 0.08);
   padding: 3px 10px;
   border-radius: var(--radius-full);
   margin-bottom: 10px;

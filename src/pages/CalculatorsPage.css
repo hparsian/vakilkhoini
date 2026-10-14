@@ -35,7 +35,7 @@
 
 .calc-tab-btn:hover {
   color: var(--dark-teal);
-  border-color: rgba(4, 39, 43, 0.2);
+  border-color: rgba(11, 25, 44, 0.2);
   transform: translateY(-1px);
 }
 
@@ -43,7 +43,7 @@
   background: var(--dark-teal);
   color: var(--white);
   border-color: var(--dark-teal);
-  box-shadow: 0 6px 20px rgba(4, 39, 43, 0.18);
+  box-shadow: 0 6px 20px rgba(11, 25, 44, 0.18);
 }
 
 .calc-tab-btn.active svg {
@@ -167,11 +167,11 @@
 
 .calc-opt-btn:hover {
   background: var(--white);
-  border-color: rgba(201, 154, 46, 0.4);
+  border-color: rgba(212, 175, 55, 0.4);
 }
 
 .calc-opt-btn.selected {
-  background: rgba(201, 154, 46, 0.08);
+  background: rgba(212, 175, 55, 0.08);
   border-color: var(--gold);
 }
 
@@ -204,7 +204,7 @@
 .calc-input:focus {
   border-color: var(--gold);
   background: var(--white);
-  box-shadow: 0 0 0 4px rgba(201, 154, 46, 0.15);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
 }
 
 .input-unit {
@@ -258,15 +258,15 @@
 }
 
 .result-box {
-  background: linear-gradient(135deg, rgba(4, 39, 43, 0.03) 0%, rgba(201, 154, 46, 0.07) 100%);
-  border: 1.5px solid rgba(201, 154, 46, 0.35);
+  background: linear-gradient(135deg, rgba(11, 25, 44, 0.03) 0%, rgba(212, 175, 55, 0.07) 100%);
+  border: 1.5px solid rgba(212, 175, 55, 0.35);
   border-radius: var(--radius-md);
   padding: 26px;
   text-align: center;
 }
 
 .result-box.highlight {
-  background: linear-gradient(135deg, rgba(201, 154, 46, 0.1) 0%, rgba(4, 39, 43, 0.05) 100%);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(11, 25, 44, 0.05) 100%);
   border-color: var(--gold);
 }
 
@@ -313,7 +313,7 @@
 .result-breakdown {
   margin-top: 16px;
   padding-top: 14px;
-  border-top: 1px dashed rgba(4, 39, 43, 0.12);
+  border-top: 1px dashed rgba(11, 25, 44, 0.12);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -362,7 +362,7 @@
 
 .calc-action-btn.copy-btn:hover {
   background: var(--off-white);
-  border-color: rgba(4, 39, 43, 0.25);
+  border-color: rgba(11, 25, 44, 0.25);
 }
 
 .calc-action-btn.share-btn {
@@ -390,7 +390,7 @@
   width: 36px;
   height: 36px;
   border-radius: var(--radius-full);
-  background: rgba(201, 154, 46, 0.2);
+  background: rgba(212, 175, 55, 0.2);
   color: var(--gold-light);
   display: flex;
   align-items: center;

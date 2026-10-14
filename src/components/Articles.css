@@ -37,7 +37,7 @@
 
 .articles-search-input:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 0 4px rgba(201, 154, 46, 0.15);
+  box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
 }
 
 .search-clear-btn {
@@ -85,7 +85,7 @@
   background: var(--dark-teal);
   color: var(--white);
   border-color: var(--dark-teal);
-  box-shadow: 0 4px 12px rgba(4, 39, 43, 0.2);
+  box-shadow: 0 4px 12px rgba(11, 25, 44, 0.2);
 }
 
 /* Articles Grid */
@@ -115,11 +115,11 @@
 .article-cat-badge {
   font-size: 12px;
   font-weight: 800;
-  background: rgba(201, 154, 46, 0.2);
+  background: rgba(212, 175, 55, 0.2);
   color: var(--gold-light);
   padding: 4px 10px;
   border-radius: var(--radius-xs);
-  border: 1px solid rgba(201, 154, 46, 0.4);
+  border: 1px solid rgba(212, 175, 55, 0.4);
 }
 
 .article-meta-row {
