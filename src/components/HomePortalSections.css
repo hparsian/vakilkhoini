@@ -145,7 +145,8 @@
 }
 
 .home-services-cta-bar {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-top: 40px;
 }
 
@@ -794,7 +795,8 @@
 }
 
 .home-process-action {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-top: 38px;
 }
 
@@ -898,7 +900,8 @@
 }
 
 .home-articles-cta-bar {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-top: 38px;
 }
 
@@ -998,8 +1001,22 @@
 }
 
 .home-faq-cta-bar {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-top: 36px;
+}
+
+/* Centered section CTA bars: let long labels wrap instead of overflowing the
+   container (which, in RTL, used to push the button off to the left). */
+.home-services-cta-bar .btn,
+.home-process-action .btn,
+.home-articles-cta-bar .btn,
+.home-faq-cta-bar .btn {
+  max-width: 100%;
+  height: auto;
+  white-space: normal;
+  text-align: center;
+  line-height: 1.65;
 }
 
 /* -----------------------------------------------------------
