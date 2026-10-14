@@ -33,12 +33,38 @@ npx wrangler deploy
 
 **گزینه جایگزین (Vercel):** Build Command `npm run build` و Output Directory `dist`.
 
+### بررسی به‌روز بودن دیپلوی
+
+پس از هر پوش، با این دستور مطمئن شو نسخه‌ای که روی دامنه سرو می‌شود همان بیلد محلی است:
+
+```bash
+npm run build
+npm run verify:deploy                               # یک بررسی
+npm run verify:deploy -- --wait 300 --interval 15   # تا ۵ دقیقه صبر می‌کند تا دیپلوی تمام شود
+```
+
+اسکریپت `scripts/verify-deploy.mjs` فایل‌های هش‌دار ارجاع‌شده در `dist/index.html` را استخراج می‌کند،
+همان فهرست را از سایت زنده می‌خواند و به‌صورت پیش‌فرض محتوای هر فایل را هم بایت‌به‌بایت (sha256)
+مقایسه می‌کند. کد خروج ۰ = سایت زنده دقیقاً همین بیلد است، ۱ = ناهم‌خوانی یا اتمام مهلت،
+۲ = امکان بررسی نبود (مثلاً بیلد محلی موجود نیست).
+
+گزینه‌ها: `--site <url>` • `--dir <path>` • `--wait <seconds>` • `--interval <seconds>` • `--names-only`
+(در حالت `--names-only` فقط نام فایل‌ها مقایسه می‌شود، نه بایت‌های محتوا).
+
+ورک‌فلوی `.github/workflows/verify-deploy.yml` همین بررسی را بعد از هر push روی `main` خودکار اجرا
+می‌کند: نصب، بیلد و سپس مقایسه با سایت زنده با مهلت ۷ دقیقه. نیازمندی: Node ۱۸ یا بالاتر
+(به‌خاطر `fetch`). اگر روزی محیط بیلد دیپلوی هش متفاوتی تولید کند، با `--names-only` هم می‌توان
+فقط هم‌نامی دارایی‌ها را بررسی کرد.
+
 ## ساختار پروژه
 
 ```
 ├── public/                 robots.txt, sitemap.xml (تولیدشده), favicon.svg, og-image.jpg
+├── .github/workflows/
+│   └── verify-deploy.yml   بررسی خودکار به‌روز بودن دیپلوی بعد از هر push
 ├── scripts/
-│   └── generate-sitemap.mjs تولید سایت‌مپ از محتوای سایت
+│   ├── generate-sitemap.mjs تولید سایت‌مپ از محتوای سایت
+│   └── verify-deploy.mjs    مقایسه هش بیلد محلی با سایت زنده
 ├── src/
 │   ├── assets/             تصویر پرتره
 │   ├── components/         کامپوننت‌های مشترک و بخش‌های صفحه اصلی (Header, Hero, Footer, …)
