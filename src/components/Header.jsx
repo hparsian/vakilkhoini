@@ -83,6 +83,11 @@ export default function Header() {
     }
   }, [open])
 
+  // Automatically close drawer when route changes
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
   const handleNavClick = useCallback(
     (e, href) => {
       setOpen(false)

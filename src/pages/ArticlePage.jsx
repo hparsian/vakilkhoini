@@ -39,6 +39,87 @@ function getRelatedServices(article) {
   return scored.slice(0, 2).map((x) => x.s)
 }
 
+// Semantic content renderer for headings, lists, and paragraphs
+function renderArticleContent(text) {
+  if (!text) return null
+  const blocks = text.split('\n\n')
+
+  return blocks.map((block, idx) => {
+    const trimmed = block.trim()
+    if (!trimmed) return null
+
+    // Markdown style headings
+    if (trimmed.startsWith('### ')) {
+      return (
+        <h3 key={idx} className="reader-section-h3">
+          {trimmed.replace(/^###\s+/, '')}
+        </h3>
+      )
+    }
+    if (trimmed.startsWith('## ')) {
+      return (
+        <h2 key={idx} className="reader-section-h2">
+          {trimmed.replace(/^##\s+/, '')}
+        </h2>
+      )
+    }
+
+    // Single line questions or section titles ending in ؟ or :
+    if (
+      !trimmed.includes('\n') &&
+      trimmed.length < 90 &&
+      (trimmed.endsWith('؟') || trimmed.endsWith(':'))
+    ) {
+      return (
+        <h2 key={idx} className="reader-section-h2">
+          {trimmed.replace(/:$/, '')}
+        </h2>
+      )
+    }
+
+    // Check if block is a bulleted list
+    const lines = trimmed.split('\n')
+    const isBulletList =
+      lines.length > 1 &&
+      lines.every((l) => l.trim().startsWith('-') || l.trim().startsWith('•'))
+    if (isBulletList) {
+      return (
+        <ul key={idx} className="reader-list bullet-list">
+          {lines.map((l, lIdx) => (
+            <li key={lIdx}>{l.replace(/^[-•]\s*/, '')}</li>
+          ))}
+        </ul>
+      )
+    }
+
+    // Check if block is a numbered list
+    const isNumberedList =
+      lines.length > 1 &&
+      lines.every((l) => /^[۰-۹0-9]+[.-]/.test(l.trim()))
+    if (isNumberedList) {
+      return (
+        <ol key={idx} className="reader-list numbered-list">
+          {lines.map((l, lIdx) => (
+            <li key={lIdx}>{l.replace(/^[۰-۹0-9]+[.-]\s*/, '')}</li>
+          ))}
+        </ol>
+      )
+    }
+
+    // Regular paragraph
+    return (
+      <p key={idx} className="reader-paragraph">
+        {lines.map((line, lIdx) => (
+          <span key={lIdx}>
+            {line}
+            {lIdx < lines.length - 1 && <br />}
+          </span>
+        ))}
+      </p>
+    )
+  })
+}
+
 export default function ArticlePage({ slug }) {
   const article = articles.find((a) => a.id === slug)
   const { showToast } = useToast()
@@ -144,13 +225,7 @@ export default function ArticlePage({ slug }) {
           </header>
 
           <div className="reader-body">
-            {(article.fullContent || article.content || article.excerpt)
-              .split('\n\n')
-              .map((para, i) => (
-                <p key={i} className="reader-paragraph">
-                  {para}
-                </p>
-              ))}
+            {renderArticleContent(article.fullContent || article.content || article.excerpt)}
 
             {article.takeaways && article.takeaways.length > 0 && (
               <div className="reader-takeaways-box">
