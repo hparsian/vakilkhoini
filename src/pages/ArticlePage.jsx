@@ -13,6 +13,9 @@ import {
   Calculator,
   Copy,
   MessageCircle,
+  Scale,
+  MapPin,
+  Phone,
 } from 'lucide-react'
 import './ArticlePage.css'
 
@@ -359,6 +362,43 @@ export default function ArticlePage({ slug }) {
                 <span>ورود به ابزار محاسبه</span>
                 <ChevronLeft size={14} />
               </Link>
+            </div>
+
+            {/* High-Converting Legal Consultation CTA Card */}
+            <div className="article-consultation-cta" role="complementary" aria-label="مشاوره با وکیل پایه یک">
+              <div className="cta-kicker-badge">
+                <Scale size={14} />
+                <span>ارزیابی شانس موفقیت پرونده قبل از هزینه و طرح دعوا</span>
+              </div>
+              <h3 className="cta-headline">نیاز به بررسی تخصصی اسناد و دادخواست خود دارید؟</h3>
+              <p className="cta-body-text">
+                یک اشتباه در انتخاب عنوان دادخواست یا تقدیم دیرهنگام لایحه، می‌تواند ماه‌ها دادرسی را به بن‌بست بکشاند. 
+                <strong> سرکار خانم {lawyer.name}</strong> ({lawyer.title} در سعادت‌آباد تهران)، پس از بررسی دقیق اسناد و مدارک، شفاف‌ترین استراتژی دفاعی و شانس واقعی پرونده را در اختیارتان می‌گذارد.
+              </p>
+              <div className="cta-bottom-row">
+                <div className="cta-office-info">
+                  <span className="cta-address">
+                    <MapPin size={13} />
+                    <span>{lawyer.office}</span>
+                  </span>
+                  <span className="cta-note">{lawyer.shortHours}</span>
+                </div>
+                <div className="cta-action-buttons">
+                  <a href={lawyer.phoneHref} className="cta-call-btn" title="تماس تلفنی مستقیم">
+                    <Phone size={15} />
+                    <span>تماس مستقیم: </span>
+                    <span className="phone-number" dir="ltr">{lawyer.displayPhone}</span>
+                  </a>
+                  <a href={lawyer.whatsappHref} target="_blank" rel="noopener noreferrer" className="cta-whatsapp-btn" title="ارسال پیام در واتساپ">
+                    <MessageCircle size={15} />
+                    <span>مشاوره در واتساپ</span>
+                  </a>
+                  <Link to="/moshavere" className="cta-booking-btn">
+                    <Calendar size={15} />
+                    <span>رزرو وقت حضوری</span>
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
 
