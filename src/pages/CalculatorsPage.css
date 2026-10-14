@@ -282,6 +282,8 @@
   display: flex;
   align-items: baseline;
   justify-content: center;
+  flex-wrap: wrap;
+  word-break: break-word;
   gap: 8px;
   font-size: 36px;
   font-weight: 900;
@@ -513,7 +515,12 @@
 
 @media (max-width: 600px) {
   .calc-card {
-    padding: 24px 18px;
+    padding: 24px 16px;
+  }
+  .calc-card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
   }
   .calc-options-grid {
     grid-template-columns: 1fr;
@@ -522,7 +529,7 @@
     grid-template-columns: 1fr;
   }
   .result-value {
-    font-size: 28px;
+    font-size: clamp(22px, 6.5vw, 28px);
   }
   .calc-tabs-bar {
     justify-content: stretch;
@@ -532,5 +539,6 @@
     font-size: 13px;
     justify-content: center;
     padding: 10px 12px;
+    min-height: 44px;
   }
 }

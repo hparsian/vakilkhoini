@@ -367,8 +367,8 @@
 }
 
 .mobile-close-btn {
-  width: 38px;
-  height: 38px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-xs);
   background: var(--surface-muted);
   color: var(--dark-teal);
@@ -471,6 +471,7 @@
   flex-direction: column;
   gap: 12px;
   padding: 18px 20px;
+  padding-bottom: max(18px, env(safe-area-inset-bottom, 18px));
   border-top: 1px solid var(--border-subtle);
   background: var(--off-white);
   flex-shrink: 0;

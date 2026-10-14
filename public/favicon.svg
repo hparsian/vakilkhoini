@@ -1,10 +1,63 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="12" fill="#063B3F"/>
-  <g fill="none" stroke="#C9A24A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-    <line x1="32" y1="14" x2="32" y2="46"/>
-    <line x1="16" y1="20" x2="48" y2="20"/>
-    <path d="M16 20 L10 32 A6 6 0 0 0 22 32 Z"/>
-    <path d="M48 20 L42 32 A6 6 0 0 0 54 32 Z"/>
-    <line x1="24" y1="50" x2="40" y2="50"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <!-- Background Gradient: Deep luxury Persian legal teal -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#04272B"/>
+      <stop offset="60%" stop-color="#073B41"/>
+      <stop offset="100%" stop-color="#0A4D54"/>
+    </linearGradient>
+
+    <!-- Gold Accent Gradient -->
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FCEAB2"/>
+      <stop offset="35%" stop-color="#E5C368"/>
+      <stop offset="70%" stop-color="#C99A2E"/>
+      <stop offset="100%" stop-color="#9C731A"/>
+    </linearGradient>
+
+    <!-- Soft Gold Radial Glow -->
+    <radialGradient id="glowGrad" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#E8CC78" stop-opacity="0.22"/>
+      <stop offset="100%" stop-color="#04272B" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background Squircle / Shield with Gold Border -->
+  <rect x="2" y="2" width="60" height="60" rx="15" fill="url(#bgGrad)" stroke="url(#goldGrad)" stroke-width="1.8"/>
+  <rect x="5" y="5" width="54" height="54" rx="12" fill="url(#glowGrad)"/>
+
+  <!-- Scales of Justice Symbol (Bold, ultra-crisp geometry for 16px to 512px viewports) -->
+  <g id="justice-scale">
+    <!-- Center Top Finial / Spire -->
+    <path d="M32 9 L34.5 13 L29.5 13 Z" fill="url(#goldGrad)"/>
+    <circle cx="32" cy="15.5" r="2.2" fill="url(#goldGrad)"/>
+
+    <!-- Central Pillar / Mast -->
+    <rect x="30.5" y="15.5" width="3" height="31" rx="1.5" fill="url(#goldGrad)"/>
+
+    <!-- Horizontal Balance Beam with End Pivots -->
+    <path d="M14 20.5 Q32 18.5 50 20.5" fill="none" stroke="url(#goldGrad)" stroke-width="3" stroke-linecap="round"/>
+    <circle cx="15" cy="20.5" r="2" fill="url(#goldGrad)"/>
+    <circle cx="32" cy="19.5" r="2.6" fill="#04272B" stroke="url(#goldGrad)" stroke-width="2"/>
+    <circle cx="49" cy="20.5" r="2" fill="url(#goldGrad)"/>
+
+    <!-- Left Scale Suspension Cords -->
+    <line x1="15" y1="21.5" x2="9" y2="33" stroke="url(#goldGrad)" stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="15" y1="21.5" x2="21" y2="33" stroke="url(#goldGrad)" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- Left Pan (Filled luxury saucer) -->
+    <path d="M8 33 Q15 39 22 33 Z" fill="url(#goldGrad)"/>
+    <path d="M7 33.5 Q15 35 23 33.5" fill="none" stroke="#FCEAB2" stroke-width="1"/>
+
+    <!-- Right Scale Suspension Cords -->
+    <line x1="49" y1="21.5" x2="43" y2="33" stroke="url(#goldGrad)" stroke-width="1.6" stroke-linecap="round"/>
+    <line x1="49" y1="21.5" x2="55" y2="33" stroke="url(#goldGrad)" stroke-width="1.6" stroke-linecap="round"/>
+    <!-- Right Pan (Filled luxury saucer) -->
+    <path d="M42 33 Q49 39 56 33 Z" fill="url(#goldGrad)"/>
+    <path d="M41 33.5 Q49 35 57 33.5" fill="none" stroke="#FCEAB2" stroke-width="1"/>
+
+    <!-- Pedestal Base (Double Stepped Platform for Solid Stability) -->
+    <rect x="25" y="46.5" width="14" height="2.5" rx="1.2" fill="url(#goldGrad)"/>
+    <rect x="20" y="49" width="24" height="3.5" rx="1.7" fill="url(#goldGrad)"/>
+    <line x1="22" y1="50" x2="42" y2="50" stroke="#FCEAB2" stroke-width="0.8" opacity="0.6"/>
   </g>
 </svg>

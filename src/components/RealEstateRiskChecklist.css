@@ -403,3 +403,22 @@
     position: static;
   }
 }
+
+@media (max-width: 560px) {
+  .risk-header-card {
+    padding: 20px 16px;
+  }
+  .risk-header-title {
+    font-size: 1.3rem;
+  }
+  .risk-section {
+    padding: 18px 14px;
+  }
+  .risk-checkboxes-grid {
+    grid-template-columns: 1fr;
+  }
+  .risk-check-card,
+  .risk-radio-item {
+    padding: 10px 12px;
+  }
+}

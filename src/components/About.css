@@ -259,3 +259,12 @@
   }
 }
 
+@media (max-width: 500px) {
+  .about-tab-btn {
+    flex: 1 1 calc(50% - 8px);
+    justify-content: center;
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
+
