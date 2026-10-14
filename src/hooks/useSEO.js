@@ -44,8 +44,18 @@ function setJsonLd(id, data) {
  * Sets document title, meta description, canonical URL, Open Graph / Twitter
  * tags and an optional JSON-LD block for the current route. Cleans up the
  * JSON-LD block on unmount so pages don't leak structured data into each other.
+ *
+ * During the build-time prerender there is no `document`, so the values are
+ * published through `ssrMeta` instead and scripts/prerender.mjs writes them
+ * into the static HTML of every route (that is what social scrapers read).
  */
+export const ssrMeta = { value: null }
+
 export default function useSEO({ title, description, path, image, jsonLd, noindex }) {
+  if (typeof document === 'undefined') {
+    ssrMeta.value = { title, description, path, image, jsonLd, noindex }
+  }
+
   useEffect(() => {
     const canonicalUrl = `${SITE_URL}${path === '/' ? '/' : path}`
 

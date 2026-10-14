@@ -125,6 +125,8 @@ export default function Hero() {
                   height="500"
                   className="hero-portrait-img"
                   loading="eager"
+                  fetchpriority="high"
+                  decoding="async"
                 />
                 <div className="portrait-inner-shadow" aria-hidden="true" />
               </div>

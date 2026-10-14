@@ -34,6 +34,7 @@ export default function About() {
                   height="400"
                   className="about-img"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
 

@@ -8,7 +8,8 @@
     "sitemap": "node scripts/generate-sitemap.mjs",
     "verify:deploy": "node scripts/verify-deploy.mjs",
     "prebuild": "node scripts/generate-sitemap.mjs",
-    "build": "vite build",
+    "prerender": "node scripts/prerender.mjs",
+    "build": "vite build && node scripts/prerender.mjs",
     "lint": "vite build",
     "preview": "vite preview --host 0.0.0.0 --port 3000"
   },

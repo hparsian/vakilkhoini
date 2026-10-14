@@ -3,13 +3,17 @@ import { createContext, useContext, useEffect, useState, useCallback } from 'rea
 const RouterContext = createContext({ pathname: '/', navigate: () => {} })
 
 function getPathname() {
+  if (typeof window === 'undefined') return '/'
   return window.location.pathname.replace(/\/+$/, '') || '/'
 }
 
-export function RouterProvider({ children }) {
-  const [pathname, setPathname] = useState(getPathname())
+export function RouterProvider({ children, initialPath }) {
+  // `initialPath` pins the route during the build-time prerender; in the browser
+  // the current location wins.
+  const [pathname, setPathname] = useState(initialPath || getPathname())
 
   useEffect(() => {
+    if (initialPath) return
     const onNav = () => setPathname(getPathname())
     window.addEventListener('popstate', onNav)
     window.addEventListener('app:navigate', onNav)
@@ -17,7 +21,7 @@ export function RouterProvider({ children }) {
       window.removeEventListener('popstate', onNav)
       window.removeEventListener('app:navigate', onNav)
     }
-  }, [])
+  }, [initialPath])
 
   const navigate = useCallback((to) => {
     if (to === getPathname()) return

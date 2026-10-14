@@ -14,7 +14,7 @@ npm run dev
 ## ساخت نسخه Production
 
 ```bash
-npm run build     # خروجی در dist/ — سitemap.xml هم پیش از بیلد تولید می‌شود
+npm run build     # dist/ : سایت‌مپ + باندل + ۳۷ فایل HTML پیش‌رندرشده (هر مسیر + 404)
 npm run preview   # پیش‌نمایش خروجی نهایی روی http://localhost:3000
 ```
 
@@ -63,13 +63,15 @@ npm run verify:deploy -- --wait 300 --interval 15   # تا ۵ دقیقه صبر 
 ├── .github/workflows/
 │   └── verify-deploy.yml   بررسی خودکار به‌روز بودن دیپلوی بعد از هر push
 ├── scripts/
-│   ├── generate-sitemap.mjs تولید سایت‌مپ از محتوای سایت
-│   └── verify-deploy.mjs    مقایسه هش بیلد محلی با سایت زنده
+│   ├── generate-sitemap.mjs   تولید سایت‌مپ از فهرست مسیرها
+│   ├── prerender.mjs          ساخت HTML استاتیک و متای اختصاصی هر مسیر
+│   ├── generate-og-image.py   ساخت تصویر ۱۲۰۰×۶۳۰ اشتراک‌گذاری (اختیاری، نیازمند Pillow)
+│   └── verify-deploy.mjs      مقایسه هش بیلد محلی با سایت زنده
 ├── src/
 │   ├── assets/             تصویر پرتره
 │   ├── components/         کامپوننت‌های مشترک و بخش‌های صفحه اصلی (Header, Hero, Footer, …)
 │   ├── context/            ToastContext (پیام‌های سیستمی)
-│   ├── data/               محتوای سایت (content.js) و شاخص‌های تورم (cpiIndexes.js)
+│   ├── data/               محتوای سایت (content.js)، فهرست مسیرها (routes.js) و شاخص‌های تورم (cpiIndexes.js)
 │   ├── hooks/              useSEO (متادیتای هر مسیر) و useReveal (انیمیشن اسکرول)
 │   ├── pages/              صفحات مسیر‌محور (مقالات، خدمات، محاسبه‌گرها، تماس، …)
 │   ├── App.jsx             مسیریابی و چیدمان اصلی
@@ -98,9 +100,19 @@ npm run verify:deploy -- --wait 300 --interval 15   # تا ۵ دقیقه صبر 
 
 ## SEO
 
-- عنوان، توضیحات، canonical، Open Graph و Twitter Card برای هر مسیر به‌صورت کلاینت‌ساید توسط
-  `useSEO` تنظیم می‌شود؛ صفحاتی که جاوااسکریپت اجرا نمی‌کنند (مثل پیش‌نمایش لینک در واتساپ/تلگرام)
-  متادیتای صفحه اصلی را می‌بینند — برای رفع این محدودیت به پررندر استاتیک نیاز است.
+- **هر مسیر HTML استاتیک اختصاصی دارد.** اسکریپت `scripts/prerender.mjs` (در `npm run build`)
+  بعد از بیلد، هر مسیر را سرور‌ساید رندر می‌کند و فایل‌های `dist/<route>.html` را می‌سازد؛
+  همراه با عنوان، توضیحات، canonical، Open Graph/Twitter و JSON-LD همان صفحه. پس کرالرها و
+  پیش‌نمایش لینک‌ها (واتساپ، تلگرام، …) که جاوااسکریپت اجرا نمی‌کنند نیز محتوای درست هر صفحه را می‌بینند.
+- در مرورگر `src/main.jsx` همان مارک‌آپ را **hydrate** می‌کند (بدون رندر دوباره). در `vite dev` که
+  مارک‌آپ اولیه وجود ندارد، برنامه به‌صورت عادی mount می‌شود.
+- **۴۰۴ واقعی:** `wrangler.json` روی `not_found_handling: "404-page"` تنظیم شده و `dist/404.html`
+  با کد وضعیت ۴۰۴ و `noindex` سرو می‌شود (به‌جای بازگرداندن ۲۰۰ برای هر آدرس).
+- فهرست مسیرها یک‌جا در `src/data/routes.js` است؛ هم سایت‌مپ و هم پیش‌رندر از همان استفاده می‌کنند
+  و مسیرهای قدیمی (alias) در همان فایل تعریف شده‌اند. اسکریپت پیش‌رندر اگر مسیری به صفحهٔ
+  واقعی resolve نشود، بیلد را با خطا متوقف می‌کند.
+- تصویر اشتراک‌گذاری `public/og-image.jpg` استاندارد ۱۲۰۰×۶۳۰ است و با
+  `python3 scripts/generate-og-image.py` (Pillow + Raqm) بازتولید می‌شود.
 - Schema.org شامل `Attorney`/`LegalService`، `FAQPage`، `Article`، `BreadcrumbList` و `WebApplication`.
 - `robots.txt` و `sitemap.xml` در `public/` هستند و دامنه مبنا `https://vakilkhoini.ir` است؛ در صورت
   تغییر دامنه، آن را در `index.html`، `public/robots.txt`، `src/hooks/useSEO.js` و
