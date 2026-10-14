@@ -112,17 +112,19 @@ export default function CalculatorsPage({ defaultTab }) {
   const mahrSettleIndex = cpiAnnualIndexes[settleYear] || 1
   const mahrUpdatedValue = (mahrSettleIndex / mahrMarriageIndex) * mahrAmount
 
-  // 4. Attorney Fee Calculation (طبق آیین‌نامه تعرفه حق‌الوکاله)
-  // تا ۱۰۰ میلیون تومان ۸ درصد، تا ۵۰۰ میلیون تومان ۷ درصد، تا ۲ میلیارد ۵ درصد، مازاد ۳ درصد
+  // 4. Attorney Fee Calculation — ماده ۹ آیین‌نامه تعرفه حق‌الوکاله مصوب ۱۳۹۸ (مبالغ به تومان)
+  // آستانه‌های ریالی ماده ۹ به تومان: تا ۵۰ میلیون ۸٪، تا ۲۰۰ میلیون ۷٪، تا ۱ میلیارد ۵٪، تا ۳ میلیارد ۴٪، مازاد بر ۳ میلیارد ۳٪ (پلکانی روی مازاد هر پله)
   let baseTariff = 0
-  if (feeClaim <= 100000000) {
+  if (feeClaim <= 50000000) {
     baseTariff = feeClaim * 0.08
-  } else if (feeClaim <= 500000000) {
-    baseTariff = 100000000 * 0.08 + (feeClaim - 100000000) * 0.07
-  } else if (feeClaim <= 2000000000) {
-    baseTariff = 100000000 * 0.08 + 400000000 * 0.07 + (feeClaim - 500000000) * 0.05
+  } else if (feeClaim <= 200000000) {
+    baseTariff = 50000000 * 0.08 + (feeClaim - 50000000) * 0.07
+  } else if (feeClaim <= 1000000000) {
+    baseTariff = 50000000 * 0.08 + 150000000 * 0.07 + (feeClaim - 200000000) * 0.05
+  } else if (feeClaim <= 3000000000) {
+    baseTariff = 50000000 * 0.08 + 150000000 * 0.07 + 800000000 * 0.05 + (feeClaim - 1000000000) * 0.04
   } else {
-    baseTariff = 100000000 * 0.08 + 400000000 * 0.07 + 1500000000 * 0.05 + (feeClaim - 2000000000) * 0.03
+    baseTariff = 50000000 * 0.08 + 150000000 * 0.07 + 800000000 * 0.05 + 2000000000 * 0.04 + (feeClaim - 3000000000) * 0.03
   }
   let calculatedLawyerFee = baseTariff
   let feeStageDesc = 'مرحله بدوی و تجدیدنظر (مجموعاً ۱۰۰٪ تعرفه قانونی)'
@@ -212,11 +214,11 @@ export default function CalculatorsPage({ defaultTab }) {
     const url = `${SITE_URL}/mohasebe`
     const shareMessage = `${title}\n${text}\nمنبع و مشاوره با وکیل پرستو خوئینی:\n${url}`
     if (type === 'whatsapp') {
-      window.open(`https://wa.me/?text=${encodeURIComponent(shareMessage)}`, '_blank')
+      window.open(`https://wa.me/?text=${encodeURIComponent(shareMessage)}`, '_blank', 'noopener,noreferrer')
     } else if (type === 'telegram') {
-      window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title + '\n' + text)}`, '_blank')
+      window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title + '\n' + text)}`, '_blank', 'noopener,noreferrer')
     } else if (type === 'eitaa') {
-      window.open(`https://eitaa.com/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title + '\n' + text)}`, '_blank')
+      window.open(`https://eitaa.com/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title + '\n' + text)}`, '_blank', 'noopener,noreferrer')
     }
   }
 
@@ -591,6 +593,9 @@ export default function CalculatorsPage({ defaultTab }) {
                 <li>طلبکار باید دین را به طور رسمی (با اظهارنامه، واخواست چک یا دادخواست) مطالبه کرده باشد.</li>
                 <li>مدیون با وجود تمکن مالی از پرداخت بدهی استنکاف کرده و نرخ تورم تغییر فاحش داشته باشد.</li>
               </ul>
+              <p>
+                مبنای محاسبه: میانگین شاخص سالانه بانک مرکزی (پایه ۱۳۹۵=۱۰۰). برای تاریخ‌های دقیق درون‌سالی، شاخص ماهانه همان تاریخ ملاک است؛ نتیجه «برآورد» محسوب می‌شود.
+              </p>
             </div>
           </div>
         )}

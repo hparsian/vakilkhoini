@@ -17,12 +17,8 @@ function getRelatedArticles(service) {
 export default function ServicePage({ slug }) {
   const service = services.find((s) => s.id === slug)
 
-  if (!service) {
-    return <ServiceNotFound />
-  }
-
-  const canonicalPath = `/khadamat/${service.id}`
-  const jsonLd = {
+  const canonicalPath = service ? `/khadamat/${service.id}` : '/'
+  const jsonLd = service ? {
     '@context': 'https://schema.org',
     '@graph': [
       {
@@ -47,14 +43,19 @@ export default function ServicePage({ slug }) {
         ],
       },
     ],
-  }
+  } : null
 
   useSEO({
-    title: `${service.title} | وکیل تهران | ${lawyer.name}`,
-    description: service.fullDesc || service.description,
+    title: service ? `${service.title} | وکیل تهران | ${lawyer.name}` : `خدمت یافت نشد | ${lawyer.name}`,
+    description: service ? service.fullDesc || service.description : 'خدمت موردنظر یافت نشد.',
     path: canonicalPath,
     jsonLd,
+    noindex: !service,
   })
+
+  if (!service) {
+    return <ServiceNotFound />
+  }
 
   const relatedArticles = getRelatedArticles(service)
 
@@ -149,12 +150,6 @@ export default function ServicePage({ slug }) {
 }
 
 function ServiceNotFound() {
-  useSEO({
-    title: `خدمت یافت نشد | ${lawyer.name}`,
-    description: 'خدمت موردنظر یافت نشد.',
-    path: '/',
-    noindex: true,
-  })
   return (
     <main id="main" className="article-page">
       <div className="container article-not-found">

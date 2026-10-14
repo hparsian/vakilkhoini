@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { articles, services, lawyer } from '../data/content.js'
 import { Link } from '../router.jsx'
 import useSEO, { SITE_URL } from '../hooks/useSEO.js'
@@ -134,12 +135,8 @@ export default function ArticlePage({ slug }) {
     }
   }, [])
 
-  if (!article) {
-    return <ArticleNotFound />
-  }
-
-  const canonicalPath = `/maghalat/${article.id}`
-  const jsonLd = {
+  const canonicalPath = article ? `/maghalat/${article.id}` : '/maghalat'
+  const jsonLd = article ? {
     '@context': 'https://schema.org',
     '@graph': [
       {
@@ -171,14 +168,19 @@ export default function ArticlePage({ slug }) {
         ],
       },
     ],
-  }
+  } : null
 
   useSEO({
-    title: `${article.title} | ${lawyer.name}`,
-    description: article.excerpt,
+    title: article ? `${article.title} | ${lawyer.name}` : `مقاله یافت نشد | ${lawyer.name}`,
+    description: article ? article.excerpt : 'مقاله موردنظر یافت نشد.',
     path: canonicalPath,
     jsonLd,
+    noindex: !article,
   })
+
+  if (!article) {
+    return <ArticleNotFound />
+  }
 
   const relatedArticles = getRelatedArticles(article)
   const relatedServices = getRelatedServices(article)
@@ -282,7 +284,8 @@ export default function ArticlePage({ slug }) {
                       `https://wa.me/?text=${encodeURIComponent(
                         article.title + '\n' + SITE_URL + canonicalPath
                       )}`,
-                      '_blank'
+                      '_blank',
+                      'noopener,noreferrer'
                     )
                   }
                   title="اشتراک‌گذاری در واتساپ"
@@ -298,7 +301,8 @@ export default function ArticlePage({ slug }) {
                       `https://t.me/share/url?url=${encodeURIComponent(
                         SITE_URL + canonicalPath
                       )}&text=${encodeURIComponent(article.title)}`,
-                      '_blank'
+                      '_blank',
+                      'noopener,noreferrer'
                     )
                   }
                   title="اشتراک‌گذاری در تلگرام"
@@ -313,7 +317,8 @@ export default function ArticlePage({ slug }) {
                       `https://eitaa.com/share/url?url=${encodeURIComponent(
                         SITE_URL + canonicalPath
                       )}&text=${encodeURIComponent(article.title)}`,
-                      '_blank'
+                      '_blank',
+                      'noopener,noreferrer'
                     )
                   }
                   title="اشتراک‌گذاری در ایتا"
@@ -328,7 +333,8 @@ export default function ArticlePage({ slug }) {
                       `https://ble.ir/share/url?url=${encodeURIComponent(
                         SITE_URL + canonicalPath
                       )}&text=${encodeURIComponent(article.title)}`,
-                      '_blank'
+                      '_blank',
+                      'noopener,noreferrer'
                     )
                   }
                   title="اشتراک‌گذاری در بله"
@@ -446,12 +452,6 @@ export default function ArticlePage({ slug }) {
 }
 
 function ArticleNotFound() {
-  useSEO({
-    title: `مقاله یافت نشد | ${lawyer.name}`,
-    description: 'مقاله موردنظر یافت نشد.',
-    path: '/maghalat',
-    noindex: true,
-  })
   return (
     <main id="main" className="article-page">
       <div className="container article-not-found">

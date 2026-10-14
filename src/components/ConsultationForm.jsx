@@ -18,7 +18,7 @@ const initialState = {
 // Mock submission handler for client-side demo with realistic feedback
 async function submitConsultation(data) {
   await new Promise((resolve) => setTimeout(resolve, 800))
-  console.info('Consultation Request Submitted:', data)
+  // داده‌های موکل عمداً در کنسول یا LocalStorage چاپ/ذخیره نمی‌شود.
   return { ok: true }
 }
 
