@@ -256,9 +256,14 @@ export default function AboutPage() {
                 <Calendar size={16} />
                 <span>تعیین وقت مشاوره</span>
               </Link>
-              <a href={lawyer.phoneHref} className="btn btn-outline-light">
+              <a
+                href={lawyer.phoneHref}
+                className="btn btn-outline-light"
+                aria-label={`تماس مستقیم با شماره ${lawyer.phone}`}
+              >
                 <PhoneCall size={16} />
-                <span>تماس مستقیم: {lawyer.displayPhone}</span>
+                <span>تماس مستقیم:</span>
+                <span className="phone-number" dir="ltr">{lawyer.displayPhone}</span>
               </a>
             </div>
           </div>

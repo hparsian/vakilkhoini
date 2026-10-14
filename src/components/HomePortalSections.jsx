@@ -674,9 +674,14 @@ export function HomeContactCTA() {
               <Calendar size={17} />
               <span>رزرو آنلاین نوبت مشاوره</span>
             </Link>
-            <a href={lawyer.phoneHref} className="btn btn-outline-light cta-btn-phone">
+            <a
+              href={lawyer.phoneHref}
+              className="btn btn-outline-light cta-btn-phone"
+              aria-label={`تماس مستقیم با شماره ${lawyer.phone}`}
+            >
               <Phone size={16} />
-              <span>تماس مستقیم: {lawyer.displayPhone}</span>
+              <span>تماس مستقیم:</span>
+              <span className="phone-number" dir="ltr">{lawyer.displayPhone}</span>
             </a>
             <Link to="/tamas" className="btn btn-dark-glass cta-btn-map">
               <MapPin size={15} />

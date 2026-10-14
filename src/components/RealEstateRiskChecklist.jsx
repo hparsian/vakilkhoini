@@ -653,9 +653,14 @@ https://vakilkhoini.ir/checklist-mobayenameh`
                 <Link to="/moshavere" className="btn btn-gold full-w">
                   درخواست بررسی تخصصی قرارداد
                 </Link>
-                <a href={`tel:${lawyer.phone}`} className="phone-quick-call">
+                <a
+                  href={`tel:${lawyer.phone}`}
+                  className="phone-quick-call"
+                  aria-label={`تماس با دفتر وکالت ${lawyer.phone}`}
+                >
                   <PhoneCall size={14} />
-                  <span>تماس با دفتر وکالت: {lawyer.phoneDisplay}</span>
+                  <span>تماس با دفتر وکالت:</span>
+                  <span className="phone-number" dir="ltr">{lawyer.displayPhone}</span>
                 </a>
               </div>
             </div>

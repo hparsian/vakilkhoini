@@ -195,9 +195,13 @@ export default function ServicesListPage() {
               <Calendar size={16} />
               <span>رزرو وقت مشاوره</span>
             </Link>
-            <a href={lawyer.phoneHref} className="btn btn-outline-light">
+            <a
+              href={lawyer.phoneHref}
+              className="btn btn-outline-light"
+              aria-label={`تماس مستقیم با شماره ${lawyer.phone}`}
+            >
               <PhoneCall size={16} />
-              <span>{lawyer.displayPhone}</span>
+              <span className="phone-number" dir="ltr">{lawyer.displayPhone}</span>
             </a>
           </div>
         </div>

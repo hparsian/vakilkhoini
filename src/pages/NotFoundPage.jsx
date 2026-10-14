@@ -208,8 +208,13 @@ export default function NotFoundPage() {
             </div>
           </div>
           <div className="contact-box-actions">
-            <a href={`tel:${lawyer.phone}`} className="btn btn-gold">
-              تماس مستقیم: {lawyer.phoneDisplay}
+            <a
+              href={`tel:${lawyer.phone}`}
+              className="btn btn-gold"
+              aria-label={`تماس مستقیم با شماره ${lawyer.phone}`}
+            >
+              <span>تماس مستقیم:</span>
+              <span className="phone-number" dir="ltr">{lawyer.displayPhone}</span>
             </a>
             <Link to="/moshavere" className="btn btn-outline">
               درخواست نوبت مشاوره
