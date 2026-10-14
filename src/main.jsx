@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import { ToastProvider } from './context/ToastContext.jsx'
 import { RouterProvider } from './router.jsx'
+import 'vazirmatn/Vazirmatn-font-face.css'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(

@@ -14,6 +14,7 @@ const staticUrls = [
   { loc: '/darbareh', changefreq: 'monthly', priority: '0.85' },
   { loc: '/khadamat', changefreq: 'weekly', priority: '0.9' },
   { loc: '/mohasebe', changefreq: 'weekly', priority: '0.9' },
+  { loc: '/checklist-mobayenameh', changefreq: 'weekly', priority: '0.9' },
   { loc: '/marohe', changefreq: 'monthly', priority: '0.8' },
   { loc: '/maghalat', changefreq: 'weekly', priority: '0.85' },
   { loc: '/faq', changefreq: 'monthly', priority: '0.8' },

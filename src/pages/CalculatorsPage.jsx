@@ -1,4 +1,4 @@
-import { useState, useId } from 'react'
+import { useState, useEffect, useId } from 'react'
 import { lawyer } from '../data/content.js'
 import { Link } from '../router.jsx'
 import useSEO, { SITE_URL } from '../hooks/useSEO.js'
@@ -23,12 +23,20 @@ import {
   Calendar,
   AlertCircle,
   FileText,
+  ShieldCheck,
 } from 'lucide-react'
+import RealEstateRiskChecklist from '../components/RealEstateRiskChecklist.jsx'
 import './CalculatorsPage.css'
 
-export default function CalculatorsPage() {
-  const [activeTab, setActiveTab] = useState('courtFee')
+export default function CalculatorsPage({ defaultTab }) {
+  const [activeTab, setActiveTab] = useState(defaultTab || 'courtFee')
   const { showToast } = useToast()
+
+  useEffect(() => {
+    if (defaultTab) {
+      setActiveTab(defaultTab)
+    }
+  }, [defaultTab])
 
   // 1. Court Fee State
   const [claimType, setClaimType] = useState('financial-first') // 'financial-first', 'financial-appeal', 'financial-supreme', 'non-financial', 'dispute-council'
@@ -182,11 +190,16 @@ export default function CalculatorsPage() {
     ],
   }
 
+  const isChecklistTab = activeTab === 'realEstateChecklist'
+
   useSEO({
-    title: 'محاسبه آنلاین هزینه دادرسی، خسارت تأخیر تأدیه و مهریه به نرخ روز | پرستو خوئینی',
-    description:
-      'سامانه رایگان و دقیق محاسبه آنلاین هزینه دادرسی دادگاه و تجدیدنظر، فرمول ماده ۵۲۲ خسارت تأخیر تأدیه، ارزش روز مهریه و تعرفه مصوب حق‌الوکاله با تایید وکیل پایه یک.',
-    path: '/mohasebe',
+    title: isChecklistTab
+      ? 'چک‌لیست هوشمند ریسک مبایعه‌نامه و خرید ملک | پرستو خوئینی'
+      : 'محاسبه آنلاین هزینه دادرسی، خسارت تأخیر تأدیه و مهریه به نرخ روز | پرستو خوئینی',
+    description: isChecklistTab
+      ? 'ارزیابی آنلاین ریسک حقوقی مبایعه‌نامه و قرارداد خرید ملک، شناسایی بندهای خطرناک اسقاط خیارات، استعلامات ثبتی و ضمانت‌اجرای کشف فساد طبق قوانین ملکی ایران.'
+      : 'سامانه رایگان و دقیق محاسبه آنلاین هزینه دادرسی دادگاه و تجدیدنظر، فرمول ماده ۵۲۲ خسارت تأخیر تأدیه، ارزش روز مهریه و تعرفه مصوب حق‌الوکاله با تایید وکیل پایه یک.',
+    path: isChecklistTab ? '/checklist-mobayenameh' : '/mohasebe',
     jsonLd,
   })
 
@@ -270,6 +283,15 @@ export default function CalculatorsPage() {
           >
             <Briefcase size={18} />
             <span>تعرفه قانونی حق‌الوکاله</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'realEstateChecklist'}
+            className={`calc-tab-btn ${activeTab === 'realEstateChecklist' ? 'active' : ''}`}
+            onClick={() => setActiveTab('realEstateChecklist')}
+          >
+            <ShieldCheck size={18} />
+            <span>چک‌لیست ریسک مبایعه‌نامه</span>
           </button>
         </div>
 
@@ -843,6 +865,13 @@ export default function CalculatorsPage() {
                 طبق ماده ۱۰ قانون مدنی و ماده ۱۹ لایحه قانونی استقلال کانون وکلا، قرارداد مالی خصوصی بین وکیل و موکل معتبر و نافذ است؛ اما تعرفه قانونی فوق مبنای خسارت حق‌الوکاله قابل دریافت از طرف مقابل در دادگاه خواهد بود.
               </p>
             </div>
+          </div>
+        )}
+
+        {/* Tab 5: Real Estate Contract Risk Checklist */}
+        {activeTab === 'realEstateChecklist' && (
+          <div role="tabpanel" aria-label="چک‌لیست هوشمند ریسک مبایعه‌نامه">
+            <RealEstateRiskChecklist />
           </div>
         )}
 

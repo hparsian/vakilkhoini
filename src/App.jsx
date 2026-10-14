@@ -24,6 +24,7 @@ import ProcessPage from './pages/ProcessPage.jsx'
 import FAQPage from './pages/FAQPage.jsx'
 import ConsultationPage from './pages/ConsultationPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
+import NotFoundPage from './pages/NotFoundPage.jsx'
 import { useRouter, matchPath } from './router.jsx'
 import useSEO from './hooks/useSEO.js'
 
@@ -164,14 +165,18 @@ export default function App() {
     content = <ContactPage />
   } else if (pathname === '/mohasebe') {
     content = <CalculatorsPage />
+  } else if (pathname === '/checklist-mobayenameh' || pathname === '/cheklis-amlak') {
+    content = <CalculatorsPage defaultTab="realEstateChecklist" />
   } else if (pathname === '/maghalat') {
     content = <ArticlesListPage />
   } else if ((articleParams = matchPath('/maghalat/:slug', pathname))) {
-    content = <ArticlePage slug={articleParams.slug} />
+    // 301 alias redirect for cannibalized/merged articles
+    const targetSlug = articleParams.slug === 'ghoulnameh-vs-mobayeenameh' ? 'gholnameh-vs-mobayenameh' : articleParams.slug
+    content = <ArticlePage slug={targetSlug} />
   } else if ((serviceParams = matchPath('/khadamat/:slug', pathname))) {
     content = <ServicePage slug={serviceParams.slug} />
   } else {
-    content = <HomePage />
+    content = <NotFoundPage />
   }
 
   return (

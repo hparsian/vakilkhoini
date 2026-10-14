@@ -124,6 +124,13 @@ export default function ArticlePage({ slug }) {
   const article = articles.find((a) => a.id === slug)
   const { showToast } = useToast()
 
+  // Replace browser URL state if visited via old alias
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.location.pathname.includes('ghoulnameh-vs-mobayeenameh')) {
+      window.history.replaceState(null, '', '/maghalat/gholnameh-vs-mobayenameh')
+    }
+  }, [])
+
   if (!article) {
     return <ArticleNotFound />
   }

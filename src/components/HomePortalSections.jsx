@@ -344,12 +344,16 @@ export function HomeCalculatorsBanner() {
                   <CheckCircle2 size={16} />
                   <span>محاسبه تعرفه قانونی حق‌الوکاله و تمبر مالیاتی</span>
                 </div>
+                <div className="calc-feature-pill">
+                  <CheckCircle2 size={16} />
+                  <span>چک‌لیست هوشمند ریسک مبایعه‌نامه و ملک (جدید)</span>
+                </div>
               </div>
 
               <div className="calc-banner-footer">
                 <Link to="/mohasebe" className="btn btn-gold calc-launch-btn">
                   <Calculator size={18} />
-                  <span>ورود به سامانه جامع محاسبات حقوقی (۴ ماشین‌حساب تخصصی)</span>
+                  <span>ورود به سامانه ابزارهای حقوقی و محاسبات (۵ ابزار تخصصی)</span>
                   <ChevronLeft size={16} />
                 </Link>
               </div>
