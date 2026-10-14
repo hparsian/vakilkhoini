@@ -32,9 +32,9 @@ export default function Hero() {
           </div>
 
           <h1 className="hero-headline">
-            <span className="hero-badge-eyebrow">وکیل پایه یک دادگستری در تهران و سعادت‌آباد</span>
+            <span className="hero-badge-eyebrow">وکیل تهران و سعادت‌آباد</span>
             <span className="hero-name-highlight">{lawyer.name}</span>
-            <span className="hero-title-sub">متخصص دعاوی ملکی، اسناد تجاری، داوری و تنظیم قراردادها</span>
+            <span className="hero-title-sub">وکیل حقوقی و پایه یک دادگستری؛ متخصص دعاوی ملکی، اسناد تجاری و قراردادها</span>
           </h1>
 
           <p className="hero-slogan">

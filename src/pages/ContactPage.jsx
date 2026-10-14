@@ -81,8 +81,8 @@ export default function ContactPage() {
   }
 
   useSEO({
-    title: `تماس با وکیل در سعادت‌آباد تهران | نشانی و تلفن دفتر پرستو خوئینی`,
-    description: `آدرس دفتر وکالت در سعادت‌آباد میدان کاج تهران، شماره تماس مستقیم ${lawyer.displayPhone}، پیام‌رسان واتساپ و مسیریابی سریع با تعیین وقت قبلی.`,
+    title: `تماس با وکیل سعادت‌آباد و تهران | تلفن و نشانی دفتر`,
+    description: `نشانی و تلفن دفتر وکیل در سعادت‌آباد تهران (میدان کاج)؛ شماره تماس مستقیم ${lawyer.displayPhone}، پیام‌رسان واتساپ و مسیریابی سریع با تعیین وقت قبلی.`,
     path: canonicalPath,
     jsonLd,
   })
@@ -103,7 +103,7 @@ export default function ContactPage() {
             <MapPin size={14} />
             <span>راه‌های ارتباطی و موقعیت جغرافیایی</span>
           </div>
-          <h1 className="section-title">تماس و نشانی دفتر وکالت</h1>
+          <h1 className="section-title">تماس با وکیل در سعادت‌آباد و تهران</h1>
           <p className="section-subtitle">
             پذیرش مراجعین حضوری در محدوده سعادت‌آباد تهران صرفاً با تعیین وقت قبلی صورت می‌پذیرد
           </p>

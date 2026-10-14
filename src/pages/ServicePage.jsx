@@ -46,7 +46,7 @@ export default function ServicePage({ slug }) {
   } : null
 
   useSEO({
-    title: service ? `${service.title} | وکیل تهران | ${lawyer.name}` : `خدمت یافت نشد | ${lawyer.name}`,
+    title: service ? `${service.title} | وکیل حقوقی تهران | ${lawyer.name}` : `خدمت یافت نشد | ${lawyer.name}`,
     description: service ? service.fullDesc || service.description : 'خدمت موردنظر یافت نشد.',
     path: canonicalPath,
     jsonLd,

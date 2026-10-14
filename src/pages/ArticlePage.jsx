@@ -151,7 +151,7 @@ export default function ArticlePage({ slug }) {
   } : null
 
   useSEO({
-    title: article ? `${article.title} | ${lawyer.name}` : `مقاله یافت نشد | ${lawyer.name}`,
+    title: article ? `${article.title} | وکیل تهران | ${lawyer.name}` : `مقاله یافت نشد | ${lawyer.name}`,
     description: article ? article.excerpt : 'مقاله موردنظر یافت نشد.',
     path: canonicalPath,
     jsonLd,

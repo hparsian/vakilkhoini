@@ -71,8 +71,8 @@ export default function AboutPage() {
   }
 
   useSEO({
-    title: `درباره پرستو خوئینی | وکیل پایه یک دادگستری در تهران و سعادت‌آباد`,
-    description: `آشنایی با سوابق، پروانه وکالت، ارزش‌های حرفه‌ای و رویکرد دفاعی پرستو خوئینی وکیل پایه یک دادگستری و مشاور حقوقی در دعاوی ملکی، مالی و قراردادها.`,
+    title: `وکیل سعادت‌آباد و تهران | درباره پرستو خوئینی، وکیل پایه یک`,
+    description: `درباره پرستو خوئینی، وکیل حقوقی و پایه یک دادگستری در تهران و سعادت‌آباد؛ سوابق، پروانه وکالت و رویکرد دفاعی در دعاوی ملکی، مالی و قراردادها.`,
     path: canonicalPath,
     jsonLd,
   })
@@ -111,7 +111,7 @@ export default function AboutPage() {
                 <span>سوابق و صلاحیت‌های حرفه‌ای</span>
               </div>
               <h1 className="about-page-title">
-                {lawyer.name}؛ {lawyer.title}
+                {lawyer.name}؛ {lawyer.title} در تهران و سعادت‌آباد
               </h1>
               <p className="about-subtitle">{lawyer.subfield}</p>
 
