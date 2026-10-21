@@ -24,8 +24,8 @@ export default function ProcessPage() {
       {
         '@type': 'HowTo',
         '@id': `${SITE_URL}${canonicalPath}#howto`,
-        name: 'مراحل پذیرش و پیگیری پرونده حقوقی در دفتر وکالت',
-        description: 'راهنمای گام‌به‌گام مراحل پذیرش، عقد قرارداد الکترونیک ثنا و پیگیری پرونده حقوقی تا صدور رأی و اجرای احکام مدنی.',
+        name: 'روند قانونی و مراحل رسیدگی به پرونده در دادگاه',
+        description: 'راهنمای کامل روند قانونی، مراحل گام‌به‌گام دادرسی، عقد قرارداد الکترونیک ثنا و پیگیری پرونده با وکیل تا صدور رأی و اجرای احکام.',
         step: process.map((p, idx) => ({
           '@type': 'HowToStep',
           position: idx + 1,
@@ -37,15 +37,15 @@ export default function ProcessPage() {
         '@type': 'BreadcrumbList',
         itemListElement: [
           { '@type': 'ListItem', position: 1, name: 'صفحه اصلی', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'مراحل پذیرش پرونده', item: `${SITE_URL}${canonicalPath}` },
+          { '@type': 'ListItem', position: 2, name: 'روند قانونی و مراحل پذیرش', item: `${SITE_URL}${canonicalPath}` },
         ],
       },
     ],
   }
 
   useSEO({
-    title: `مراحل پذیرش پرونده توسط وکیل تهران | پرستو خوئینی - ۰۹۱۲۸۷۵۴۱۷۷`,
-    description: `مراحل پذیرش پرونده توسط وکیل تهران (پرستو خوئینی)؛ از مشاوره تا انعقاد قرارداد ثنا و پیگیری در دادگاه. شماره تماس: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177).`,
+    title: `روند قانونی و مراحل پذیرش پرونده توسط وکیل تهران | پرستو خوئینی - ۰۹۱۲۸۷۵۴۱۷۷`,
+    description: `روند قانونی رسیدگی به پرونده در دادگاه و مراحل شفاف پذیرش نزد پرستو خوئینی وکیل تهران و سعادت‌آباد. شماره تماس: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177).`,
     path: canonicalPath,
     jsonLd,
   })

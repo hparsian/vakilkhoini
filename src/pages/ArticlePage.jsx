@@ -18,6 +18,7 @@ import {
   Scale,
   MapPin,
   Phone,
+  HelpCircle,
 } from 'lucide-react'
 import './ArticlePage.css'
 
@@ -130,8 +131,10 @@ export default function ArticlePage({ slug }) {
           jobTitle: lawyer.title,
         },
         publisher: {
-          '@type': 'Organization',
+          '@type': 'LegalService',
           name: `دفتر وکالت ${lawyer.name}`,
+          telephone: lawyer.phone,
+          url: SITE_URL,
         },
         mainEntityOfPage: {
           '@type': 'WebPage',
@@ -147,6 +150,18 @@ export default function ArticlePage({ slug }) {
           { '@type': 'ListItem', position: 3, name: article.title, item: `${SITE_URL}${canonicalPath}` },
         ],
       },
+      ...(article.faqs && article.faqs.length > 0 ? [{
+        '@type': 'FAQPage',
+        '@id': `${SITE_URL}${canonicalPath}#faq`,
+        mainEntity: article.faqs.map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: f.a,
+          },
+        })),
+      }] : []),
     ],
   } : null
 
@@ -162,7 +177,7 @@ export default function ArticlePage({ slug }) {
     return <ArticleNotFound />
   }
 
-  const relatedArticles = getRelatedArticles(article, 3)
+  const relatedArticles = getRelatedArticles(article, 4)
   const relatedServices = getRelatedServices(article, 3)
 
   const handleShare = () => {
@@ -228,6 +243,27 @@ export default function ArticlePage({ slug }) {
                   ))}
                 </ul>
               </div>
+            )}
+
+            {article.faqs && article.faqs.length > 0 && (
+              <section className="reader-faqs-box" aria-label="پرسش و پاسخ‌های متداول مقاله" style={{ marginTop: '28px', marginBottom: '28px' }}>
+                <h2 className="reader-section-h2" style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px', fontSize: '1.25rem' }}>
+                  <HelpCircle size={20} style={{ color: 'var(--gold)' }} />
+                  <span>پرسش و پاسخ‌های متداول و پرتکرار</span>
+                </h2>
+                <div className="article-faqs-list" style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+                  {article.faqs.map((faq, idx) => (
+                    <details key={idx} className="article-faq-item card" style={{ padding: '16px 20px', borderRadius: 'var(--radius-sm)', border: '1px solid var(--border-subtle)' }} open={idx === 0}>
+                      <summary style={{ fontWeight: 700, cursor: 'pointer', color: 'var(--dark-teal)', outline: 'none' }}>
+                        {faq.q}
+                      </summary>
+                      <p style={{ marginTop: '10px', color: 'var(--text-muted)', lineHeight: '1.85', fontSize: '0.95rem' }}>
+                        {faq.a}
+                      </p>
+                    </details>
+                  ))}
+                </div>
+              </section>
             )}
 
             <div className="reader-lawyer-note">

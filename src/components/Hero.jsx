@@ -102,11 +102,11 @@ export default function Hero() {
           <div className="hero-quick-topics" aria-label="دسترسی سریع به موضوعات حقوقی">
             <span className="quick-topics-label">موضوعات پرجستجو:</span>
             <div className="quick-topics-tags">
-              <Link to="/khadamat/property-claims" className="quick-topic-tag">الزام به تنظیم سند</Link>
-              <Link to="/khadamat/financial-claims" className="quick-topic-tag">وصول چک صیادی</Link>
-              <Link to="/khadamat/contracts-negotiation" className="quick-topic-tag">قرارداد مشارکت در ساخت</Link>
-              <Link to="/mohasebe" className="quick-topic-tag gold">محاسبه آنلاین هزینه دادرسی</Link>
               <Link to="/maghalat/what-is-petition" className="quick-topic-tag">دادخواست حقوقی چیست؟</Link>
+              <Link to="/marohe" className="quick-topic-tag">روند قانونی پرونده در دادگاه</Link>
+              <Link to="/mohasebe" className="quick-topic-tag gold">محاسبه آنلاین هزینه دادرسی</Link>
+              <Link to="/khadamat/property-claims" className="quick-topic-tag">دعاوی ملکی و ثبتی</Link>
+              <Link to="/khadamat/financial-claims" className="quick-topic-tag">وصول فوری چک صیادی</Link>
             </div>
           </div>
         </div>
