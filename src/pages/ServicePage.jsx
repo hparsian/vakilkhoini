@@ -46,8 +46,8 @@ export default function ServicePage({ slug }) {
   } : null
 
   useSEO({
-    title: service ? `${service.title} | وکیل حقوقی تهران | ${lawyer.name}` : `خدمت یافت نشد | ${lawyer.name}`,
-    description: service ? service.fullDesc || service.description : 'خدمت موردنظر یافت نشد.',
+    title: service ? `${service.title} | ${lawyer.name} وکیل پایه یک دادگستری - ۰۹۱۲۸۷۵۴۱۷۷` : `خدمت یافت نشد | ${lawyer.name}`,
+    description: service ? `${service.title} در تهران توسط ${lawyer.name} وکیل پایه یک دادگستری. شماره تماس مستقیم: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177). ${service.description}` : 'خدمت موردنظر یافت نشد.',
     path: canonicalPath,
     jsonLd,
     noindex: !service,

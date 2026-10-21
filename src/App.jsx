@@ -32,9 +32,9 @@ import useSEO from './hooks/useSEO.js'
 
 function HomePage() {
   useSEO({
-    title: 'وکیل تهران و سعادت‌آباد | پرستو خوئینی، وکیل پایه یک دادگستری',
+    title: 'پرستو خوئینی | وکیل پایه یک دادگستری تهران و سعادت‌آباد - ۰۹۱۲۸۷۵۴۱۷۷',
     description:
-      'وکیل حقوقی در تهران و سعادت‌آباد؛ وکالت تخصصی در دعاوی ملکی و ثبتی، وصول چک صیادی، تنظیم قرارداد و مشاوره حقوقی با ارزیابی شفاف شانس پرونده.',
+      'دفتر وکالت پرستو خوئینی، وکیل پایه یک دادگستری در تهران و سعادت‌آباد. شماره تماس مستقیم: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177). مشاوره تخصصی دعاوی ملکی، چک صیادی و قراردادها.',
     path: '/',
     jsonLd: {
       '@context': 'https://schema.org',
@@ -44,16 +44,27 @@ function HomePage() {
           '@id': 'https://vakilkhoini.ir/#website',
           url: 'https://vakilkhoini.ir/',
           name: 'دفتر وکالت پرستو خوئینی',
-          alternateName: 'وکیل پایه یک دادگستری پرستو خوئینی',
-          description: 'وبسایت رسمی پرستو خوئینی، وکیل پایه یک دادگستری در تهران و سعادت‌آباد',
+          alternateName: ['وکیل پایه یک دادگستری پرستو خوئینی', 'پرستو خوئینی'],
+          description: 'وبسایت رسمی پرستو خوئینی، وکیل پایه یک دادگستری در تهران و سعادت‌آباد. شماره تماس: ۰۹۱۲۸۷۵۴۱۷۷',
           inLanguage: 'fa-IR',
         },
         {
           '@type': ['Attorney', 'LegalService'],
           '@id': 'https://vakilkhoini.ir/#attorney',
-          name: 'پرستو خوئینی | وکیل پایه یک دادگستری',
+          name: 'پرستو خوئینی',
+          alternateName: ['وکیل پرستو خوئینی', 'پرستو خوئینی وکیل پایه یک دادگستری', 'پرستو خوئینی وکیل تهران'],
+          jobTitle: 'وکیل پایه یک دادگستری',
           image: 'https://vakilkhoini.ir/og-image.jpg',
+          description:
+            'دفتر وکالت پرستو خوئینی، وکیل پایه یک دادگستری در تهران و سعادت‌آباد. تلفن همراه و تماس مستقیم: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177). مشاوره تخصصی در دعاوی ملکی، چک صیادی و قراردادها.',
           telephone: '+989128754177',
+          contactPoint: {
+            '@type': 'ContactPoint',
+            telephone: '+98-912-875-4177',
+            contactType: 'customer service',
+            areaServed: 'IR',
+            availableLanguage: ['fa', 'Persian'],
+          },
           url: 'https://vakilkhoini.ir/',
           priceRange: '$$',
           address: {

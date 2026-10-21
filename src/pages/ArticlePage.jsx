@@ -151,8 +151,8 @@ export default function ArticlePage({ slug }) {
   } : null
 
   useSEO({
-    title: article ? `${article.title} | وکیل تهران | ${lawyer.name}` : `مقاله یافت نشد | ${lawyer.name}`,
-    description: article ? article.excerpt : 'مقاله موردنظر یافت نشد.',
+    title: article ? `${article.title} | ${lawyer.name} وکیل پایه یک - ۰۹۱۲۸۷۵۴۱۷۷` : `مقاله یافت نشد | ${lawyer.name}`,
+    description: article ? `${article.excerpt} (تحلیل حقوقی ${lawyer.name} وکیل پایه یک دادگستری تهران - تماس: ۰۹۱۲۸۷۵۴۱۷۷)` : 'مقاله موردنظر یافت نشد.',
     path: canonicalPath,
     jsonLd,
     noindex: !article,
