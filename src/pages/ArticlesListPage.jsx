@@ -12,15 +12,24 @@ export default function ArticlesListPage() {
 
   const categories = ['all', ...new Set(articles.map((a) => a.category).filter(Boolean))]
 
+  const normalize = (str) =>
+    String(str || '')
+      .replace(/[\u200c\u200e\u200f\s]+/g, ' ')
+      .replace(/[يى]/g, 'ی')
+      .replace(/ك/g, 'ک')
+      .replace(/[\u064b-\u0652]/g, '')
+      .toLowerCase()
+      .trim()
+
   const filteredArticles = articles.filter((a) => {
     const matchesCategory = activeCategory === 'all' || a.category === activeCategory
     if (!matchesCategory) return false
 
     if (!searchQuery.trim()) return true
-    const q = searchQuery.trim().toLowerCase()
-    const inTitle = a.title?.toLowerCase().includes(q)
-    const inExcerpt = a.excerpt?.toLowerCase().includes(q)
-    const inTags = a.tags?.some((t) => t.toLowerCase().includes(q))
+    const q = normalize(searchQuery)
+    const inTitle = normalize(a.title).includes(q)
+    const inExcerpt = normalize(a.excerpt).includes(q)
+    const inTags = a.tags?.some((t) => normalize(t).includes(q))
     return inTitle || inExcerpt || inTags
   })
 

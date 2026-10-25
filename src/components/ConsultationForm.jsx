@@ -44,9 +44,14 @@ export default function ConsultationForm() {
       return
     }
 
-    const cleanPhone = form.phone.trim()
-    if (!cleanPhone || cleanPhone.length < 10) {
-      showToast('لطفاً یک شماره تماس معتبر وارد فرمایید.', 'error')
+    const cleanPhone = form.phone
+      .replace(/[۰-۹]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+      .replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
+      .replace(/[\s\-\(\)\+]/g, '')
+
+    const isValidPhone = /^(\+?98|0)?9\d{9}$/.test(cleanPhone) || cleanPhone.length >= 10
+    if (!cleanPhone || !isValidPhone) {
+      showToast('لطفاً یک شماره تماس معتبر (مانند ۰۹۱۲۳۴۵۶۷۸۹) وارد فرمایید.', 'error')
       setStatus('error')
       return
     }
@@ -189,6 +194,8 @@ export default function ConsultationForm() {
                     onChange={handleChange}
                   >
                     <option value="دعاوی ملکی و ثبتی">دعاوی ملکی و ثبتی (خلع ید، الزام به سند، سرقفلی)</option>
+                    <option value="انحصار وراثت و تقسیم ترکه">انحصار وراثت و تقسیم ترکه (ارث و تحریر ترکه)</option>
+                    <option value="وکالت در دادگاه صلح">وکالت در دادگاه صلح و شورای حل اختلاف</option>
                     <option value="قراردادها و امور شرکت‌ها">تنظیم و بازبینی قراردادها و امور شرکتی</option>
                     <option value="مطالبه وجه و اسناد تجاری">مطالبه وجه چک، سفته، مطالبات مالی</option>
                     <option value="تنظیم دادخواست و لایحه">تنظیم لوایح دفاعیه و دادخواست</option>

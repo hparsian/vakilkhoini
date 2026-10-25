@@ -7,6 +7,7 @@ import { useToast } from '../context/ToastContext.jsx'
 import {
   cpiAnnualIndexes,
   formatPersianNumber,
+  formatPersianDecimal,
   parseNumberInput,
 } from '../data/cpiIndexes.js'
 import {
@@ -215,6 +216,12 @@ export default function CalculatorsPage({ defaultTab }) {
 
   if (!hasChildren && hasFather) {
     fatherShareAmount = Math.max(0, estateTotal - spouseShareAmount - motherShareAmount)
+    if (!hasMother) {
+      fatherRatioText = hasSpouse ? 'مابقی ترکه پس از سهم همسر' : 'تمام ترکه به قرابت'
+    }
+  } else if (!hasChildren && !hasFather && hasMother) {
+    motherShareAmount = Math.max(0, estateTotal - spouseShareAmount)
+    motherRatioText = hasSpouse ? 'مابقی کل ترکه پس از سهم همسر (به فرض و رد)' : 'تمام ترکه (به فرض و رد)'
   }
 
   const remainderForChildren = Math.max(0, estateTotal - spouseShareAmount - fatherShareAmount - motherShareAmount)
@@ -1619,7 +1626,7 @@ export default function CalculatorsPage({ defaultTab }) {
                           className="preset-chip"
                           onClick={() => setDiyaPercentStr(String(preset))}
                         >
-                          {formatPersianNumber(preset)}٪
+                          {formatPersianDecimal(preset)}٪
                         </button>
                       ))}
                     </div>
@@ -1647,7 +1654,7 @@ export default function CalculatorsPage({ defaultTab }) {
 
               <div className="calc-result-pane">
                 <div className="result-box highlight">
-                  <span className="result-label">مبلغ دیه محاسبه‌شده ({formatPersianNumber(finalDiyaPercent)} درصد):</span>
+                  <span className="result-label">مبلغ دیه محاسبه‌شده ({formatPersianDecimal(finalDiyaPercent)} درصد):</span>
                   <div className="result-value">
                     <span>{formatPersianNumber(calculatedDiyaTomans)}</span>
                     <span className="result-unit">تومان</span>
@@ -1673,7 +1680,7 @@ export default function CalculatorsPage({ defaultTab }) {
                     className="calc-action-btn copy-btn"
                     onClick={() =>
                       copyResultText(
-                        `دیه سال ${diyaYear} (${isHaramMonth ? 'ماه حرام' : 'ماه عادی'}): ${formatPersianNumber(finalDiyaPercent)}٪ = ${formatPersianNumber(calculatedDiyaTomans)} تومان`
+                        `دیه سال ${diyaYear} (${isHaramMonth ? 'ماه حرام' : 'ماه عادی'}): ${formatPersianDecimal(finalDiyaPercent)}٪ = ${formatPersianNumber(calculatedDiyaTomans)} تومان`
                       )
                     }
                   >
@@ -1687,7 +1694,7 @@ export default function CalculatorsPage({ defaultTab }) {
                       shareToSocial(
                         'whatsapp',
                         'محاسبه نرخ دیه',
-                        `سال: ${diyaYear}\nدرصد دیه: ${formatPersianNumber(finalDiyaPercent)}٪\nمبلغ: ${formatPersianNumber(calculatedDiyaTomans)} تومان`
+                        `سال: ${diyaYear}\nدرصد دیه: ${formatPersianDecimal(finalDiyaPercent)}٪\nمبلغ: ${formatPersianNumber(calculatedDiyaTomans)} تومان`
                       )
                     }
                   >

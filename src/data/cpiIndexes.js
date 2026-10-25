@@ -56,11 +56,26 @@ export function formatPersianNumber(num) {
   return parts.replace(/\d/g, (x) => farsiDigits[x])
 }
 
-// تمیزکاری ورودی کاربر به عدد انگلیسی
+// تبدیل اعداد اعشاری به فارسی (برای درصدها و مقادیر خرد)
+export function formatPersianDecimal(num, decimals = 1) {
+  if (num === null || num === undefined || isNaN(num)) return '۰'
+  const val = Number(num)
+  const formatted = val.toLocaleString('en-US', {
+    maximumFractionDigits: decimals,
+    minimumFractionDigits: 0,
+  })
+  const parts = formatted.replace(/,/g, '،').replace(/\./g, '٫')
+  const farsiDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹']
+  return parts.replace(/\d/g, (x) => farsiDigits[x])
+}
+
+// تمیزکاری ورودی کاربر به عدد انگلیسی (پشتیبانی از ارقام فارسی و عربی)
 export function parseNumberInput(val) {
-  if (!val) return 0
+  if (!val && val !== 0) return 0
   const normalized = String(val)
     .replace(/[۰-۹]/g, (d) => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d))
+    .replace(/[٠-٩]/g, (d) => '٠١٢٣٤٥٦٧٨٩'.indexOf(d))
     .replace(/[^0-9]/g, '')
   return Number(normalized) || 0
 }
+
