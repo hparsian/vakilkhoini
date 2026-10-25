@@ -718,7 +718,7 @@ export function HomeSearchKeywordsHub() {
               <Sparkles size={14} />
               <span>موضوعات پرجستجو و ابزارهای کلیدی حقوقی</span>
             </div>
-            <h2 className="section-title">سامانه‌ها و موضوعات حقوقی پرطرفدار در گوگل</h2>
+            <h2 className="section-title">سامانه‌ها و موضوعات حقوقی پرطرفدار</h2>
             <p className="section-subtitle">
               دسترسی مستقیم و سریع به ابزارهای رایگان محاسبه قضایی، راهنماهای گام‌به‌گام و خدمات تخصصی وکیل دادگستری در تهران
             </p>
