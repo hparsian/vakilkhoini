@@ -7,6 +7,7 @@ import {
   HomeWhyChooseUs,
   HomeAboutSpotlight,
   HomeCalculatorsBanner,
+  HomeSearchKeywordsHub,
   HomeProcessSummary,
   HomeArticlesPreview,
   HomeFAQPreview,
@@ -34,7 +35,7 @@ function HomePage() {
   useSEO({
     title: 'پرستو خوئینی | وکیل تهران، سعادت‌آباد و وکیل حقوقی - ۰۹۱۲۸۷۵۴۱۷۷',
     description:
-      'پرستو خوئینی وکیل حقوقی و پایه یک دادگستری در تهران و سعادت‌آباد. شماره موبایل و تماس مستقیم: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177). وکالت تخصصی دعاوی ملکی، چک صیادی و قراردادها.',
+      'پرستو خوئینی وکیل حقوقی و پایه یک دادگستری در تهران و سعادت‌آباد. شماره موبایل و تماس مستقیم: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177). وکالت دعاوی ملکی، انحصار وراثت، دادگاه صلح و ابزارهای محاسبه آنلاین.',
     path: '/',
     jsonLd: {
       '@context': 'https://schema.org',
@@ -102,6 +103,11 @@ function HomePage() {
             'تنظیم قرارداد مشارکت در ساخت',
             'داوری اختلافات تجاری',
             'محاسبه آنلاین هزینه دادرسی و خسارت تاخیر تادیه',
+            'محاسبه آنلاین سهم‌الارث و انحصار وراثت',
+            'محاسبه کمیسیون مشاور املاک تهران',
+            'محاسبه نرخ دیه سال ۱۴۰۴ و ۱۴۰۵',
+            'وکالت در دادگاه صلح و شورای حل اختلاف',
+            'استرداد ودیعه مسکن و پول پیش مستاجر',
             'وکالت در محاکم تجدیدنظر و دیوان عالی کشور',
           ],
         },
@@ -148,6 +154,7 @@ function HomePage() {
       <Testimonials />
       <HomeAboutSpotlight />
       <HomeCalculatorsBanner />
+      <HomeSearchKeywordsHub />
       <HomeProcessSummary />
       <HomeArticlesPreview />
       <HomeFAQPreview />

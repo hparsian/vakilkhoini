@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { lawyer, articles, services, faqs } from '../data/content.js'
+import { lawyer, articles, services, faqs, highSearchLegalKeywords } from '../data/content.js'
 import { Link } from '../router.jsx'
 import {
   Scale,
   Building2,
+  Users,
   FileSignature,
   Briefcase,
   ShieldCheck,
@@ -317,12 +318,12 @@ export function HomeCalculatorsBanner() {
                   <Calculator size={28} />
                 </div>
                 <div className="calc-banner-header">
-                  <span className="calc-badge">ابزارهای رایگان و هوشمند آنلاین</span>
+                  <span className="calc-badge">۸ ابزار رایگان و هوشمند آنلاین</span>
                   <h2 id="home-calc-heading" className="calc-banner-title">
-                    محاسبه آنلاین هزینه دادرسی و خسارت تأخیر
+                    محاسبه آنلاین هزینه دادرسی، سهم‌الارث و کمیسیون املاک
                   </h2>
                   <p className="calc-banner-desc">
-                    پیش از طرح هرگونه دعوا در دادگستری، بر اساس آخرین تعرفه‌های قانونی قوه قضاییه هزینه تمبر دادرسی را آنلاین تخمین بزنید.
+                    پیش از طرح هرگونه دعوا در دادگستری یا امضای قرارداد، بر اساس آخرین قوانین مدنی و تعرفه‌های قوه قضاییه، هزینه‌های دادرسی، سهم‌الارث، کمیسیون املاک و دیه را آنلاین محاسبه کنید.
                   </p>
                 </div>
               </div>
@@ -330,7 +331,19 @@ export function HomeCalculatorsBanner() {
               <div className="calc-features-grid">
                 <div className="calc-feature-pill">
                   <CheckCircle2 size={16} />
-                  <span>هزینه دادرسی دادگاه (بدوی، تجدیدنظر، فرجام‌خواهی)</span>
+                  <span>محاسبه هزینه دادرسی دادگاه (بدوی، تجدیدنظر، فرجام‌خواهی)</span>
+                </div>
+                <div className="calc-feature-pill">
+                  <CheckCircle2 size={16} />
+                  <span>محاسبه آنلاین سهم‌الارث و طبقات ارث (قانون مدنی)</span>
+                </div>
+                <div className="calc-feature-pill">
+                  <CheckCircle2 size={16} />
+                  <span>محاسبه کمیسیون مشاور املاک (خرید، فروش، رهن و اجاره تهران)</span>
+                </div>
+                <div className="calc-feature-pill">
+                  <CheckCircle2 size={16} />
+                  <span>محاسبه نرخ دیه سال ۱۴۰۴ و ۱۴۰۵ (ماه حرام و عادی)</span>
                 </div>
                 <div className="calc-feature-pill">
                   <CheckCircle2 size={16} />
@@ -346,14 +359,14 @@ export function HomeCalculatorsBanner() {
                 </div>
                 <div className="calc-feature-pill">
                   <CheckCircle2 size={16} />
-                  <span>چک‌لیست هوشمند ریسک مبایعه‌نامه و ملک (جدید)</span>
+                  <span>چک‌لیست هوشمند ریسک مبایعه‌نامه و ملک</span>
                 </div>
               </div>
 
               <div className="calc-banner-footer">
                 <Link to="/mohasebe" className="btn btn-gold calc-launch-btn">
                   <Calculator size={18} />
-                  <span>ورود به سامانه ابزارهای حقوقی و محاسبات (۵ ابزار تخصصی)</span>
+                  <span>ورود به سامانه ابزارهای حقوقی و محاسبات (۸ ابزار تخصصی)</span>
                   <ChevronLeft size={16} />
                 </Link>
                 <Link to="/checklist-mobayenameh" className="btn btn-outline-dark calc-checklist-link">
@@ -693,3 +706,54 @@ export function HomeContactCTA() {
     </section>
   )
 }
+
+// 9. HIGH-VOLUME SEARCH KEYWORDS & POPULAR LEGAL HUB
+export function HomeSearchKeywordsHub() {
+  return (
+    <section className="home-section home-search-hub-section" aria-label="موضوعات و ابزارهای پرجستجوی حقوقی">
+      <div className="container">
+        <div className="search-hub-wrapper">
+          <div className="search-hub-head">
+            <div className="eyebrow">
+              <Sparkles size={14} />
+              <span>موضوعات پرجستجو و ابزارهای کلیدی حقوقی</span>
+            </div>
+            <h2 className="section-title">سامانه‌ها و موضوعات حقوقی پرطرفدار در گوگل</h2>
+            <p className="section-subtitle">
+              دسترسی مستقیم و سریع به ابزارهای رایگان محاسبه قضایی، راهنماهای گام‌به‌گام و خدمات تخصصی وکیل دادگستری در تهران
+            </p>
+          </div>
+
+          <div className="search-keywords-grid">
+            {highSearchLegalKeywords.map((item, idx) => (
+              <Link to={item.path} key={idx} className="search-keyword-card">
+                <div className="search-keyword-top">
+                  <span className={`search-badge ${item.category}`}>{item.badge}</span>
+                  <ArrowLeft size={14} className="search-arrow-icon" />
+                </div>
+                <strong className="search-keyword-term">{item.term}</strong>
+                <span className="search-keyword-hint">مشاهده فوری و راهنمای کامل</span>
+              </Link>
+            ))}
+          </div>
+
+          <div className="search-stats-strip">
+            <div className="stat-pill">
+              <Calculator size={16} />
+              <span>۸ ابزار هوشمند محاسبه آنلاین حقوقی</span>
+            </div>
+            <div className="stat-pill">
+              <BookOpen size={16} />
+              <span>۲۰+ راهنمای تخصصی قوانین و رویه‌های قضایی</span>
+            </div>
+            <div className="stat-pill">
+              <Scale size={16} />
+              <span>وکالت تخصصی دعاوی ملکی، چک صیادی و قراردادها</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+

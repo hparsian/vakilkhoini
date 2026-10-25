@@ -100,13 +100,16 @@ export default function Hero() {
 
           {/* Quick Access Legal Topics (SEO & UX Internal Links) */}
           <div className="hero-quick-topics" aria-label="دسترسی سریع به موضوعات حقوقی">
-            <span className="quick-topics-label">موضوعات پرجستجو:</span>
+            <span className="quick-topics-label">موضوعات و ابزارهای پرجستجو:</span>
             <div className="quick-topics-tags">
-              <Link to="/maghalat/what-is-petition" className="quick-topic-tag">دادخواست حقوقی چیست؟</Link>
-              <Link to="/marohe" className="quick-topic-tag">روند قانونی پرونده در دادگاه</Link>
-              <Link to="/mohasebe" className="quick-topic-tag gold">محاسبه آنلاین هزینه دادرسی</Link>
-              <Link to="/khadamat/property-claims" className="quick-topic-tag">دعاوی ملکی و ثبتی</Link>
-              <Link to="/khadamat/financial-claims" className="quick-topic-tag">وصول فوری چک صیادی</Link>
+              <Link to="/mohasebe" className="quick-topic-tag gold">محاسبه آنلاین سهم‌الارث</Link>
+              <Link to="/mohasebe" className="quick-topic-tag gold">کمیسیون املاک</Link>
+              <Link to="/maghalat/enhesar-verasat-marohel-ghanoon-jadid" className="quick-topic-tag">انحصار وراثت ۱۴۰۵</Link>
+              <Link to="/maghalat/dadgah-solh-salaheyat-ghanoon-jadid" className="quick-topic-tag">دادگاه صلح چیست؟</Link>
+              <Link to="/maghalat/esterdad-vadieh-maskan-rahkare-ghanooni" className="quick-topic-tag">استرداد ودیعه مسکن</Link>
+              <Link to="/mohasebe" className="quick-topic-tag">هزینه دادرسی دادگاه</Link>
+              <Link to="/khadamat/property-claims" className="quick-topic-tag">دعاوی ملکی تهران</Link>
+              <Link to="/khadamat/financial-claims" className="quick-topic-tag">وصول چک صیادی</Link>
             </div>
           </div>
         </div>
