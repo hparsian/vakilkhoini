@@ -3,6 +3,7 @@ import { articles, lawyer } from '../data/content.js'
 import { Link } from '../router.jsx'
 import useSEO, { SITE_URL } from '../hooks/useSEO.js'
 import { BookOpen, Calendar, Clock, ArrowLeft, ChevronLeft, Search, X, Calculator } from 'lucide-react'
+import NewsletterSubscription from '../components/NewsletterSubscription.jsx'
 import '../components/Articles.css'
 import './ArticlePage.css'
 
@@ -190,6 +191,13 @@ export default function ArticlesListPage() {
             ))}
           </div>
         )}
+
+        <div style={{ marginTop: '48px', marginBottom: '24px' }}>
+          <NewsletterSubscription
+            title="اشتراک در خبرنامه تحلیلی قوانین و آراء دادگاه‌های تهران"
+            subtitle="دریافت جدیدترین تحلیل‌های حقوقی، آرای وحدت رویه، بخشنامه‌های ثبتی و بانک‌های اطلاعاتی حقوقی مستقیماً در صندوق پیام شما."
+          />
+        </div>
       </div>
     </main>
   )

@@ -20,6 +20,7 @@ import {
   Phone,
   HelpCircle,
 } from 'lucide-react'
+import NewsletterSubscription from '../components/NewsletterSubscription.jsx'
 import './ArticlePage.css'
 
 // Related content is scored from the content itself — see src/data/related.js.
@@ -463,6 +464,13 @@ export default function ArticlePage({ slug }) {
               </div>
             </section>
           )}
+
+          <div style={{ marginTop: '36px', marginBottom: '24px' }}>
+            <NewsletterSubscription
+              title={`اشتراک در به‌روزرسانی‌های حقوقی موضوع ${article.category || 'حقوقی'}`}
+              subtitle="برای دریافت نکات کلیدی دادرسی، تغییرات آیین‌نامه‌ای و تحلیل‌های کاربردی وکیل پایه یک در صندوق ایمیل خود عضو شوید."
+            />
+          </div>
         </article>
       </div>
     </main>

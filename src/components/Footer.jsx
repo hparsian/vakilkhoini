@@ -1,6 +1,7 @@
 import { lawyer, navLinks } from '../data/content.js'
 import { ShieldCheck, Phone, MapPin, Scale, ChevronLeft } from 'lucide-react'
 import { Link, useRouter } from '../router.jsx'
+import NewsletterSubscription from './NewsletterSubscription.jsx'
 import './Footer.css'
 
 export default function Footer() {
@@ -105,6 +106,15 @@ export default function Footer() {
               درخواست مشاوره حضوری یا تلفنی
             </Link>
           </div>
+        </div>
+
+        {/* Legal Update Email Subscription Widget */}
+        <div style={{ marginTop: '36px', marginBottom: '24px' }}>
+          <NewsletterSubscription
+            variant="footer-embed"
+            title="اشتراک در خبرنامه تحلیلی و به‌روزرسانی‌های حقوقی"
+            subtitle="دریافت تغییرات جدید قوانین ثبتی، بخشنامه‌های چک صیادی و رویه‌های محاکم دادگستری تهران به صورت منظم."
+          />
         </div>
 
         {/* Legal Disclaimer */}
