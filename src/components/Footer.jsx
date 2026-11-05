@@ -77,6 +77,55 @@ export default function Footer() {
             </ul>
           </div>
 
+          {/* Specialized Tehran Lawyer Landing Pages */}
+          <div className="footer-col links-col">
+            <h4 className="footer-col-heading">وکالت تخصصی تهران</h4>
+            <ul className="footer-nav-list">
+              <li>
+                <Link to="/vakeel-melki-tehran">
+                  <ChevronLeft size={14} className="nav-chevron" />
+                  <span>وکیل ملکی تهران (سعادت‌آباد)</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/vakeel-chek-sayadi">
+                  <ChevronLeft size={14} className="nav-chevron" />
+                  <span>وکیل چک صیادی و وصول مطالبات</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/vakeel-enhesar-verasat">
+                  <ChevronLeft size={14} className="nav-chevron" />
+                  <span>وکیل انحصار وراثت و تقسیم ترکه</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/vakeel-tanzim-gharardad">
+                  <ChevronLeft size={14} className="nav-chevron" />
+                  <span>وکیل تنظیم قرارداد مشارکت</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/vakeel-dadgah-solh">
+                  <ChevronLeft size={14} className="nav-chevron" />
+                  <span>وکیل متخصص دادگاه صلح</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/vakeel-sarghofli">
+                  <ChevronLeft size={14} className="nav-chevron" />
+                  <span>وکیل سرقفلی و حق کسب و پیشه</span>
+                </Link>
+              </li>
+              <li>
+                <Link to="/vakeel-esterdad-vadieh">
+                  <ChevronLeft size={14} className="nav-chevron" />
+                  <span>وکیل استرداد ودیعه مسکن</span>
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Contact Summary */}
           <div className="footer-col contact-col">
             <h4 className="footer-col-heading">ارتباط با دفتر سعادت‌آباد</h4>

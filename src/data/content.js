@@ -1119,6 +1119,13 @@ export const articles = [
 ]
 
 export const highSearchLegalKeywords = [
+  { term: 'وکیل ملکی تهران (سعادت‌آباد)', path: '/vakeel-melki-tehran', badge: 'تخصصی ملکی', category: 'landing' },
+  { term: 'وکیل چک صیادی و مطالبات', path: '/vakeel-chek-sayadi', badge: 'وصول سریع', category: 'landing' },
+  { term: 'وکیل انحصار وراثت و ترکه', path: '/vakeel-enhesar-verasat', badge: 'ارث و ماترک', category: 'landing' },
+  { term: 'وکیل تنظیم قرارداد و مشارکت', path: '/vakeel-tanzim-gharardad', badge: 'قراردادها', category: 'landing' },
+  { term: 'وکیل متخصص دادگاه صلح', path: '/vakeel-dadgah-solh', badge: 'قانون جدید', category: 'landing' },
+  { term: 'وکیل سرقفلی و حق کسب و پیشه', path: '/vakeel-sarghofli', badge: 'املاک تجاری', category: 'landing' },
+  { term: 'وکیل استرداد ودیعه مسکن', path: '/vakeel-esterdad-vadieh', badge: 'موجر و مستاجر', category: 'landing' },
   { term: 'محاسبه سنوات و عیدی ۱۴۰۴', path: '/mohasebe-senavat', badge: 'قانون کار', category: 'tools' },
   { term: 'محاسبه هزینه دفترخانه اسناد رسمی', path: '/mohasebe-daftarkhaneh', badge: 'حق‌التحریر', category: 'tools' },
   { term: 'محاسبه آنلاین مهلت‌های دادرسی', path: '/mohasebe-mohlat', badge: 'جدید', category: 'tools' },
