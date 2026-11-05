@@ -18,6 +18,7 @@ import LinkPrefetcher from './components/LinkPrefetcher.jsx'
 import Footer from './components/Footer.jsx'
 import StickyMobileCTA from './components/StickyMobileCTA.jsx'
 import ArticlePage from './pages/ArticlePage.jsx'
+import { faqs } from './data/content.js'
 import ArticlesListPage from './pages/ArticlesListPage.jsx'
 import ServicePage from './pages/ServicePage.jsx'
 import ServicesListPage from './pages/ServicesListPage.jsx'
@@ -27,6 +28,7 @@ import ProcessPage from './pages/ProcessPage.jsx'
 import FAQPage from './pages/FAQPage.jsx'
 import ConsultationPage from './pages/ConsultationPage.jsx'
 import ContactPage from './pages/ContactPage.jsx'
+import KeywordLandingPage from './pages/KeywordLandingPage.jsx'
 import NotFoundPage from './pages/NotFoundPage.jsx'
 import { useRouter, matchPath } from './router.jsx'
 import useSEO from './hooks/useSEO.js'
@@ -114,32 +116,14 @@ function HomePage() {
         {
           '@type': 'FAQPage',
           '@id': 'https://vakilkhoini.ir/#faqpage',
-          mainEntity: [
-            {
-              '@type': 'Question',
-              name: 'آیا امکان دریافت مشاوره قبل از تصمیم‌گیری برای شکایت وجود دارد؟',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'بله، اکیداً توصیه می‌شود پیش از هرگونه اقدام قضایی، در یک جلسه مشاوره حضوری یا تلفنی اسناد خود را بررسی کنید تا از شانس واقعی پیروزی و هزینه‌ها آگاه شوید.',
-              },
+          mainEntity: faqs.map((f) => ({
+            '@type': 'Question',
+            name: f.q,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: f.a,
             },
-            {
-              '@type': 'Question',
-              name: 'حق‌الوکاله و هزینه‌های دادرسی چگونه محاسبه و پرداخت می‌شود؟',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'حق‌الوکاله بر اساس تعرفه قانونی و پیچیدگی موضوع تعیین و امکان پرداخت مرحله‌ای متناسب با پیشرفت دادرسی در سامانه ثنا درج می‌شود.',
-              },
-            },
-            {
-              '@type': 'Question',
-              name: 'دفتر وکالت در کدام منطقه تهران واقع است و ساعات پذیرش چگونه است؟',
-              acceptedAnswer: {
-                '@type': 'Answer',
-                text: 'دفتر وکالت در منطقه سعادت‌آباد تهران (محدوده میدان کاج / بلوار سرو) واقع شده است. پذیرش در روزهای شنبه تا چهارشنبه از ساعت ۱۰:۰۰ تا ۲۰:۰۰ با وقت قبلی انجام می‌شود.',
-              },
-            },
-          ],
+          })),
         },
       ],
     },
@@ -188,6 +172,31 @@ export default function App() {
     content = <CalculatorsPage />
   } else if (pathname === '/checklist-mobayenameh' || pathname === '/cheklis-amlak') {
     content = <CalculatorsPage defaultTab="realEstateChecklist" />
+  } else if (pathname === '/mohasebe-senavat') {
+    content = <CalculatorsPage defaultTab="laborLaw" />
+  } else if (pathname === '/mohasebe-daftarkhaneh') {
+    content = <CalculatorsPage defaultTab="notaryFee" />
+  } else if (pathname === '/mohasebe-mohlat') {
+    content = <CalculatorsPage defaultTab="legalDeadlines" />
+  } else if (pathname === '/sazandeh-qarardad') {
+    content = <CalculatorsPage defaultTab="contractBuilder" />
+  } else if (pathname === '/mohasebe-cheque-risk') {
+    content = <CalculatorsPage defaultTab="chequeRisk" />
+  } else if (pathname === '/mohasebe-ajrat-al-misl') {
+    content = <CalculatorsPage defaultTab="ajratAlMisl" />
+  } else if (pathname === '/mohasebe-maliat-ers') {
+    content = <CalculatorsPage defaultTab="inheritanceTax" />
+  } else if (
+    pathname === '/vakeel-melki-tehran' ||
+    pathname === '/vakeel-chek-sayadi' ||
+    pathname === '/vakeel-enhesar-verasat' ||
+    pathname === '/vakeel-tanzim-gharardad' ||
+    pathname === '/vakeel-dadgah-solh' ||
+    pathname === '/vakeel-sarghofli' ||
+    pathname === '/vakeel-esterdad-vadieh'
+  ) {
+    const slug = pathname.replace('/', '')
+    content = <KeywordLandingPage slug={slug} />
   } else if (pathname === '/maghalat') {
     content = <ArticlesListPage />
   } else if ((articleParams = matchPath('/maghalat/:slug', pathname))) {

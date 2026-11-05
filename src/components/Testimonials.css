@@ -1,22 +1,125 @@
 /* ===========================================================
-   Testimonials & Successful Cases — Swiper RTL Carousel
-   Navy #0B192C · Gold #D4AF37 · Ivory #FAF9F6
+   Testimonials & Client Social Proof Carousel CSS
 =========================================================== */
 
 .tm-section {
-  background: linear-gradient(180deg, var(--off-white) 0%, var(--surface-muted) 100%);
+  background: linear-gradient(180deg, var(--off-white) 0%, rgba(11, 25, 44, 0.03) 100%);
   border-bottom: 1px solid var(--border-subtle);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Trust Stats Strip in Header */
+.tm-trust-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.tm-trust-stat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--dark-teal);
+  background: var(--white);
+  padding: 6px 16px;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  box-shadow: var(--shadow-subtle);
+}
+
+.tm-trust-stat svg {
+  color: var(--gold-dark);
+}
+
+/* Category Filter Tabs */
+.tm-filter-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.tm-filter-btn {
+  padding: 8px 18px;
+  background: var(--white);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-full);
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.tm-filter-btn:hover {
+  color: var(--dark-teal);
+  border-color: rgba(11, 25, 44, 0.2);
+}
+
+.tm-filter-btn.active {
+  background: var(--dark-teal);
+  color: var(--white);
+  border-color: var(--dark-teal);
+  box-shadow: 0 4px 14px rgba(11, 25, 44, 0.15);
+}
+
+/* Carousel Wrapper & Floating Arrows */
+.tm-carousel-wrapper {
+  position: relative;
+  padding: 0 48px;
+}
+
+.tm-nav-btn {
+  position: absolute;
+  top: 45%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-full);
+  background: var(--white);
+  color: var(--dark-teal);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: var(--shadow-soft);
+  transition: all 0.25s ease;
+}
+
+.tm-prev-btn {
+  right: 0;
+}
+
+.tm-next-btn {
+  left: 0;
+}
+
+.tm-nav-btn:hover {
+  background: var(--gold);
+  color: var(--dark-teal);
+  border-color: var(--gold);
+  transform: translateY(-50%) scale(1.08);
 }
 
 .tm-swiper {
-  padding: 8px 4px 46px !important;
-  overflow: hidden;
+  padding: 8px 4px 50px !important;
 }
 
 .tm-slide {
   height: auto;
 }
 
+/* Card Styling */
 .tm-card {
   display: flex;
   flex-direction: column;
@@ -37,13 +140,13 @@
   inset-inline-start: 0;
   top: 0;
   bottom: 0;
-  width: 3px;
+  width: 4px;
   background: linear-gradient(180deg, var(--gold) 0%, var(--gold-light) 100%);
-  opacity: 0.85;
+  opacity: 0.9;
 }
 
 .tm-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   box-shadow: var(--shadow-hover);
   border-color: var(--border-gold);
 }
@@ -53,7 +156,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .tm-badge {
@@ -62,21 +165,14 @@
   gap: 6px;
   font-size: 11.5px;
   font-weight: 700;
-  padding: 5px 11px;
+  padding: 4px 11px;
   border-radius: var(--radius-full);
-  white-space: nowrap;
 }
 
-.tm-badge-case {
+.tm-badge-category {
   color: var(--gold-dark);
   background: var(--gold-subtle);
   border: 1px solid rgba(212, 175, 55, 0.28);
-}
-
-.tm-badge-quote {
-  color: var(--teal);
-  background: var(--teal-subtle);
-  border: 1px solid rgba(28, 58, 94, 0.16);
 }
 
 .tm-stars {
@@ -86,24 +182,17 @@
 }
 
 .tm-title {
-  font-size: 17px;
+  font-size: 16.5px;
   font-weight: 800;
   color: var(--dark-teal);
-  line-height: 1.5;
-  margin-bottom: 10px;
-}
-
-.tm-summary {
-  font-size: 14.5px;
-  color: var(--text-muted);
-  line-height: 1.9;
-  margin: 0;
+  line-height: 1.45;
+  margin-bottom: 12px;
 }
 
 .tm-quote {
   position: relative;
-  margin: 0;
-  padding-inline-start: 26px;
+  margin: 0 0 16px 0;
+  padding-inline-start: 24px;
 }
 
 .tm-quote-mark {
@@ -111,42 +200,73 @@
   inset-inline-start: 0;
   top: 2px;
   color: var(--gold);
-  opacity: 0.5;
+  opacity: 0.45;
 }
 
 .tm-quote p {
-  font-size: 15px;
+  font-size: 14px;
   color: var(--dark-text);
-  line-height: 2;
-  font-style: italic;
+  line-height: 1.85;
   margin: 0;
 }
 
+/* Outcome Result Tag */
+.tm-outcome-tag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(37, 211, 102, 0.08);
+  border: 1px solid rgba(37, 211, 102, 0.25);
+  color: #166534;
+  padding: 8px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  font-weight: 700;
+  margin-top: auto;
+  margin-bottom: 16px;
+}
+
+.tm-outcome-tag .outcome-icon {
+  color: #15803d;
+  flex-shrink: 0;
+}
+
+/* Footer & Client Metadata */
 .tm-footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 10px;
-  margin-top: auto;
-  padding-top: 16px;
+  padding-top: 14px;
   border-top: 1px dashed var(--border-subtle);
 }
 
-.tm-client {
+.tm-client-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tm-client-name {
   font-size: 13px;
   font-weight: 700;
-  color: var(--teal);
+  color: var(--dark-teal);
 }
 
 .tm-location {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  font-size: 12.5px;
+  gap: 4px;
+  font-size: 11.5px;
   color: var(--text-light);
 }
 
-/* Swiper pagination bullets — gold */
+.tm-date {
+  font-size: 11.5px;
+  color: var(--text-light);
+}
+
+/* Swiper pagination bullets */
 .tm-swiper .swiper-pagination-bullet {
   background: var(--text-light);
   opacity: 0.4;
@@ -158,7 +278,7 @@
 .tm-swiper .swiper-pagination-bullet-active {
   background: var(--gold);
   opacity: 1;
-  width: 22px;
+  width: 24px;
   border-radius: var(--radius-full);
 }
 
@@ -171,11 +291,11 @@
   line-height: 1.9;
 }
 
-@media (max-width: 640px) {
-  .tm-card-top {
-    flex-direction: row;
+@media (max-width: 768px) {
+  .tm-carousel-wrapper {
+    padding: 0;
   }
-  .tm-title {
-    font-size: 16px;
+  .tm-nav-btn {
+    display: none;
   }
 }

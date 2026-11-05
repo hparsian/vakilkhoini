@@ -127,15 +127,21 @@ export default function ArticlesListPage() {
         </div>
 
         <div className="articles-filter-row">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              className={`article-cat-btn ${activeCategory === cat ? 'active' : ''}`}
-              onClick={() => setActiveCategory(cat)}
-            >
-              {cat === 'all' ? 'همه مقالات' : cat}
-            </button>
-          ))}
+          {categories.map((cat) => {
+            const count = cat === 'all' ? articles.length : articles.filter((a) => a.category === cat).length
+            return (
+              <button
+                key={cat}
+                className={`article-cat-btn ${activeCategory === cat ? 'active' : ''}`}
+                onClick={() => setActiveCategory(cat)}
+              >
+                <span>{cat === 'all' ? 'همه مقالات' : cat}</span>
+                <span className="cat-count-badge" style={{ marginRight: '6px', opacity: 0.8, fontSize: '0.8em', background: 'rgba(0,0,0,0.1)', padding: '1px 6px', borderRadius: '10px' }}>
+                  {count}
+                </span>
+              </button>
+            )
+          })}
         </div>
 
         {filteredArticles.length === 0 ? (

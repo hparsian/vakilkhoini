@@ -31,6 +31,18 @@ import {
   Building2,
   Percent,
   Coins,
+  Clock,
+  AlertTriangle,
+  Printer,
+  Check,
+  Sparkles,
+  UserCheck,
+  Award,
+  Landmark,
+  FileSignature,
+  Receipt,
+  ShieldAlert,
+  Heart,
 } from 'lucide-react'
 import RealEstateRiskChecklist from '../components/RealEstateRiskChecklist.jsx'
 import './CalculatorsPage.css'
@@ -94,6 +106,55 @@ export default function CalculatorsPage({ defaultTab }) {
   const [diyaPercentStr, setDiyaPercentStr] = useState('5') // 5 percent
   const [selectedInjury, setSelectedInjury] = useState('mouzeheh')
   const diyaPercent = parseFloat(diyaPercentStr) || 0
+
+  // 8. Labor Law State (سنوات و عیدی قانون کار)
+  const [laborSalaryStr, setLaborSalaryStr] = useState('15000000')
+  const [laborWorkedDaysStr, setLaborWorkedDaysStr] = useState('365')
+  const [laborOvertimeHoursStr, setLaborOvertimeHoursStr] = useState('10')
+  const [laborUnusedLeaveStr, setLaborUnusedLeaveStr] = useState('5')
+  const laborSalary = parseNumberInput(laborSalaryStr)
+  const laborWorkedDays = parseFloat(laborWorkedDaysStr) || 0
+  const laborOvertimeHours = parseFloat(laborOvertimeHoursStr) || 0
+  const laborUnusedLeave = parseFloat(laborUnusedLeaveStr) || 0
+
+  // 9. Notary Fee State (حق‌التحریر دفترخانه)
+  const [notaryDealAmountStr, setNotaryDealAmountStr] = useState('1000000000')
+  const [notaryDocType, setNotaryDocType] = useState('deed-property')
+  const notaryDealAmount = parseNumberInput(notaryDealAmountStr)
+
+  // 10. Legal Deadlines State (مهلت‌های دادرسی)
+  const [deadlineType, setDeadlineType] = useState('appeal')
+  const [residenceLocation, setResidenceLocation] = useState('iran')
+  const [noticeDaysAgoStr, setNoticeDaysAgoStr] = useState('5')
+  const noticeDaysAgo = parseInt(noticeDaysAgoStr, 10) || 0
+
+  // 11. Interactive Contract Builder State (سازساز نمونه سند)
+  const [docTemplate, setDocTemplate] = useState('ezharnameh-cheque')
+  const [party1Name, setParty1Name] = useState('علی حسینی')
+  const [party2Name, setParty2Name] = useState('محمد رضایی')
+  const [contractAmountStr, setContractAmountStr] = useState('200000000')
+  const [dailyPenaltyStr, setDailyPenaltyStr] = useState('500000')
+  const [cityCourt, setCityCourt] = useState('تهران')
+  const contractAmount = parseNumberInput(contractAmountStr)
+  const dailyPenalty = parseNumberInput(dailyPenaltyStr)
+
+  // 12. Cheque Risk Analyzer State (تحلیل ریسک چک صیادی)
+  const [bouncedReason, setBouncedReason] = useState('insufficient-funds')
+  const [chequeAmountStr, setChequeAmountStr] = useState('150000000')
+  const chequeAmount = parseNumberInput(chequeAmountStr)
+
+  // 13. Ajrat Al-Misl State (اجرت‌المثل ایام زوجیت)
+  const [marriageYearsStr, setMarriageYearsStr] = useState('10')
+  const [childrenCountStr, setChildrenCountStr] = useState('2')
+  const [isEmployed, setIsEmployed] = useState(false)
+  const marriageYears = parseInt(marriageYearsStr, 10) || 1
+  const childrenCount = parseInt(childrenCountStr, 10) || 0
+
+  // 14. Inheritance Tax State (مالیات بر ارث)
+  const [taxAssetType, setTaxAssetType] = useState('residential')
+  const [taxAssetValueStr, setTaxAssetValueStr] = useState('3000000000')
+  const [heirClass, setHeirClass] = useState('class1')
+  const taxAssetValue = parseNumberInput(taxAssetValueStr)
 
   // Unique accessible IDs for inputs
   const courtClaimInputId = useId()
@@ -281,6 +342,101 @@ export default function CalculatorsPage({ defaultTab }) {
   const calculatedDiyaTomans = Math.round(fullDiyaWithMonth * (finalDiyaPercent / 100))
   const calculatedDiyaRials = calculatedDiyaTomans * 10
 
+  // 8. Labor Law Calculations
+  const senavatAmount = Math.round(laborSalary * (laborWorkedDays / 365))
+  const eidiAmount = Math.round(Math.min(laborSalary * 2, 31500000) * (laborWorkedDays / 365))
+  const overtimeAmount = Math.round((laborSalary / 220) * 1.4 * laborOvertimeHours)
+  const unusedLeaveAmount = Math.round((laborSalary / 30) * laborUnusedLeave)
+  const totalLaborPay = senavatAmount + eidiAmount + overtimeAmount + unusedLeaveAmount
+
+  // 9. Notary Fee Calculations
+  let baseNotaryFee = 0
+  if (notaryDealAmount <= 10000000) {
+    baseNotaryFee = notaryDealAmount * 0.025
+  } else if (notaryDealAmount <= 50000000) {
+    baseNotaryFee = 250000 + (notaryDealAmount - 10000000) * 0.015
+  } else if (notaryDealAmount <= 100000000) {
+    baseNotaryFee = 850000 + (notaryDealAmount - 50000000) * 0.01
+  } else if (notaryDealAmount <= 500000000) {
+    baseNotaryFee = 1350000 + (notaryDealAmount - 100000000) * 0.005
+  } else if (notaryDealAmount <= 1000000000) {
+    baseNotaryFee = 3350000 + (notaryDealAmount - 500000000) * 0.002
+  } else {
+    baseNotaryFee = 4350000 + (notaryDealAmount - 1000000000) * 0.001
+  }
+  if (notaryDocType === 'power-attorney') {
+    baseNotaryFee = 250000
+  } else if (notaryDocType === 'car-deed') {
+    baseNotaryFee = baseNotaryFee * 0.7
+  }
+  const notaryVat = baseNotaryFee * 0.10
+  const stampRegistrationFee = notaryDocType === 'deed-property' ? notaryDealAmount * 0.005 : 50000
+  const totalNotaryEstimate = baseNotaryFee + notaryVat + stampRegistrationFee
+
+  // 10. Legal Deadlines Calculations
+  let maxAllowedDays = 20
+  let deadlineTitle = 'مهلت تجدیدنظرخواهی از آرای دادگاه بدوی'
+  if (deadlineType === 'appeal') {
+    maxAllowedDays = residenceLocation === 'iran' ? 20 : 60
+    deadlineTitle = 'مهلت ۲۰ روزه تجدیدنظرخواهی (۶۰ روز مقیم خارج)'
+  } else if (deadlineType === 'wakhavahi') {
+    maxAllowedDays = residenceLocation === 'iran' ? 20 : 60
+    deadlineTitle = 'مهلت واخواهی از حکم غیابی (ماده ۳۰۶ ق.آ.د.م)'
+  } else if (deadlineType === 'cheque-protest') {
+    maxAllowedDays = 10
+    deadlineTitle = 'مهلت ۱۰ روزه واخواست سفته و پروتست اسناد تجاری'
+  } else if (deadlineType === 'expert-objection') {
+    maxAllowedDays = 7
+    deadlineTitle = 'مهلت ۷ روزه اعتراض به نظریه کارشناس رسمی'
+  } else if (deadlineType === 'divan-justice') {
+    maxAllowedDays = 90
+    deadlineTitle = 'مهلت ۳ ماهه شکایت در دیوان عدالت اداری'
+  }
+  const daysRemaining = maxAllowedDays - noticeDaysAgo
+
+  // 11. Interactive Contract Generator Text
+  let generatedText = ''
+  if (docTemplate === 'ezharnameh-cheque') {
+    generatedText = `مخاطب محترم جناب آقای/خانم ${party2Name}؛\nاحتراماً به استناد ماده ۱۵۶ قانون آیین دادرسی مدنی، به موجب این اظهارنامه رسمی به شما ابلاغ می‌گردد:\nنظر به اینکه یک فقره چک صیادی به شماره مشخصه و به مبلغ ${formatPersianNumber(contractAmount)} تومان به عهده بانک، عهده‌دار پرداخت در تاریخ سررسید منتهی به گواهی عدم پرداخت گردیده است؛ بدین‌وسیله ظرف مهلت ۴۸ ساعت از تاریخ ابلاغ این اظهارنامه فرصت دارید نسبت به تسویه اصل وجه چک و خسارت تأخیر تأدیه اقدام فرمایید. در غیر این صورت، برابر ماده ۲۳ قانون صدور چک، مستقیماً تقاضای صدور اجراییه، مسدودی کلیه حساب‌های بانکی و توقیف اموال به همراه جلب بدهکار صادر خواهد شد.\nبا احترام — ${party1Name} (${cityCourt})`
+  } else if (docTemplate === 'ezharnameh-eviction') {
+    generatedText = `مخاطب محترم جناب آقای/خانم ${party2Name} (موجر/مستأجر)؛\nاحتراماً بر اساس قرارداد اجاره مورخ و املاک واقع در ${cityCourt}، نظر به انقضای مدت قانونی اجاره‌نامه بدین‌وسیله به اطلاع می‌رساند ملک مذکور کاملاً تخلیه و آماده تحویل به جنابعالی می‌باشد. بدین‌وسیله ظرف ۴۸ ساعت جهت تحویل کلید و استرداد مبلغ ودیعه مسکن به میزان ${formatPersianNumber(contractAmount)} تومان اقدام نمایید. در صورت امتناع، کلید به دادگاه صلح/شورای حل اختلاف تحویل داده شده و روزشمار خسارت تأخیر تأدیه ماده ۵۲۲ ق.آ.د.م مطالبه خواهد شد.\nاظهارکننده: ${party1Name}`
+  } else if (docTemplate === 'mobayenameh-terms') {
+    generatedText = `شروط طلایی و بازدارنده مبایعه‌نامه ملک:\n۱. شرط فسخ صریح و وجه التزام روزانه: در صورت عدم حضور هر یک از طرفین در دفترخانه اسناد رسمی در تاریخ مقرر جهت تنظیم سند، متخلف مکلف است روزانه مبلغ ${formatPersianNumber(dailyPenalty)} تومان به عنوان وجه التزام و خسارت تأخیر به طرف مقابل پرداخت نماید.\n۲. شرط عدم تسلیم ثمن/مبیع: تا پرداخت کامل ثمن معامله به میزان ${formatPersianNumber(contractAmount)} تومان، هرگونه تحویل فیزیکی ملک یا تصرف فاقد اعتبار قانونی خواهد بود.\n۳. شرط داوری: کلیه اختلافات ناشی از این قرارداد به داور مرضی‌الطرفین ارجاع می‌گردد.`
+  } else {
+    generatedText = `شرط داوری حقوقی و حل و فصل مسالمت‌آمیز اختلاف:\nکلیه اختلافات، تفسیر و اجرای این قرارداد ابتدا از طریق مذاکره و در صورت عدم حصول نتیجه، به هیئت داوری حقوقی با حق رأی قطعی و لازم‌الاجرا ارجاع می‌گردد. رأی داور ظرف مهلت قانونی ۲۰ روز از طریق سامانه ثنا ابلاغ و توسط دایره اجرای احکام مدنی دادگستری ${cityCourt} به موقع اجرا گذاشته خواهد شد.`
+  }
+
+  // 12. Cheque Risk Calculation
+  let prisonSentenceDesc = 'تا ۶ ماه حبس تعزیری'
+  if (chequeAmount <= 50000000) {
+    prisonSentenceDesc = 'حبس از ۶ ماه تا ۱ سال (یا جزای نقدی)'
+  } else if (chequeAmount <= 200000000) {
+    prisonSentenceDesc = 'حبس از ۶ ماه تا ۱ سال'
+  } else {
+    prisonSentenceDesc = 'حبس از ۱ سال تا ۲ سال + منع داشتن دسته‌چک تا ۲ سال'
+  }
+
+  // 13. Ajrat Al-Misl Calculations
+  const annualBaseAjrat = isEmployed ? 20000000 : 30000000
+  const childrenBonus = childrenCount * 3000000
+  const estimatedAnnualRate = annualBaseAjrat + childrenBonus
+  const totalAjratAlMisl = estimatedAnnualRate * marriageYears
+
+  // 14. Inheritance Tax Calculations
+  let baseRatePercent = 1.5
+  if (taxAssetType === 'residential') baseRatePercent = 1.5
+  else if (taxAssetType === 'commercial') baseRatePercent = 3.0
+  else if (taxAssetType === 'car') baseRatePercent = 2.0
+  else if (taxAssetType === 'bank-deposit') baseRatePercent = 3.0
+  else if (taxAssetType === 'stocks') baseRatePercent = 0.75
+
+  let multiplier = 1
+  if (heirClass === 'class2') multiplier = 2
+  else if (heirClass === 'class3') multiplier = 4
+
+  const finalTaxRatePercent = baseRatePercent * multiplier
+  const calculatedInheritanceTax = Math.round(taxAssetValue * (finalTaxRatePercent / 100))
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -347,14 +503,48 @@ export default function CalculatorsPage({ defaultTab }) {
     services: servicesForTopic('محاسبه هزینه دادرسی وصول چک مطالبات مالی تنظیم قرارداد', 2),
   }
 
+  let pageTitle = 'محاسبه هزینه دادرسی و مهریه | ابزارهای وکیل تهران (پرستو خوئینی) - ۰۹۱۲۸۷۵۴۱۷۷'
+  let pageDesc = 'سامانه رایگان محاسبه آنلاین هزینه دادرسی، مهریه، سهم‌الارث، سنوات، دفترخانه و حق‌الوکاله زیر نظر وکیل حقوقی تهران، پرستو خوئینی. شماره تماس: ۰۹۱۲۸۷۵۴۱۷۷.'
+  let pagePath = '/mohasebe'
+
+  if (activeTab === 'realEstateChecklist') {
+    pageTitle = 'چک‌لیست ریسک خرید ملک و مبایعه‌نامه | وکیل حقوقی تهران - ۰۹۱۲۸۷۵۴۱۷۷'
+    pageDesc = 'ارزیابی آنلاین ریسک حقوقی مبایعه‌نامه و خرید ملک با وکیل حقوقی در تهران؛ پرستو خوئینی. شماره تماس مستقیم: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177).'
+    pagePath = '/checklist-mobayenameh'
+  } else if (activeTab === 'laborLaw') {
+    pageTitle = 'محاسبه آنلاین سنوات، عیدی و تسویه حساب قانون کار ۱۴۰۴ | ۰۹۱۲۸۷۵۴۱۷۷'
+    pageDesc = 'محاسبه آنلاین و دقیق سنوات خدمت، عیدی سالانه، مانده مرخصی و اضافه کاری طبق قانون کار. مشاوره با وکیل تهران: ۰۹۱۲۸۷۵۴۱۷۷.'
+    pagePath = '/mohasebe-senavat'
+  } else if (activeTab === 'notaryFee') {
+    pageTitle = 'محاسبه هزینه ثبت سند و حق‌التحریر دفترخانه اسناد رسمی | ۰۹۱۲۸۷۵۴۱۷۷'
+    pageDesc = 'محاسبه آنلاین هزینه انتقال سند ملک، وکالتنامه و قطعی خودرو بر اساس تعرفه اسناد رسمی. وکیل تهران: ۰۹۱۲۸۷۵۴۱۷۷.'
+    pagePath = '/mohasebe-daftarkhaneh'
+  } else if (activeTab === 'legalDeadlines') {
+    pageTitle = 'محاسبه آنلاین مهلت‌های قانونی دادرسی و واخواست | ۰۹۱۲۸۷۵۴۱۷۷'
+    pageDesc = 'محاسبه تاریخ انقضای مهلت ۲۰ روزه تجدیدنظرخواهی، واخواهی، دیوان عدالت و واخواست چک و سفته. مشاوره: ۰۹۱۲۸۷۵۴۱۷۷.'
+    pagePath = '/mohasebe-mohlat'
+  } else if (activeTab === 'contractBuilder') {
+    pageTitle = 'سازنده آنلاین نمونه دادخواست، اظهارنامه و قرارداد | ۰۹۱۲۸۷۵۴۱۷۷'
+    pageDesc = 'تنظیم هوشمند نمونه دادخواست چک، اظهارنامه استرداد ودیعه مسکن و شروط فسخ مبایعه‌نامه ملک زیر نظر وکیل پایه یک: ۰۹۱۲۸۷۵۴۱۷۷.'
+    pagePath = '/sazandeh-qarardad'
+  } else if (activeTab === 'chequeRisk') {
+    pageTitle = 'تحلیل‌گر ریسک چک صیادی برگشتی و مسدودی حساب سیاق | ۰۹۱۲۸۷۵۴۱۷۷'
+    pageDesc = 'استعلام مجازات کیفری چک، مراحل صدور اجراییه مستقیم ماده ۲۳ و رفع سوء اثر از چک صیادی برگشتی. تلفن وکیل: ۰۹۱۲۸۷۵۴۱۷۷.'
+    pagePath = '/mohasebe-cheque-risk'
+  } else if (activeTab === 'ajratAlMisl') {
+    pageTitle = 'محاسبه آنلاین اجرت‌المثل ایام زوجیت و نحله | وکیل خانواده - ۰۹۱۲۸۷۵۴۱۷۷'
+    pageDesc = 'محاسبه برآورد حقوقی اجرت‌المثل کارهای خانه‌داری زوجه طبق تبصره ماده ۳۳۶ قانون مدنی. وکیل دادگستری تهران: ۰۹۱۲۸۷۵۴۱۷۷.'
+    pagePath = '/mohasebe-ajrat-al-misl'
+  } else if (activeTab === 'inheritanceTax') {
+    pageTitle = 'محاسبه آنلاین مالیات بر ارث ملک و خودرو طبق قانون جدید | ۰۹۱۲۸۷۵۴۱۷۷'
+    pageDesc = 'محاسبه درصد و مبلغ مالیات بر ارث املاک، سپرده بانکی و سهام بر اساس طبقه وراث. مشاوره انحصار وراثت: ۰۹۱۲۸۷۵۴۱۷۷.'
+    pagePath = '/mohasebe-maliat-ers'
+  }
+
   useSEO({
-    title: isChecklistTab
-      ? 'چک‌لیست ریسک خرید ملک و مبایعه‌نامه | وکیل حقوقی تهران - ۰۹۱۲۸۷۵۴۱۷۷'
-      : 'محاسبه هزینه دادرسی و مهریه | ابزارهای وکیل تهران (پرستو خوئینی) - ۰۹۱۲۸۷۵۴۱۷۷',
-    description: isChecklistTab
-      ? 'ارزیابی آنلاین ریسک حقوقی مبایعه‌نامه و خرید ملک با وکیل حقوقی در تهران؛ پرستو خوئینی. شماره تماس مستقیم: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177).'
-      : 'سامانه رایگان محاسبه آنلاین هزینه دادرسی و مهریه به نرخ روز زیر نظر وکیل حقوقی تهران، پرستو خوئینی. شماره تماس: ۰۹۱۲۸۷۵۴۱۷۷ (09128754177).',
-    path: isChecklistTab ? '/checklist-mobayenameh' : '/mohasebe',
+    title: pageTitle,
+    description: pageDesc,
+    path: pagePath,
     jsonLd,
   })
 
@@ -469,6 +659,69 @@ export default function CalculatorsPage({ defaultTab }) {
           >
             <Briefcase size={18} />
             <span>تعرفه قانونی حق‌الوکاله</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'laborLaw'}
+            className={`calc-tab-btn ${activeTab === 'laborLaw' ? 'active' : ''}`}
+            onClick={() => setActiveTab('laborLaw')}
+          >
+            <Briefcase size={18} />
+            <span>سنوات و عیدی (قانون کار)</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'notaryFee'}
+            className={`calc-tab-btn ${activeTab === 'notaryFee' ? 'active' : ''}`}
+            onClick={() => setActiveTab('notaryFee')}
+          >
+            <Receipt size={18} />
+            <span>هزینه دفترخانه اسناد رسمی</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'legalDeadlines'}
+            className={`calc-tab-btn ${activeTab === 'legalDeadlines' ? 'active' : ''}`}
+            onClick={() => setActiveTab('legalDeadlines')}
+          >
+            <Clock size={18} />
+            <span>محاسبه مهلت‌های دادرسی</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'contractBuilder'}
+            className={`calc-tab-btn ${activeTab === 'contractBuilder' ? 'active' : ''}`}
+            onClick={() => setActiveTab('contractBuilder')}
+          >
+            <FileSignature size={18} />
+            <span>سازنده دادخواست و قرارداد</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'chequeRisk'}
+            className={`calc-tab-btn ${activeTab === 'chequeRisk' ? 'active' : ''}`}
+            onClick={() => setActiveTab('chequeRisk')}
+          >
+            <ShieldAlert size={18} />
+            <span>تحلیل ریسک چک صیادی</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'ajratAlMisl'}
+            className={`calc-tab-btn ${activeTab === 'ajratAlMisl' ? 'active' : ''}`}
+            onClick={() => setActiveTab('ajratAlMisl')}
+          >
+            <Heart size={18} />
+            <span>اجرت‌المثل ایام زوجیت</span>
+          </button>
+          <button
+            role="tab"
+            aria-selected={activeTab === 'inheritanceTax'}
+            className={`calc-tab-btn ${activeTab === 'inheritanceTax' ? 'active' : ''}`}
+            onClick={() => setActiveTab('inheritanceTax')}
+          >
+            <Landmark size={18} />
+            <span>مالیات بر ارث</span>
           </button>
           <button
             role="tab"
@@ -1731,10 +1984,946 @@ export default function CalculatorsPage({ defaultTab }) {
           </div>
         )}
 
-        {/* Tab 5: Real Estate Contract Risk Checklist */}
-        {activeTab === 'realEstateChecklist' && (
-          <div role="tabpanel" aria-label="چک‌لیست هوشمند ریسک مبایعه‌نامه">
-            <RealEstateRiskChecklist />
+        {/* Tab 8: Labor Law Calculator */}
+        {activeTab === 'laborLaw' && (
+          <div className="calc-card" role="tabpanel">
+            <div className="calc-card-header">
+              <div className="calc-icon-wrap">
+                <Briefcase size={24} />
+              </div>
+              <div>
+                <h2>محاسبه آنلاین سنوات، عیدی و تسویه حساب قانون کار ۱۴۰۴</h2>
+                <p>محاسبه قانونی پاداش پایان خدمت، عیدی سالانه، ارزش مانده مرخصی و اضافه کاری بر اساس قانون کار</p>
+              </div>
+            </div>
+
+            <div className="calc-grid">
+              <div className="calc-form-pane">
+                <div className="form-group">
+                  <label>مبلغ آخرین حقوق پایه ماهانه (تومان)</label>
+                  <div className="input-with-badge">
+                    <input
+                      type="text"
+                      className="calc-input"
+                      value={formatPersianNumber(laborSalary)}
+                      onChange={(e) => setLaborSalaryStr(e.target.value)}
+                      placeholder="مثال: ۱۵،۰۰۰،۰۰۰"
+                    />
+                    <span className="input-unit">تومان</span>
+                  </div>
+                </div>
+
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label>تعداد روزهای کارکرد در سال</label>
+                    <input
+                      type="number"
+                      className="calc-select"
+                      value={laborWorkedDaysStr}
+                      onChange={(e) => setLaborWorkedDaysStr(e.target.value)}
+                      placeholder="۳۶۵"
+                    />
+                    <small className="field-hint">یک سال کامل = ۳۶۵ روز</small>
+                  </div>
+
+                  <div className="form-group">
+                    <label>تعداد ساعت اضافه کاری ماهانه</label>
+                    <input
+                      type="number"
+                      className="calc-select"
+                      value={laborOvertimeHoursStr}
+                      onChange={(e) => setLaborOvertimeHoursStr(e.target.value)}
+                      placeholder="۱۰"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label>تعداد روزهای مرخصی مانده و استفاده نشده</label>
+                  <input
+                    type="number"
+                    className="calc-select"
+                    value={laborUnusedLeaveStr}
+                    onChange={(e) => setLaborUnusedLeaveStr(e.target.value)}
+                    placeholder="۵"
+                  />
+                  <small className="field-hint">حداکثر ۹ روز مرخصی در سال ذخیره می‌شود</small>
+                </div>
+              </div>
+
+              <div className="calc-result-pane">
+                <div className="result-box highlight">
+                  <span className="result-label">مجموع کل مطالبات تسویه حساب:</span>
+                  <div className="result-value">
+                    <span>{formatPersianNumber(totalLaborPay)}</span>
+                    <span className="result-unit">تومان</span>
+                  </div>
+                  <div className="result-breakdown-details">
+                    <div className="detail-line">
+                      <span>سنوات خدمت (پاداش پایان خدمت):</span>
+                      <strong>{formatPersianNumber(senavatAmount)} تومان</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>عیدی و پاداش سالانه:</span>
+                      <strong>{formatPersianNumber(eidiAmount)} تومان</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>مبلغ اضافه کاری (با ضریب ۱.۴):</span>
+                      <strong>{formatPersianNumber(overtimeAmount)} تومان</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>ارزش ریالی مرخصی مانده:</span>
+                      <strong>{formatPersianNumber(unusedLeaveAmount)} تومان</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="result-actions">
+                  <button
+                    type="button"
+                    className="calc-action-btn copy-btn"
+                    onClick={() =>
+                      copyResultText(
+                        `تسویه حساب قانون کار:\nسنوات: ${formatPersianNumber(senavatAmount)} تومان\nعیدی: ${formatPersianNumber(eidiAmount)} تومان\nاضافه کاری: ${formatPersianNumber(overtimeAmount)} تومان\nمرخصی: ${formatPersianNumber(unusedLeaveAmount)} تومان\nمجموع: ${formatPersianNumber(totalLaborPay)} تومان`
+                      )
+                    }
+                  >
+                    <Copy size={16} />
+                    <span>کپی نتیجه</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="calc-action-btn share-btn"
+                    onClick={() =>
+                      shareToSocial(
+                        'whatsapp',
+                        'محاسبه تسویه حساب قانون کار',
+                        `مجموع سنوات، عیدی و مرخصی: ${formatPersianNumber(totalLaborPay)} تومان`
+                      )
+                    }
+                  >
+                    <Share2 size={16} />
+                    <span>ارسال در واتساپ</span>
+                  </button>
+                </div>
+
+                <div className="lawyer-cta-box">
+                  <div className="cta-avatar">
+                    <Briefcase size={20} />
+                  </div>
+                  <div className="cta-text">
+                    <strong>اختلاف با کارفرما یا اداره کار دارید؟</strong>
+                    <p>وکالت در هیئت‌های تشخیص و حل اختلاف اداره کار جهت مطالبه سنوات، عیدی و بیمه تامین اجتماعی.</p>
+                  </div>
+                  <a href={lawyer.phoneHref} className="cta-call-btn">
+                    <PhoneCall size={14} />
+                    <span>مشاوره اداره کار</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="calc-legal-notes">
+              <h3>
+                <AlertCircle size={16} />
+                <span>نکات قانونی محاسبه تسویه حساب:</span>
+              </h3>
+              <ul>
+                <li>سنوات به کلیه کارگران (حتی با کارکرد کمتر از یک سال) به نسبت کارکرد تعلق می‌گیرد.</li>
+                <li>طبق قانون کار، عیدی معادل ۲ پایه حقوق است مشروط بر اینکه از ۳ برابر حداقل دستمزد مصوب سال تجاوز نکند.</li>
+                <li>حداکثر مرخصی قابل ذخیره برای انتقال به سال بعد ۹ روز می‌باشد.</li>
+              </ul>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 9: Notary Fee Calculator */}
+        {activeTab === 'notaryFee' && (
+          <div className="calc-card" role="tabpanel">
+            <div className="calc-card-header">
+              <div className="calc-icon-wrap">
+                <Receipt size={24} />
+              </div>
+              <div>
+                <h2>محاسبه آنلاین هزینه ثبت سند و حق‌التحریر دفترخانه اسناد رسمی</h2>
+                <p>برآورد تقریبی هزینه انتقال سند ملک، وکالت‌نامه، رهن و قطعی خودرو طبق تعرفه دفاتر اسناد رسمی</p>
+              </div>
+            </div>
+
+            <div className="calc-grid">
+              <div className="calc-form-pane">
+                <div className="form-group">
+                  <label>نوع سند تنظیمی در دفترخانه</label>
+                  <div className="calc-options-grid">
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${notaryDocType === 'deed-property' ? 'selected' : ''}`}
+                      onClick={() => setNotaryDocType('deed-property')}
+                    >
+                      <strong>سند قطعی غیرمنقول (ملک)</strong>
+                      <small>آپارتمان، زمین، ملک تجاری</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${notaryDocType === 'power-attorney' ? 'selected' : ''}`}
+                      onClick={() => setNotaryDocType('power-attorney')}
+                    >
+                      <strong>وکالت‌نامه کاری یا فروش</strong>
+                      <small>تعرفه مقطوع ثابت</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${notaryDocType === 'mortgage' ? 'selected' : ''}`}
+                      onClick={() => setNotaryDocType('mortgage')}
+                    >
+                      <strong>سند رهنی و تسهیلات</strong>
+                      <small>اسناد وثیقه بانکی</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${notaryDocType === 'car-deed' ? 'selected' : ''}`}
+                      onClick={() => setNotaryDocType('car-deed')}
+                    >
+                      <strong>سند قطعی خودرو</strong>
+                      <small>انتقال مالکیت خودرو</small>
+                    </button>
+                  </div>
+                </div>
+
+                {notaryDocType !== 'power-attorney' && (
+                  <div className="form-group">
+                    <label>ارزش معامله / مبلغ سند (تومان)</label>
+                    <div className="input-with-badge">
+                      <input
+                        type="text"
+                        className="calc-input"
+                        value={formatPersianNumber(notaryDealAmount)}
+                        onChange={(e) => setNotaryDealAmountStr(e.target.value)}
+                        placeholder="مثال: ۱،۰۰۰،۰۰۰،۰۰۰"
+                      />
+                      <span className="input-unit">تومان</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="calc-result-pane">
+                <div className="result-box highlight">
+                  <span className="result-label">مجموع هزینه دفترخانه (تقریبی):</span>
+                  <div className="result-value">
+                    <span>{formatPersianNumber(totalNotaryEstimate)}</span>
+                    <span className="result-unit">تومان</span>
+                  </div>
+                  <div className="result-breakdown-details">
+                    <div className="detail-line">
+                      <span>حق‌التحریر سردفتر:</span>
+                      <strong>{formatPersianNumber(baseNotaryFee)} تومان</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>۱۰٪ مالیات بر ارزش افزوده:</span>
+                      <strong>{formatPersianNumber(notaryVat)} تومان</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>حق‌الثبت و صدور سند الکترونیک:</span>
+                      <strong>{formatPersianNumber(stampRegistrationFee)} تومان</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="result-actions">
+                  <button
+                    type="button"
+                    className="calc-action-btn copy-btn"
+                    onClick={() =>
+                      copyResultText(
+                        `هزینه دفترخانه:\nحق‌التحریر: ${formatPersianNumber(baseNotaryFee)} تومان\nارزش افزوده: ${formatPersianNumber(notaryVat)} تومان\nمجموع: ${formatPersianNumber(totalNotaryEstimate)} تومان`
+                      )
+                    }
+                  >
+                    <Copy size={16} />
+                    <span>کپی نتیجه</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="calc-action-btn share-btn"
+                    onClick={() =>
+                      shareToSocial(
+                        'whatsapp',
+                        'محاسبه هزینه دفترخانه اسناد رسمی',
+                        `مجموع هزینه: ${formatPersianNumber(totalNotaryEstimate)} تومان`
+                      )
+                    }
+                  >
+                    <Share2 size={16} />
+                    <span>ارسال در واتساپ</span>
+                  </button>
+                </div>
+
+                <div className="lawyer-cta-box">
+                  <div className="cta-avatar">
+                    <Receipt size={20} />
+                  </div>
+                  <div className="cta-text">
+                    <strong>نیاز به استعلام یا بررسی سند رسمی دارید؟</strong>
+                    <p>وکیل پایه یک پیش از امضای سند رسمی، بازداشت بودن سند یا اسناد معارض را بررسی می‌نماید.</p>
+                  </div>
+                  <a href={lawyer.phoneHref} className="cta-call-btn">
+                    <PhoneCall size={14} />
+                    <span>مشاوره سند رسمی</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="calc-legal-notes">
+              <h3>
+                <AlertCircle size={16} />
+                <span>توضیحات تعرفه دفترخانه:</span>
+              </h3>
+              <p>
+                مبالغ فوق بر اساس تعرفه پلکانی حق‌التحریر دفاتر اسناد رسمی محاسبه شده است. هزینه‌های جانبی مانند استعلام ثبت، مالیات نقل و انتقال دارایی و عوارض شهرداری جداگانه اخذ می‌گردد.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 10: Legal Deadlines Calculator */}
+        {activeTab === 'legalDeadlines' && (
+          <div className="calc-card" role="tabpanel">
+            <div className="calc-card-header">
+              <div className="calc-icon-wrap">
+                <Clock size={24} />
+              </div>
+              <div>
+                <h2>محاسبه آنلاین مهلت‌های قانونی دادرسی و واخواست</h2>
+                <p>محاسبه تاریخ دقیق انقضای مهلت تجدیدنظرخواهی، واخواهی حکم غیابی، دیوان عدالت و واخواست چک و سفته</p>
+              </div>
+            </div>
+
+            <div className="calc-grid">
+              <div className="calc-form-pane">
+                <div className="form-group">
+                  <label>نوع اقدام و مهلت قانونی</label>
+                  <select
+                    className="calc-select"
+                    value={deadlineType}
+                    onChange={(e) => setDeadlineType(e.target.value)}
+                  >
+                    <option value="appeal">تجدیدنظرخواهی از آرای دادگاه بدوی (۲۰ روز)</option>
+                    <option value="wakhavahi">واخواهی حکم غیابی (۲۰ روز)</option>
+                    <option value="cheque-protest">واخواست سفته و پروتست (۱۰ روز از سررسید)</option>
+                    <option value="expert-objection">اعتراض به نظریه کارشناس رسمی (۷ روز)</option>
+                    <option value="divan-justice">شکایت در دیوان عدالت اداری (۳ ماه)</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>محل اقامت خواهان / خوانده</label>
+                  <div className="calc-options-grid">
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${residenceLocation === 'iran' ? 'selected' : ''}`}
+                      onClick={() => setResidenceLocation('iran')}
+                    >
+                      <strong>ساکن ایران</strong>
+                      <small>مهلت‌های عادی قانون آیین دادرسی</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${residenceLocation === 'abroad' ? 'selected' : ''}`}
+                      onClick={() => setResidenceLocation('abroad')}
+                    >
+                      <strong>مقیم خارج از کشور</strong>
+                      <small>مهلت‌های افزایش‌یافته قانونی</small>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label>چند روز از تاریخ ابلاغ یا سررسید گذشته است؟</label>
+                  <input
+                    type="number"
+                    className="calc-select"
+                    value={noticeDaysAgoStr}
+                    onChange={(e) => setNoticeDaysAgoStr(e.target.value)}
+                    placeholder="مثال: ۵"
+                  />
+                </div>
+              </div>
+
+              <div className="calc-result-pane">
+                <div className={`result-box ${daysRemaining < 0 ? 'highlight-danger' : 'highlight'}`}>
+                  <span className="result-label">وضعیت مهلت قانونی:</span>
+                  <div className="result-value">
+                    <span>{daysRemaining >= 0 ? formatPersianNumber(daysRemaining) : 'منقضی شده'}</span>
+                    <span className="result-unit">{daysRemaining >= 0 ? 'روز باقی‌مانده' : ''}</span>
+                  </div>
+                  <div className="result-breakdown-details">
+                    <div className="detail-line">
+                      <span>کل مهلت قانونی:</span>
+                      <strong>{formatPersianNumber(maxAllowedDays)} روز</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>نوع موضوع:</span>
+                      <span>{deadlineTitle}</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="result-actions">
+                  <button
+                    type="button"
+                    className="calc-action-btn copy-btn"
+                    onClick={() =>
+                      copyResultText(
+                        `وضعیت مهلت دادرسی:\nموضوع: ${deadlineTitle}\nروزهای باقی‌مانده: ${daysRemaining >= 0 ? daysRemaining : 'مهلت منقضی شده'}`
+                      )
+                    }
+                  >
+                    <Copy size={16} />
+                    <span>کپی نتیجه</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="calc-action-btn share-btn"
+                    onClick={() =>
+                      shareToSocial(
+                        'whatsapp',
+                        'محاسبه مهلت دادرسی',
+                        `روزهای باقی‌مانده: ${daysRemaining} روز`
+                      )
+                    }
+                  >
+                    <Share2 size={16} />
+                    <span>ارسال در واتساپ</span>
+                  </button>
+                </div>
+
+                <div className="lawyer-cta-box">
+                  <div className="cta-avatar">
+                    <Clock size={20} />
+                  </div>
+                  <div className="cta-text">
+                    <strong>مهلت قانونی شما رو به پایان است؟</strong>
+                    <p>نگارش و ثبت فوری لایحه تجدیدنظرخواهی یا واخواهی ظرف ۲۴ ساعت جهت جلوگیری از قطعی شدن رای.</p>
+                  </div>
+                  <a href={lawyer.phoneHref} className="cta-call-btn">
+                    <PhoneCall size={14} />
+                    <span>ثبت فوری لایحه</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="calc-legal-notes">
+              <h3>
+                <AlertCircle size={16} />
+                <span>قاعده احتساب تعطیلات (ماده ۴۴۴ ق.آ.د.م):</span>
+              </h3>
+              <p>
+                چنانچه روز آخر مهلت قانونی مصادف با روز تعطیل رسمی باشد، آن روز به حساب نیامده و اولین روز کاری پس از تعطیل، روز آخر مهلت قانونی محسوب می‌شود.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 11: Interactive Contract Builder */}
+        {activeTab === 'contractBuilder' && (
+          <div className="calc-card" role="tabpanel">
+            <div className="calc-card-header">
+              <div className="calc-icon-wrap">
+                <FileSignature size={24} />
+              </div>
+              <div>
+                <h2>سازنده هوشمند آنلاین نمونه دادخواست، اظهارنامه و قرارداد</h2>
+                <p>تنظیم هوشمند و مستند متون استاندارد حقوقی با قابلیت سفارشی‌سازی اسامی، مبالغ و شروط داوری</p>
+              </div>
+            </div>
+
+            <div className="calc-grid">
+              <div className="calc-form-pane">
+                <div className="form-group">
+                  <label>نوع قالب حقوقی</label>
+                  <select
+                    className="calc-select"
+                    value={docTemplate}
+                    onChange={(e) => setDocTemplate(e.target.value)}
+                  >
+                    <option value="ezharnameh-cheque">اظهارنامه رسمی مطالبه وجه چک صیادی</option>
+                    <option value="ezharnameh-eviction">اظهارنامه استرداد ودیعه مسکن و تخلیه ملک</option>
+                    <option value="mobayenameh-terms">شروط طلایی خسارت روزانه و فسخ مبایعه‌نامه</option>
+                    <option value="arbitration-clause">موافقه‌نامه و شرط داوری حقوقی</option>
+                  </select>
+                </div>
+
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label>نام خواهان / اظهارکننده</label>
+                    <input
+                      type="text"
+                      className="calc-select"
+                      value={party1Name}
+                      onChange={(e) => setParty1Name(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>نام خوانده / مخاطب</label>
+                    <input
+                      type="text"
+                      className="calc-select"
+                      value={party2Name}
+                      onChange={(e) => setParty2Name(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label>مبلغ اصلی موضوع (تومان)</label>
+                    <input
+                      type="text"
+                      className="calc-select"
+                      value={formatPersianNumber(contractAmount)}
+                      onChange={(e) => setContractAmountStr(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>خسارت تاخیر روزانه (تومان)</label>
+                    <input
+                      type="text"
+                      className="calc-select"
+                      value={formatPersianNumber(dailyPenalty)}
+                      onChange={(e) => setDailyPenaltyStr(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div className="calc-result-pane">
+                <div className="result-box" style={{ textAlign: 'right' }}>
+                  <span className="result-label" style={{ textAlign: 'center' }}>پیش‌نویس حقوقی آماده کپی:</span>
+                  <pre style={{ whiteSpace: 'pre-wrap', fontFamily: 'inherit', fontSize: '13px', lineHeight: '1.8', color: 'var(--dark-teal)', background: 'var(--white)', padding: '14px', borderRadius: '8px', border: '1px solid var(--border-subtle)', maxHeight: '220px', overflowY: 'auto' }}>
+                    {generatedText}
+                  </pre>
+                </div>
+
+                <div className="result-actions">
+                  <button
+                    type="button"
+                    className="calc-action-btn copy-btn"
+                    onClick={() => copyResultText(generatedText)}
+                  >
+                    <Copy size={16} />
+                    <span>کپی متن کامل حقوقی</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="calc-action-btn share-btn"
+                    onClick={() =>
+                      shareToSocial(
+                        'whatsapp',
+                        'پیش‌نویس سند حقوقی',
+                        generatedText
+                      )
+                    }
+                  >
+                    <Share2 size={16} />
+                    <span>ارسال متن در واتساپ</span>
+                  </button>
+                </div>
+
+                <div className="lawyer-cta-box">
+                  <div className="cta-avatar">
+                    <FileSignature size={20} />
+                  </div>
+                  <div className="cta-text">
+                    <strong>نیاز به نگارش اختصاصی لایحه یا دادخواست دارید؟</strong>
+                    <p>وکیل پایه یک با بررسی اسناد شما، لایحه دفاعیه یا دادخواست اختصاصی ظرف ۲۴ ساعت آماده می‌کند.</p>
+                  </div>
+                  <a href={lawyer.phoneHref} className="cta-call-btn">
+                    <PhoneCall size={14} />
+                    <span>سفارش لایحه و دادخواست</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 12: Cheque Risk Analyzer */}
+        {activeTab === 'chequeRisk' && (
+          <div className="calc-card" role="tabpanel">
+            <div className="calc-card-header">
+              <div className="calc-icon-wrap">
+                <ShieldAlert size={24} />
+              </div>
+              <div>
+                <h2>تحلیل‌گر هوشمند ریسک چک صیادی برگشتی و رفع سوء اثر</h2>
+                <p>استعلام مجازات‌های کیفری، مسدودی سراسری حساب‌های بانکی سیاق و مراحل گام‌به‌گام رفع سوء اثر</p>
+              </div>
+            </div>
+
+            <div className="calc-grid">
+              <div className="calc-form-pane">
+                <div className="form-group">
+                  <label>علت اصلی برگشت خوردن چک</label>
+                  <select
+                    className="calc-select"
+                    value={bouncedReason}
+                    onChange={(e) => setBouncedReason(e.target.value)}
+                  >
+                    <option value="insufficient-funds">کسری موجودی / عدم کفایت حساب</option>
+                    <option value="signature-mismatch">عدم تطابق امضا / نقص در متن چک</option>
+                    <option value="account-blocked">مسدودی حساب به دستور قضایی</option>
+                    <option value="fraud-claim">ادعای سرقت یا کلاهبرداری صادرکننده</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>مبلغ چک برگشتی (تومان)</label>
+                  <div className="input-with-badge">
+                    <input
+                      type="text"
+                      className="calc-input"
+                      value={formatPersianNumber(chequeAmount)}
+                      onChange={(e) => setChequeAmountStr(e.target.value)}
+                    />
+                    <span className="input-unit">تومان</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="calc-result-pane">
+                <div className="result-box highlight-danger">
+                  <span className="result-label">مجازات کیفری احتمالی صادرکننده (ماده ۷ چک):</span>
+                  <div className="result-value">
+                    <span style={{ fontSize: '20px' }}>{prisonSentenceDesc}</span>
+                  </div>
+                  <div className="result-breakdown-details">
+                    <div className="detail-line">
+                      <span>مسدودی حساب‌های بانکی (سامانه سیاق):</span>
+                      <strong>فوری ظرف ۲۴ ساعت</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>ممنوعیت صدور چک جدید:</span>
+                      <strong>فعال در سراسر شبکه بانکی</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>امکان صدور اجراییه مستقیم:</span>
+                      <strong>طبق ماده ۲۳ بدون نیاز به دادگاه</strong>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="result-actions">
+                  <button
+                    type="button"
+                    className="calc-action-btn copy-btn"
+                    onClick={() =>
+                      copyResultText(
+                        `تحلیل ریسک چک برگشتی ${formatPersianNumber(chequeAmount)} تومان:\nمجازات: ${prisonSentenceDesc}\nوضعیت: مسدودی سراسری حساب‌ها در سیاق و صدور اجراییه ماده ۲۳`
+                      )
+                    }
+                  >
+                    <Copy size={16} />
+                    <span>کپی نتیجه</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="calc-action-btn share-btn"
+                    onClick={() =>
+                      shareToSocial(
+                        'whatsapp',
+                        'تحلیل ریسک چک صیادی',
+                        `مبلغ چک: ${formatPersianNumber(chequeAmount)} تومان`
+                      )
+                    }
+                  >
+                    <Share2 size={16} />
+                    <span>ارسال در واتساپ</span>
+                  </button>
+                </div>
+
+                <div className="lawyer-cta-box">
+                  <div className="cta-avatar">
+                    <ShieldAlert size={20} />
+                  </div>
+                  <div className="cta-text">
+                    <strong>به دنبال وصول سریع چک یا رفع سوء اثر هستید؟</strong>
+                    <p>وکالت تخصصی چک صیادی جهت توقیف اموال بدهکار یا رفع سوء اثر قانونی اسناد.</p>
+                  </div>
+                  <a href={lawyer.phoneHref} className="cta-call-btn">
+                    <PhoneCall size={14} />
+                    <span>مشاوره تخصصی چک</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 13: Ajrat Al-Misl Calculator */}
+        {activeTab === 'ajratAlMisl' && (
+          <div className="calc-card" role="tabpanel">
+            <div className="calc-card-header">
+              <div className="calc-icon-wrap">
+                <Heart size={24} />
+              </div>
+              <div>
+                <h2>محاسبه آنلاین اجرت‌المثل ایام زوجیت و نحله</h2>
+                <p>محاسبه قانونی ارزش کارهای خانه‌داری زوجه بر اساس مدت زندگی مشترک و رویه قضایی دادگاه‌های خانواده</p>
+              </div>
+            </div>
+
+            <div className="calc-grid">
+              <div className="calc-form-pane">
+                <div className="form-row-2">
+                  <div className="form-group">
+                    <label>مدت زمان زندگی مشترک (سال)</label>
+                    <input
+                      type="number"
+                      className="calc-select"
+                      value={marriageYearsStr}
+                      onChange={(e) => setMarriageYearsStr(e.target.value)}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <label>تعداد فرزندان</label>
+                    <input
+                      type="number"
+                      className="calc-select"
+                      value={childrenCountStr}
+                      onChange={(e) => setChildrenCountStr(e.target.value)}
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label>وضعیت اشتغال زوجه</label>
+                  <div className="calc-options-grid">
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${!isEmployed ? 'selected' : ''}`}
+                      onClick={() => setIsEmployed(false)}
+                    >
+                      <strong>خانه‌دار کامل</strong>
+                      <small>تمام‌وقت در منزل</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${isEmployed ? 'selected' : ''}`}
+                      onClick={() => setIsEmployed(true)}
+                    >
+                      <strong>شاغل خارج از منزل</strong>
+                      <small>بخشی از زمان خارج از منزل</small>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div className="calc-result-pane">
+                <div className="result-box highlight">
+                  <span className="result-label">برآورد تقریبی اجرت‌المثل ایام زوجیت:</span>
+                  <div className="result-value">
+                    <span>{formatPersianNumber(totalAjratAlMisl)}</span>
+                    <span className="result-unit">تومان</span>
+                  </div>
+                  <div className="result-breakdown-details">
+                    <div className="detail-line">
+                      <span>برآورد ارزش سالانه:</span>
+                      <strong>{formatPersianNumber(estimatedAnnualRate)} تومان/سال</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>مبنای قانونی:</span>
+                      <span>تبصره ماده ۳۳۶ قانون مدنی</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="result-actions">
+                  <button
+                    type="button"
+                    className="calc-action-btn copy-btn"
+                    onClick={() =>
+                      copyResultText(
+                        `اجرت‌المثل ایام زوجیت (${marriageYears} سال): ${formatPersianNumber(totalAjratAlMisl)} تومان`
+                      )
+                    }
+                  >
+                    <Copy size={16} />
+                    <span>کپی نتیجه</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="calc-action-btn share-btn"
+                    onClick={() =>
+                      shareToSocial(
+                        'whatsapp',
+                        'محاسبه اجرت‌المثل ایام زوجیت',
+                        `مبلغ: ${formatPersianNumber(totalAjratAlMisl)} تومان`
+                      )
+                    }
+                  >
+                    <Share2 size={16} />
+                    <span>ارسال در واتساپ</span>
+                  </button>
+                </div>
+
+                <div className="lawyer-cta-box">
+                  <div className="cta-avatar">
+                    <Heart size={20} />
+                  </div>
+                  <div className="cta-text">
+                    <strong>مشاوره تخصصی پرونده‌های خانواده و اجرت‌المثل</strong>
+                    <p>مطالبه اجرت‌المثل، تنصیف اموال و نحله با وکیل دادگستری در دادگاه خانواده تهران.</p>
+                  </div>
+                  <a href={lawyer.phoneHref} className="cta-call-btn">
+                    <PhoneCall size={14} />
+                    <span>مشاوره امور خانواده</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 14: Inheritance Tax Calculator */}
+        {activeTab === 'inheritanceTax' && (
+          <div className="calc-card" role="tabpanel">
+            <div className="calc-card-header">
+              <div className="calc-icon-wrap">
+                <Landmark size={24} />
+              </div>
+              <div>
+                <h2>محاسبه آنلاین مالیات بر ارث ملک و دارایی‌ها طبق قانون جدید</h2>
+                <p>محاسبه میزان مالیات بر ارث املاک مسکونی، ملک تجاری، خودرو، حساب بانکی و سهام بر اساس طبقه وراث</p>
+              </div>
+            </div>
+
+            <div className="calc-grid">
+              <div className="calc-form-pane">
+                <div className="form-group">
+                  <label>نوع دارایی ماترک متوفی</label>
+                  <select
+                    className="calc-select"
+                    value={taxAssetType}
+                    onChange={(e) => setTaxAssetType(e.target.value)}
+                  >
+                    <option value="residential">املاک مسکونی (نرخ پایه ۱.۵٪)</option>
+                    <option value="commercial">املاک تجاری و سرقفلی (نرخ پایه ۳٪)</option>
+                    <option value="car">وسائط نقلیه و خودرو (نرخ پایه ۲٪)</option>
+                    <option value="bank-deposit">سپرده و موجودی بانک (نرخ پایه ۳٪)</option>
+                    <option value="stocks">سهام بورس و شرکت‌ها (نرخ پایه ۰.۷۵٪)</option>
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label>طبقه و درجه نسبی وراث</label>
+                  <div className="calc-options-grid">
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${heirClass === 'class1' ? 'selected' : ''}`}
+                      onClick={() => setHeirClass('class1')}
+                    >
+                      <strong>طبقه اول (همسر، فرزند، پدر و مادر)</strong>
+                      <small>نرخ پایه ۱۰۰٪</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${heirClass === 'class2' ? 'selected' : ''}`}
+                      onClick={() => setHeirClass('class2')}
+                    >
+                      <strong>طبقه دوم (خواهر، برادر، اجداد)</strong>
+                      <small>نرخ ۲ برابر</small>
+                    </button>
+                    <button
+                      type="button"
+                      className={`calc-opt-btn ${heirClass === 'class3' ? 'selected' : ''}`}
+                      onClick={() => setHeirClass('class3')}
+                    >
+                      <strong>طبقه سوم (عمو، عمه، خاله، دایی)</strong>
+                      <small>نرخ ۴ برابر</small>
+                    </button>
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label>ارزش روز دارایی ماترک (تومان)</label>
+                  <div className="input-with-badge">
+                    <input
+                      type="text"
+                      className="calc-input"
+                      value={formatPersianNumber(taxAssetValue)}
+                      onChange={(e) => setTaxAssetValueStr(e.target.value)}
+                    />
+                    <span className="input-unit">تومان</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="calc-result-pane">
+                <div className="result-box highlight">
+                  <span className="result-label">مبلغ مالیات بر ارث متعلق به اداره دارایی:</span>
+                  <div className="result-value">
+                    <span>{formatPersianNumber(calculatedInheritanceTax)}</span>
+                    <span className="result-unit">تومان</span>
+                  </div>
+                  <div className="result-breakdown-details">
+                    <div className="detail-line">
+                      <span>درصد مالیات قانونی:</span>
+                      <strong>{finalTaxRatePercent} درصد</strong>
+                    </div>
+                    <div className="detail-line">
+                      <span>مبنای قانون:</span>
+                      <span>ماده ۱۷ قانون مالیات‌های مستقیم مصوب ۱۳۹۴</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="result-actions">
+                  <button
+                    type="button"
+                    className="calc-action-btn copy-btn"
+                    onClick={() =>
+                      copyResultText(
+                        `مالیات بر ارث دارایی ${formatPersianNumber(taxAssetValue)} تومان:\nمبلغ مالیات: ${formatPersianNumber(calculatedInheritanceTax)} تومان (${finalTaxRatePercent}٪)`
+                      )
+                    }
+                  >
+                    <Copy size={16} />
+                    <span>کپی نتیجه</span>
+                  </button>
+                  <button
+                    type="button"
+                    className="calc-action-btn share-btn"
+                    onClick={() =>
+                      shareToSocial(
+                        'whatsapp',
+                        'محاسبه مالیات بر ارث',
+                        `مبلغ مالیات: ${formatPersianNumber(calculatedInheritanceTax)} تومان`
+                      )
+                    }
+                  >
+                    <Share2 size={16} />
+                    <span>ارسال در واتساپ</span>
+                  </button>
+                </div>
+
+                <div className="lawyer-cta-box">
+                  <div className="cta-avatar">
+                    <Landmark size={20} />
+                  </div>
+                  <div className="cta-text">
+                    <strong>نیاز به انحصار وراثت و گواهی مالیاتی دارید؟</strong>
+                    <p>اخذ گواهی انحصار وراثت و مفاصاحساب مالیاتی بدون نیاز به حضور تمام وراث توسط وکیل.</p>
+                  </div>
+                  <a href={lawyer.phoneHref} className="cta-call-btn">
+                    <PhoneCall size={14} />
+                    <span>مشاوره انحصار وراثت</span>
+                  </a>
+                </div>
+              </div>
+            </div>
           </div>
         )}
 

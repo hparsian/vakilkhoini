@@ -121,7 +121,7 @@ export default function ArticlePage({ slug }) {
     '@context': 'https://schema.org',
     '@graph': [
       {
-        '@type': 'Article',
+        '@type': ['Article', 'BlogPosting'],
         headline: article.title,
         description: article.excerpt,
         datePublished: article.date,
@@ -129,6 +129,8 @@ export default function ArticlePage({ slug }) {
           '@type': 'Person',
           name: lawyer.name,
           jobTitle: lawyer.title,
+          identifier: lawyer.licenseNumber,
+          sameAs: `${SITE_URL}/darbareh`,
         },
         publisher: {
           '@type': 'LegalService',

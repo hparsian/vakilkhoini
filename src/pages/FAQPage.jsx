@@ -30,10 +30,15 @@ export default function FAQPage() {
 
   const categories = [
     { id: 'all', label: 'همه پرسش‌ها' },
-    { id: 'consulting', label: 'مشاوره و تعیین وقت' },
+    { id: 'property', label: 'دعاوی ملکی' },
+    { id: 'cheque', label: 'وصول چک و مطالبات' },
+    { id: 'peace_court', label: 'دادگاه صلح' },
+    { id: 'inheritance', label: 'ارث و ترکه' },
+    { id: 'contracts', label: 'قراردادها و شرکت‌ها' },
+    { id: 'cyber', label: 'جرایم سایبری' },
+    { id: 'family', label: 'حقوق خانواده' },
+    { id: 'consulting', label: 'مشاوره حقوقی' },
     { id: 'costs', label: 'حق‌الوکاله و هزینه‌ها' },
-    { id: 'process', label: 'روند دادرسی و دادگاه' },
-    { id: 'office', label: 'نشانی و ساعات دفتر' },
   ]
 
   const filteredFaqs = faqs.filter((faq) => {

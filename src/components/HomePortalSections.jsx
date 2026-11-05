@@ -318,12 +318,12 @@ export function HomeCalculatorsBanner() {
                   <Calculator size={28} />
                 </div>
                 <div className="calc-banner-header">
-                  <span className="calc-badge">۸ ابزار رایگان و هوشمند آنلاین</span>
+                  <span className="calc-badge">۱۵ ابزار رایگان و هوشمند آنلاین</span>
                   <h2 id="home-calc-heading" className="calc-banner-title">
-                    محاسبه آنلاین هزینه دادرسی، سهم‌الارث و کمیسیون املاک
+                    جامع‌ترین سامانه ابزارهای محاسبه حقوقی، دادرسی و قراردادها
                   </h2>
                   <p className="calc-banner-desc">
-                    پیش از طرح هرگونه دعوا در دادگستری یا امضای قرارداد، بر اساس آخرین قوانین مدنی و تعرفه‌های قوه قضاییه، هزینه‌های دادرسی، سهم‌الارث، کمیسیون املاک و دیه را آنلاین محاسبه کنید.
+                    پیش از طرح هرگونه دعوا در دادگستری یا امضای قرارداد، بر اساس آخرین قوانین مدنی، آیین دادرسی و تعرفه‌های قوه قضاییه، ۱۵ ابزار محاسباتی و هوشمند حقوقی در دسترس شماست.
                   </p>
                 </div>
               </div>
@@ -339,34 +339,50 @@ export function HomeCalculatorsBanner() {
                 </div>
                 <div className="calc-feature-pill">
                   <CheckCircle2 size={16} />
-                  <span>محاسبه کمیسیون مشاور املاک (خرید، فروش، رهن و اجاره تهران)</span>
+                  <span>محاسبه سنوات، عیدی و مرخصی (تسویه قانون کار ۱۴۰۴)</span>
                 </div>
                 <div className="calc-feature-pill">
                   <CheckCircle2 size={16} />
-                  <span>محاسبه نرخ دیه سال ۱۴۰۴ و ۱۴۰۵ (ماه حرام و عادی)</span>
+                  <span>محاسبه هزینه ثبت سند و حق‌التحریر دفترخانه اسناد رسمی</span>
                 </div>
                 <div className="calc-feature-pill">
                   <CheckCircle2 size={16} />
-                  <span>خسارت تأخیر تأدیه چک بر اساس تورم بانک مرکزی</span>
+                  <span>محاسبه آنلاین مهلت‌های قانونی دادرسی و واخواست</span>
                 </div>
                 <div className="calc-feature-pill">
                   <CheckCircle2 size={16} />
-                  <span>محاسبه مهریه وجه نقد به نرخ روز شاخص سالانه</span>
+                  <span>سازنده هوشمند نمونه دادخواست، اظهارنامه و قرارداد</span>
                 </div>
                 <div className="calc-feature-pill">
                   <CheckCircle2 size={16} />
-                  <span>محاسبه تعرفه قانونی حق‌الوکاله و تمبر مالیاتی</span>
+                  <span>تحلیل‌گر ریسک چک صیادی برگشتی و مسدودی حساب سیاق</span>
                 </div>
                 <div className="calc-feature-pill">
                   <CheckCircle2 size={16} />
-                  <span>چک‌لیست هوشمند ریسک مبایعه‌نامه و ملک</span>
+                  <span>محاسبه اجرت‌المثل ایام زوجیت و کارهای خانه‌داری</span>
+                </div>
+                <div className="calc-feature-pill">
+                  <CheckCircle2 size={16} />
+                  <span>محاسبه آنلاین مالیات بر ارث ملک، خودرو و سپرده</span>
+                </div>
+                <div className="calc-feature-pill">
+                  <CheckCircle2 size={16} />
+                  <span>محاسبه کمیسیون مشاور املاک (خرید، فروش، رهن و اجاره)</span>
+                </div>
+                <div className="calc-feature-pill">
+                  <CheckCircle2 size={16} />
+                  <span>خسارت تأخیر تأدیه چک بر اساس شاخص بانک مرکزی</span>
+                </div>
+                <div className="calc-feature-pill">
+                  <CheckCircle2 size={16} />
+                  <span>محاسبه مهریه وجه نقد به نرخ روز به همراه جدول شاخص</span>
                 </div>
               </div>
 
               <div className="calc-banner-footer">
                 <Link to="/mohasebe" className="btn btn-gold calc-launch-btn">
                   <Calculator size={18} />
-                  <span>ورود به سامانه ابزارهای حقوقی و محاسبات (۸ ابزار تخصصی)</span>
+                  <span>ورود به سامانه ابزارهای حقوقی و محاسبات (۱۵ ابزار تخصصی)</span>
                   <ChevronLeft size={16} />
                 </Link>
                 <Link to="/checklist-mobayenameh" className="btn btn-outline-dark calc-checklist-link">
@@ -532,29 +548,93 @@ export function HomeProcessSummary() {
 
 // 6. ARTICLES PREVIEW (Education & Thought Leadership)
 export function HomeArticlesPreview() {
-  const featuredSlugs = ['what-is-petition', 'daavi-sabti-va-amlak', 'cheque-new-law']
-  const featuredArticles = articles.filter((a) => featuredSlugs.includes(a.id))
-  // Fallback to first 3 if slugs not all matched
-  const displayArticles = featuredArticles.length === 3 ? featuredArticles : articles.slice(0, 3)
+  const [selectedCategory, setSelectedCategory] = useState('all')
+
+  const blogCategories = [
+    { id: 'all', label: 'همه موضوعات' },
+    { id: 'دعاوی ملکی', label: 'دعاوی ملکی و ثبتی' },
+    { id: 'اسناد تجاری', label: 'چک و مطالبات مالی' },
+    { id: 'جرایم سایبری', label: 'جرایم سایبری و کریپتو' },
+    { id: 'شرکت‌ها و تجارت', label: 'حقوق شرکت‌ها و قراردادها' },
+    { id: 'حقوق خانواده', label: 'حقوق خانواده و مهریه' },
+  ]
+
+  const featuredArticle = articles.find((a) => a.id === 'ghanoon-jadid-sabt-amlak-1404') || articles[0]
+
+  const filteredArticles = articles
+    .filter((a) => a.id !== featuredArticle?.id)
+    .filter((a) => selectedCategory === 'all' || a.category === selectedCategory)
+    .slice(0, 4)
 
   return (
-    <section className="home-section home-articles-section" aria-labelledby="home-articles-heading">
+    <section className="home-section home-articles-section" aria-labelledby="home-blog-heading">
       <div className="container">
         <div className="section-head center">
           <div className="eyebrow">
             <BookOpen size={14} />
-            <span>آموزش و آگاهی‌بخشی حقوقی</span>
+            <span>وبلاگ و تحلیل‌های حقوقی (Legal Insights & Blog)</span>
           </div>
-          <h2 id="home-articles-heading" className="section-title">
-            جدیدترین مقالات و آموزش‌های تخصصی حقوقی
+          <h2 id="home-blog-heading" className="section-title">
+            تحلیل‌های تخصصی قوانین روز و رویه‌های قضایی سال ۱۴۰۵
           </h2>
           <p className="section-subtitle">
-            تحلیل کاربردی قوانین روز، رویه‌های قضایی محاکم دادگستری و راهنمای پیشگیری از دعاوی ملکی و مالی
+            مجموعه مقالات تحلیلی، راهنماهای پیشگیری از دعاوی ملکی، چک صیادی و قراردادها به قلم پرستو خوئینی (وکیل پایه یک)
           </p>
         </div>
 
+        {/* Category Pills */}
+        <div className="home-blog-tabs" style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', marginBottom: '32px' }}>
+          {blogCategories.map((cat) => (
+            <button
+              key={cat.id}
+              type="button"
+              className={`article-cat-btn ${selectedCategory === cat.id ? 'active' : ''}`}
+              onClick={() => setSelectedCategory(cat.id)}
+            >
+              {cat.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Featured Article Spotlight Card */}
+        {selectedCategory === 'all' && featuredArticle && (
+          <div className="home-blog-featured-card card" style={{ padding: '28px', marginBottom: '32px', border: '1px solid var(--border-gold-subtle)', background: 'linear-gradient(135deg, rgba(11,25,44,0.03) 0%, rgba(212,175,55,0.05) 100%)', borderRadius: 'var(--radius-md)' }}>
+            <div className="featured-badge" style={{ display: 'inline-flex', alignItems: 'center', gap: '6px', background: 'var(--gold)', color: '#000', fontWeight: 700, fontSize: '0.8rem', padding: '4px 12px', borderRadius: '20px', marginBottom: '14px' }}>
+              <Sparkles size={13} />
+              <span>تحلیل ویژه هفته ۱۴۰۵</span>
+            </div>
+            <h3 className="featured-title" style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--navy-900)', marginBottom: '12px', lineHeight: '1.5' }}>
+              <Link to={`/maghalat/${featuredArticle.id}`} style={{ color: 'inherit', textDecoration: 'none' }}>
+                {featuredArticle.title}
+              </Link>
+            </h3>
+            <p className="featured-excerpt" style={{ color: 'var(--text-muted)', lineHeight: '1.85', fontSize: '0.98rem', marginBottom: '18px' }}>
+              {featuredArticle.excerpt}
+            </p>
+            <div className="featured-bottom" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '14px' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '16px', fontSize: '0.85rem', color: 'var(--text-muted)' }}>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <Calendar size={13} />
+                  <span>{featuredArticle.date}</span>
+                </span>
+                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                  <Clock size={13} />
+                  <span>{featuredArticle.readTime}</span>
+                </span>
+                <span style={{ background: 'var(--bg-tag)', padding: '2px 8px', borderRadius: '4px', fontSize: '0.8rem' }}>
+                  {featuredArticle.category}
+                </span>
+              </div>
+              <Link to={`/maghalat/${featuredArticle.id}`} className="btn btn-gold" style={{ padding: '8px 18px', fontSize: '0.9rem' }}>
+                <span>مطالعه مقاله کامل و راهنمای ثبتی</span>
+                <ArrowLeft size={14} />
+              </Link>
+            </div>
+          </div>
+        )}
+
         <div className="home-articles-grid">
-          {displayArticles.map((article) => (
+          {filteredArticles.map((article) => (
             <article className="home-article-card card" key={article.id}>
               <div className="home-article-meta">
                 <span className="article-category-badge">{article.category}</span>
@@ -577,9 +657,9 @@ export function HomeArticlesPreview() {
           ))}
         </div>
 
-        <div className="home-articles-cta-bar">
+        <div className="home-articles-cta-bar" style={{ marginTop: '36px' }}>
           <Link to="/maghalat" className="btn btn-gold">
-            <span>مشاهده کلیه مقالات و آموزش‌های تخصصی (آرشیو کامل وبلاگ)</span>
+            <span>مشاهده کلیه مقالات و آموزش‌های تخصصی (آرشیو کامل وبلاگ - ۲۳+ مقاله)</span>
             <ChevronLeft size={16} />
           </Link>
         </div>
@@ -740,7 +820,7 @@ export function HomeSearchKeywordsHub() {
           <div className="search-stats-strip">
             <div className="stat-pill">
               <Calculator size={16} />
-              <span>۸ ابزار هوشمند محاسبه آنلاین حقوقی</span>
+              <span>۱۵ ابزار هوشمند محاسبه آنلاین حقوقی</span>
             </div>
             <div className="stat-pill">
               <BookOpen size={16} />
