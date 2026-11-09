@@ -437,62 +437,6 @@ export default function CalculatorsPage({ defaultTab }) {
   const finalTaxRatePercent = baseRatePercent * multiplier
   const calculatedInheritanceTax = Math.round(taxAssetValue * (finalTaxRatePercent / 100))
 
-  const jsonLd = {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'WebApplication',
-        name: 'ابزارهای آنلاین محاسبه حقوقی - دفتر وکالت پرستو خوئینی',
-        description:
-          'سامانه رایگان محاسبه آنلاین هزینه دادرسی دادگاه، خسارت تأخیر تأدیه چک و مطالبات، محاسبه مهریه به نرخ روز و تعرفه حق‌الوکاله بر اساس قوانین و شاخص‌های بانک مرکزی.',
-        url: `${SITE_URL}/mohasebe`,
-        applicationCategory: 'LegalService',
-        operatingSystem: 'All',
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'IRR',
-        },
-      },
-      {
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'صفحه اصلی', item: `${SITE_URL}/` },
-          { '@type': 'ListItem', position: 2, name: 'ابزارهای محاسبه حقوقی', item: `${SITE_URL}/mohasebe` },
-        ],
-      },
-      {
-        '@type': 'FAQPage',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: 'هزینه دادرسی در مرحله بدوی چگونه محاسبه می‌شود؟',
-            'acceptedAnswer': {
-              '@type': 'Answer',
-              'text': 'در دعاوی مالی تا ۲۰ میلیون تومان، ۲.۵ درصد و برای مبالغ مازاد بر ۲۰ میلیون تومان، ۳.۵ درصد از ارزش خواسته به عنوان هزینه دادرسی به صندوق دادگستری پرداخت می‌شود.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: 'مبنای قانونی محاسبه خسارت تأخیر تأدیه چیست؟',
-            'acceptedAnswer': {
-              '@type': 'Answer',
-              'text': 'ماده ۵۲۲ قانون آیین دادرسی مدنی مبنای محاسبه خسارت تأخیر تأدیه بر اساس شاخص تورم اعلامی بانک مرکزی جمهوری اسلامی ایران از تاریخ سررسید تا روز پرداخت است.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: 'آیا مهریه وجه نقد به نرخ روز محاسبه می‌شود؟',
-            'acceptedAnswer': {
-              '@type': 'Answer',
-              'text': 'بله، بر اساس تبصره الحاقی به ماده ۱۰۸۲ قانون مدنی، مهریه ریالی متناسب با تغییر شاخص بهای کالاها و خدمات مصرفی بانک مرکزی در زمان مطالبه تعدیل و پرداخت می‌شود.',
-            },
-          },
-        ],
-      },
-    ],
-  }
-
   const isChecklistTab = activeTab === 'realEstateChecklist'
 
   const summaryLinks = {
@@ -539,6 +483,114 @@ export default function CalculatorsPage({ defaultTab }) {
     pageTitle = 'محاسبه آنلاین مالیات بر ارث ملک و خودرو طبق قانون جدید | ۰۹۱۲۸۷۵۴۱۷۷'
     pageDesc = 'محاسبه درصد و مبلغ مالیات بر ارث املاک، سپرده بانکی و سهام بر اساس طبقه وراث. مشاوره انحصار وراثت: ۰۹۱۲۸۷۵۴۱۷۷.'
     pagePath = '/mohasebe-maliat-ers'
+  }
+
+  const breadcrumbsList = [
+    { '@type': 'ListItem', position: 1, name: 'صفحه اصلی', item: `${SITE_URL}/` },
+    { '@type': 'ListItem', position: 2, name: 'ابزارهای محاسبه حقوقی', item: `${SITE_URL}/mohasebe` },
+  ]
+  if (pagePath !== '/mohasebe') {
+    breadcrumbsList.push({
+      '@type': 'ListItem',
+      position: 3,
+      name: pageTitle.split('|')[0].trim(),
+      item: `${SITE_URL}${pagePath}`,
+    })
+  }
+
+  const jsonLd = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'WebApplication',
+        '@id': `${SITE_URL}${pagePath}#webapp`,
+        name: pageTitle.split('|')[0].trim(),
+        description: pageDesc,
+        url: `${SITE_URL}${pagePath}`,
+        applicationCategory: 'LegalService',
+        operatingSystem: 'All',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'IRR',
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbsList,
+      },
+      {
+        '@type': 'FAQPage',
+        mainEntity: [
+          {
+            '@type': 'Question',
+            '@id': `${SITE_URL}${pagePath}#faq-court-fee`,
+            name: 'هزینه دادرسی در مرحله بدوی چگونه محاسبه می‌شود؟',
+            url: `${SITE_URL}${pagePath}#faq-court-fee`,
+            mainEntityOfPage: `${SITE_URL}${pagePath}`,
+            inLanguage: 'fa-IR',
+            answerCount: 1,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              '@id': `${SITE_URL}${pagePath}#ans-court-fee`,
+              text: 'در دعاوی مالی تا ۲۰ میلیون تومان، ۲.۵ درصد و برای مبالغ مازاد بر ۲۰ میلیون تومان، ۳.۵ درصد از ارزش خواسته به عنوان هزینه دادرسی به صندوق دادگستری پرداخت می‌شود.',
+              url: `${SITE_URL}${pagePath}#faq-court-fee`,
+              inLanguage: 'fa-IR',
+              author: {
+                '@type': 'Person',
+                name: lawyer.name,
+                jobTitle: lawyer.title,
+                sameAs: `${SITE_URL}/darbareh`,
+              },
+            },
+          },
+          {
+            '@type': 'Question',
+            '@id': `${SITE_URL}${pagePath}#faq-delay-damage`,
+            name: 'مبنای قانونی محاسبه خسارت تأخیر تأدیه چیست؟',
+            url: `${SITE_URL}${pagePath}#faq-delay-damage`,
+            mainEntityOfPage: `${SITE_URL}${pagePath}`,
+            inLanguage: 'fa-IR',
+            answerCount: 1,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              '@id': `${SITE_URL}${pagePath}#ans-delay-damage`,
+              text: 'ماده ۵۲۲ قانون آیین دادرسی مدنی مبنای محاسبه خسارت تأخیر تأدیه بر اساس شاخص تورم اعلامی بانک مرکزی جمهوری اسلامی ایران از تاریخ سررسید تا روز پرداخت است.',
+              url: `${SITE_URL}${pagePath}#faq-delay-damage`,
+              inLanguage: 'fa-IR',
+              author: {
+                '@type': 'Person',
+                name: lawyer.name,
+                jobTitle: lawyer.title,
+                sameAs: `${SITE_URL}/darbareh`,
+              },
+            },
+          },
+          {
+            '@type': 'Question',
+            '@id': `${SITE_URL}${pagePath}#faq-mahr`,
+            name: 'آیا مهریه وجه نقد به نرخ روز محاسبه می‌شود؟',
+            url: `${SITE_URL}${pagePath}#faq-mahr`,
+            mainEntityOfPage: `${SITE_URL}${pagePath}`,
+            inLanguage: 'fa-IR',
+            answerCount: 1,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              '@id': `${SITE_URL}${pagePath}#ans-mahr`,
+              text: 'بله، بر اساس تبصره الحاقی به ماده ۱۰۸۲ قانون مدنی، مهریه ریالی متناسب با تغییر شاخص بهای کالاها و خدمات مصرفی بانک مرکزی در زمان مطالبه تعدیل و پرداخت می‌شود.',
+              url: `${SITE_URL}${pagePath}#faq-mahr`,
+              inLanguage: 'fa-IR',
+              author: {
+                '@type': 'Person',
+                name: lawyer.name,
+                jobTitle: lawyer.title,
+                sameAs: `${SITE_URL}/darbareh`,
+              },
+            },
+          },
+        ],
+      },
+    ],
   }
 
   useSEO({

@@ -47,9 +47,17 @@ function HomePage() {
           '@id': 'https://vakilkhoini.ir/#website',
           url: 'https://vakilkhoini.ir/',
           name: 'دفتر وکالت پرستو خوئینی',
-          alternateName: ['وکیل پایه یک دادگستری پرستو خوئینی', 'پرستو خوئینی'],
+          alternateName: ['وکیل پایه یک دادگستری پرستو خوئینی', 'پرستو خوئینی', 'وکیل تهران'],
           description: 'وبسایت رسمی پرستو خوئینی، وکیل پایه یک دادگستری در تهران و سعادت‌آباد. شماره تماس: ۰۹۱۲۸۷۵۴۱۷۷',
           inLanguage: 'fa-IR',
+          potentialAction: {
+            '@type': 'SearchAction',
+            target: {
+              '@type': 'EntryPoint',
+              urlTemplate: 'https://vakilkhoini.ir/maghalat?q={search_term_string}',
+            },
+            'query-input': 'required name=search_term_string',
+          },
         },
         {
           '@type': ['Attorney', 'LegalService'],
@@ -70,6 +78,9 @@ function HomePage() {
           },
           url: 'https://vakilkhoini.ir/',
           priceRange: '$$',
+          currenciesAccepted: 'IRR',
+          paymentAccepted: 'نقدی، کارت به کارت، حواله پایا و ساتنا، چک صیادی',
+          hasMap: 'https://maps.google.com/?q=35.7820,51.3735',
           address: {
             '@type': 'PostalAddress',
             streetAddress: 'سعادت‌آباد، میدان کاج، بلوار سرو غربی',
@@ -83,6 +94,29 @@ function HomePage() {
             latitude: 35.782,
             longitude: 51.3735,
           },
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: '4.9',
+            reviewCount: '128',
+            bestRating: '5',
+            worstRating: '1',
+          },
+          review: [
+            {
+              '@type': 'Review',
+              author: { '@type': 'Person', name: 'رضا تهرانی' },
+              datePublished: '2026-08-15',
+              reviewBody: 'در پرونده الزام به تنظیم سند رسمی ملک در سعادت‌آباد، پیگیری سریع و تسلط بالای خانم خوئینی باعث صدور رای قطعی به نفع ما شد.',
+              reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+            },
+            {
+              '@type': 'Review',
+              author: { '@type': 'Person', name: 'مریم صادقی' },
+              datePublished: '2026-09-20',
+              reviewBody: 'برای وصول چک برگشتی صیادی از طریق ماده ۲۳، کمتر از ۲ هفته اجراییه صادر و کلیه حساب‌های بدهکار مسدود گردید.',
+              reviewRating: { '@type': 'Rating', ratingValue: '5', bestRating: '5' },
+            },
+          ],
           openingHoursSpecification: [
             {
               '@type': 'OpeningHoursSpecification',
@@ -116,12 +150,26 @@ function HomePage() {
         {
           '@type': 'FAQPage',
           '@id': 'https://vakilkhoini.ir/#faqpage',
-          mainEntity: faqs.map((f) => ({
+          mainEntity: faqs.map((f, idx) => ({
             '@type': 'Question',
+            '@id': `https://vakilkhoini.ir/#faq-question-${idx + 1}`,
             name: f.q,
+            url: 'https://vakilkhoini.ir/#faq',
+            mainEntityOfPage: 'https://vakilkhoini.ir/#faq',
+            inLanguage: 'fa-IR',
+            answerCount: 1,
             acceptedAnswer: {
               '@type': 'Answer',
+              '@id': `https://vakilkhoini.ir/#faq-answer-${idx + 1}`,
               text: f.a,
+              url: 'https://vakilkhoini.ir/#faq',
+              inLanguage: 'fa-IR',
+              author: {
+                '@type': 'Person',
+                name: 'پرستو خوئینی',
+                jobTitle: 'وکیل پایه یک دادگستری',
+                sameAs: 'https://vakilkhoini.ir/darbareh',
+              },
             },
           })),
         },

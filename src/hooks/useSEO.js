@@ -68,9 +68,13 @@ export default function useSEO({ title, description, path, image, jsonLd, noinde
     setMeta('property', 'og:description', description)
     setMeta('property', 'og:url', canonicalUrl)
     setMeta('property', 'og:image', image || DEFAULT_IMAGE)
+    setMeta('property', 'og:site_name', 'دفتر وکالت پرستو خوئینی - وکیل پایه یک دادگستری')
+    setMeta('property', 'og:locale', 'fa_IR')
 
+    setMeta('name', 'twitter:card', 'summary_large_image')
     setMeta('name', 'twitter:title', title)
     setMeta('name', 'twitter:description', description)
+    setMeta('name', 'twitter:image', image || DEFAULT_IMAGE)
 
     if (jsonLd) setJsonLd('page-jsonld', jsonLd)
 

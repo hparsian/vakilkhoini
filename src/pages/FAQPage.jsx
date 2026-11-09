@@ -59,12 +59,26 @@ export default function FAQPage() {
         '@type': 'FAQPage',
         '@id': `${SITE_URL}${canonicalPath}#faqpage`,
         name: `پرسش‌های متداول حقوقی و وکالت | دفتر وکالت ${lawyer.name}`,
-        mainEntity: faqs.map((f) => ({
+        mainEntity: faqs.map((f, idx) => ({
           '@type': 'Question',
+          '@id': `${SITE_URL}${canonicalPath}#question-${idx + 1}`,
           name: f.q,
+          url: `${SITE_URL}${canonicalPath}#question-${idx + 1}`,
+          mainEntityOfPage: `${SITE_URL}${canonicalPath}`,
+          inLanguage: 'fa-IR',
+          answerCount: 1,
           acceptedAnswer: {
             '@type': 'Answer',
+            '@id': `${SITE_URL}${canonicalPath}#answer-${idx + 1}`,
             text: f.a,
+            url: `${SITE_URL}${canonicalPath}#question-${idx + 1}`,
+            inLanguage: 'fa-IR',
+            author: {
+              '@type': 'Person',
+              name: lawyer.name,
+              jobTitle: lawyer.title,
+              sameAs: `${SITE_URL}/darbareh`,
+            },
           },
         })),
       },

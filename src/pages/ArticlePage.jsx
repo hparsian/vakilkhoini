@@ -125,12 +125,16 @@ export default function ArticlePage({ slug }) {
         '@type': ['Article', 'BlogPosting'],
         headline: article.title,
         description: article.excerpt,
+        image: `${SITE_URL}/og-image.jpg`,
         datePublished: article.date,
+        dateModified: article.date,
+        inLanguage: 'fa-IR',
         author: {
           '@type': 'Person',
           name: lawyer.name,
           jobTitle: lawyer.title,
           identifier: lawyer.licenseNumber,
+          url: `${SITE_URL}/darbareh`,
           sameAs: `${SITE_URL}/darbareh`,
         },
         publisher: {
@@ -138,6 +142,10 @@ export default function ArticlePage({ slug }) {
           name: `دفتر وکالت ${lawyer.name}`,
           telephone: lawyer.phone,
           url: SITE_URL,
+          logo: {
+            '@type': 'ImageObject',
+            url: `${SITE_URL}/favicon.svg`,
+          },
         },
         mainEntityOfPage: {
           '@type': 'WebPage',
@@ -156,12 +164,26 @@ export default function ArticlePage({ slug }) {
       ...(article.faqs && article.faqs.length > 0 ? [{
         '@type': 'FAQPage',
         '@id': `${SITE_URL}${canonicalPath}#faq`,
-        mainEntity: article.faqs.map((f) => ({
+        mainEntity: article.faqs.map((f, idx) => ({
           '@type': 'Question',
+          '@id': `${SITE_URL}${canonicalPath}#faq-${idx + 1}`,
           name: f.q,
+          url: `${SITE_URL}${canonicalPath}#faq-${idx + 1}`,
+          mainEntityOfPage: `${SITE_URL}${canonicalPath}`,
+          inLanguage: 'fa-IR',
+          answerCount: 1,
           acceptedAnswer: {
             '@type': 'Answer',
+            '@id': `${SITE_URL}${canonicalPath}#faq-ans-${idx + 1}`,
             text: f.a,
+            url: `${SITE_URL}${canonicalPath}#faq-${idx + 1}`,
+            inLanguage: 'fa-IR',
+            author: {
+              '@type': 'Person',
+              name: lawyer.name,
+              jobTitle: lawyer.title,
+              sameAs: `${SITE_URL}/darbareh`,
+            },
           },
         })),
       }] : []),

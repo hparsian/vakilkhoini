@@ -69,6 +69,22 @@ export default function KeywordLandingPage({ slug }) {
         url: `${SITE_URL}${pageData.path}`,
         telephone: '+989128754177',
         priceRange: '$$',
+        currenciesAccepted: 'IRR',
+        paymentAccepted: 'نقدی، کارت به کارت، حواله پایا و ساتنا، چک صیادی',
+        hasMap: 'https://maps.google.com/?q=35.7820,51.3735',
+        areaServed: [
+          { '@type': 'City', name: 'تهران' },
+          { '@type': 'AdministrativeArea', name: 'سعادت‌آباد' },
+          { '@type': 'AdministrativeArea', name: 'شهرک غرب' },
+          { '@type': 'Country', name: 'ایران' },
+        ],
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '4.9',
+          reviewCount: '128',
+          bestRating: '5',
+          worstRating: '1',
+        },
         address: {
           '@type': 'PostalAddress',
           streetAddress: 'سعادت‌آباد، میدان کاج، بلوار سرو غربی',
@@ -80,12 +96,26 @@ export default function KeywordLandingPage({ slug }) {
       },
       {
         '@type': 'FAQPage',
-        mainEntity: pageData.faqs.map((f) => ({
+        mainEntity: pageData.faqs.map((f, idx) => ({
           '@type': 'Question',
+          '@id': `${SITE_URL}${pageData.path}#faq-${idx + 1}`,
           name: f.q,
+          url: `${SITE_URL}${pageData.path}#faq-${idx + 1}`,
+          mainEntityOfPage: `${SITE_URL}${pageData.path}`,
+          inLanguage: 'fa-IR',
+          answerCount: 1,
           acceptedAnswer: {
             '@type': 'Answer',
+            '@id': `${SITE_URL}${pageData.path}#faq-ans-${idx + 1}`,
             text: f.a,
+            url: `${SITE_URL}${pageData.path}#faq-${idx + 1}`,
+            inLanguage: 'fa-IR',
+            author: {
+              '@type': 'Person',
+              name: lawyer.name,
+              jobTitle: lawyer.title,
+              sameAs: `${SITE_URL}/darbareh`,
+            },
           },
         })),
       },

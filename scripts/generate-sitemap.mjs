@@ -13,7 +13,8 @@ const today = new Date().toISOString().slice(0, 10)
 const allUrls = allRoutes()
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${allUrls
   .map(
     (u) => `  <url>
@@ -21,6 +22,10 @@ ${allUrls
     <lastmod>${today}</lastmod>
     <changefreq>${u.changefreq}</changefreq>
     <priority>${u.priority}</priority>
+    <image:image>
+      <image:loc>${SITE_URL}/og-image.jpg</image:loc>
+      <image:title>دفتر وکالت پرستو خوئینی وکیل تهران و سعادت‌آباد</image:title>
+    </image:image>
   </url>`
   )
   .join('\n')}
