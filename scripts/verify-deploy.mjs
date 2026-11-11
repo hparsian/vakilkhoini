@@ -135,7 +135,14 @@ async function compare({ site, distDir, namesOnly }) {
   const hashMismatches = []
   if (!namesOnly && missingLive.length === 0 && extraLive.length === 0) {
     for (const asset of local.assets) {
-      const [liveBytes] = await Promise.all([fetchBytes(`${site}${asset}`)])
+      let liveBytes
+      try {
+        liveBytes = await fetchBytes(`${site}${asset}`)
+      } catch (err) {
+        // Asset referenced by live index.html may still be propagating on CDN edges
+        hashMismatches.push({ asset, localHash: sha256(local.files.get(asset)), liveHash: null, error: err.message })
+        continue
+      }
       const localHash = sha256(local.files.get(asset))
       const liveHash = sha256(liveBytes)
       if (localHash !== liveHash) hashMismatches.push({ asset, localHash, liveHash })
@@ -167,7 +174,11 @@ function report(result, { site, distDir, namesOnly }) {
   for (const asset of result.missingLive) console.log(`  ✗ not deployed yet : ${asset}`)
   for (const asset of result.extraLive) console.log(`  ✗ still live       : ${asset}`)
   for (const m of result.hashMismatches) {
-    console.log(`  ✗ different bytes  : ${m.asset} (local ${shortHash(m.localHash)} vs live ${shortHash(m.liveHash)})`)
+    if (m.error) {
+      console.log(`  ✗ asset not reachable on live site yet : ${m.asset} (${m.error})`)
+    } else {
+      console.log(`  ✗ different bytes  : ${m.asset} (local ${shortHash(m.localHash)} vs live ${shortHash(m.liveHash)})`)
+    }
   }
 }
 
@@ -179,6 +190,15 @@ async function main() {
   }
 
   const distDir = resolve(projectRoot, opts.dir)
+  // Ensure local build exists before entering polling loop
+  try {
+    await readLocalAssets(distDir)
+  } catch (err) {
+    console.error(`Cannot verify deployment: ${err.message}`)
+    console.error('Is the build present? Run `npm run build` first.')
+    return 2
+  }
+
   const deadline = Date.now() + opts.wait * 1000
   let attempt = 0
 
@@ -202,14 +222,16 @@ async function main() {
       console.log(`attempt ${attempt}: deploy has not caught up yet — retrying in ${opts.interval}s`)
       await new Promise((r) => setTimeout(r, opts.interval * 1000))
     } catch (err) {
-      const code = err.exitCode || 2
-      console.error(`Cannot verify deployment: ${err.message}`)
-      if (code === 2) {
-        console.error('Is the build present? Run `npm run build` first.')
-        return 2
+      if (Date.now() >= deadline) {
+        console.error(`Cannot verify deployment: ${err.message}`)
+        console.error(
+          opts.wait > 0
+            ? `\nDeploy did not catch up within ${opts.wait}s (${attempt} attempts).`
+            : '\nRe-run with --wait <seconds> to poll until the deploy catches up.',
+        )
+        return 1
       }
-      if (Date.now() >= deadline) return 2
-      console.log(`attempt ${attempt}: ${err.message} — retrying in ${opts.interval}s`)
+      console.log(`attempt ${attempt}: transient remote error (${err.message}) — retrying in ${opts.interval}s`)
       await new Promise((r) => setTimeout(r, opts.interval * 1000))
     }
   }
